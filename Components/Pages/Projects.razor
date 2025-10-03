@@ -1,0 +1,50 @@
+@page "/projects"
+@using MyCvSite.Data
+
+<div class="container py-5">
+    <h2>Mening Loyihalarim</h2>
+    <p class="lead mb-5">
+        Bu yerda men **Blazor, ASP.NET Core** va **C#** yordamida qilgan eng yaxshi ishlarimni ko'rishingiz mumkin.
+    </p>cle
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var project in _Projects)
+        {
+            <div class="col">
+                <ProjectCard Project="project" />
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    private List<ProjectModel> _Projects = new List<ProjectModel>();
+
+    protected override void OnInitialized()
+    {
+        // Loyihalaringizni shu yerga kiriting!
+        _Projects.Add(new ProjectModel
+        {
+            Id = 1,
+            Title = "E-Commerce Dashboar (Blazor)",
+            Description = "ASP.NET Core Backend API bilan ulangan to'liq funksional admin paneli.",
+            ImageUrl = "images/project-1-ss.png",
+            Technologies = new[] { "Blazor WebAssembly", "C#", "SQL Server", "Bootstrap" },
+            GithubUrl = "https://github.com/...",
+            LiveDemoUrl = "https://demo.myproject.com"
+        });
+
+        _Projects.Add(new ProjectModel
+        {
+            Id = 2,
+            Title = "Veb API Xizmati",
+            Description = "Yuqori unumdorlikka ega, RESTful me'morchiligidagi ma'lumotlar xizmati.",
+            ImageUrl = "images/project-2-ss.png",
+            Technologies = new[] { "ASP.NET Core API", "Dapper", "Swagger" },
+            GithubUrl = "https://github.com/...",
+            LiveDemoUrl = string.Empty // Agar Live Demo bo'lmasa, bo'sh qoldiring
+        });
+        
+        // ... yana loyihalar qo'shish
+    }
+}

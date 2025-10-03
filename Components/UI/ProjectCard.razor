@@ -1,0 +1,33 @@
+@using MyCvSite.Data
+
+@if (Project != null)
+{
+    <div class="project-card shadow-sm">
+        <img src="@Project.ImageUrl" alt="@Project.Title" class="card-img-top" />
+        <div class="card-body">
+            <h5 class="card-title">@Project.Title</h5>
+            <p class="card-text">@Project.Description</p>
+            
+            <div class="tech-tags">
+                @foreach (var tech in Project.Technologies)
+                {
+                    <span class="badge bg-secondary me-1">@tech</span>
+                }
+            </div>
+
+            <div class="mt-3">
+                <a href="@Project.GithubUrl" target="_blank" class="btn btn-sm btn-outline-dark me-2">GitHub</a>
+                @if (!string.IsNullOrEmpty(Project.LiveDemoUrl))
+                {
+                    <a href="@Project.LiveDemoUrl" target="_blank" class="btn btn-sm btn-primary">Demo</a>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    // Parent komponent (Projects.razor) orqali kiritiladigan parametr
+    [Parameter]
+    public ProjectModel Project { get; set; }
+}

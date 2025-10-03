@@ -1,0 +1,49 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\php_uchun\\MyCvSite\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\MyCvSite.bundle.scp.css",
+      "PackagePath": "staticwebassets\\MyCvSite.p6m0j57tqh.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\php_uchun\\MyCvSite\\wwwroot\\css\\app.css",
+      "PackagePath": "staticwebassets\\css\\app.css"
+    },
+    {
+      "Id": "D:\\php_uchun\\MyCvSite\\wwwroot\\css\\portfolio.css",
+      "PackagePath": "staticwebassets\\css\\portfolio.css"
+    },
+    {
+      "Id": "D:\\php_uchun\\MyCvSite\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "D:\\php_uchun\\MyCvSite\\wwwroot\\images\\my-photo.jpg",
+      "PackagePath": "staticwebassets\\images\\my-photo.jpg"
+    },
+    {
+      "Id": "D:\\php_uchun\\MyCvSite\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.MyCvSite.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.MyCvSite.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.MyCvSite.props",
+      "PackagePath": "build\\MyCvSite.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.MyCvSite.props",
+      "PackagePath": "buildMultiTargeting\\MyCvSite.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.MyCvSite.props",
+      "PackagePath": "buildTransitive\\MyCvSite.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -1,0 +1,70 @@
+@page "/contact"
+@using MyCvSite.Data
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Menga Murojaat Qiling</h2>
+    <p class="text-center mb-5 lead">
+        Qiziqarli loyiha taklifingiz bormi? Xabar yuboring va men tez orada javob beraman.
+    </p>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <EditForm Model="@ContactForm" OnValidSubmit="@HandleValidSubmit">
+                
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Ism</label>
+                    <InputText id="name" class="form-control" @bind-Value="ContactForm.Name" />
+                    <ValidationMessage For="@(() => ContactForm.Name)" class="text-danger" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Elektron Pochta</label>
+                    <InputText id="email" class="form-control" @bind-Value="ContactForm.Email" />
+                    <ValidationMessage For="@(() => ContactForm.Email)" class="text-danger" />
+                </div>
+
+                <div class="mb-4">
+                    <label for="message" class="form-label">Xabar</label>
+                    <InputTextArea id="message" class="form-control" rows="5" @bind-Value="ContactForm.Message" />
+                    <ValidationMessage For="@(() => ContactForm.Message)" class="text-danger" />
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg">Xabar Yuborish</button>
+            </EditForm>
+            
+            @if (IsSubmitted)
+            {
+                <div class="alert alert-success mt-4">
+                    Rahmat! Xabaringiz yuborildi. Tez orada sizga javob beraman.
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    public ContactModel ContactForm = new ContactModel();
+    private bool IsSubmitted = false;
+
+    // Forma barcha tekshiruvlardan o'tganda ishlaydigan funksiya
+    private void HandleValidSubmit()
+    {
+        // 1. Shu yerda siz kelgan ma'lumotni qayta ishlaysiz.
+        // Eslatma: Blazor WebAssembly (mijoz tomoni) to'g'ridan-to'g'ri email yubora olmaydi.
+        // Real loyihada bu ma'lumotni ASP.NET Core API serveriga yuborish kerak bo'ladi.
+        
+        Console.WriteLine("Yuborilgan ma'lumot:");
+        Console.WriteLine($"Ism: {ContactForm.Name}");
+        Console.WriteLine($"Email: {ContactForm.Email}");
+        Console.WriteLine($"Xabar: {ContactForm.Message}");
+
+        // 2. Foydalanuvchiga xabar yuborilganini ko'rsatish
+        IsSubmitted = true;
+        
+        // 3. Formani tozalash (ixtiyoriy)
+        ContactForm = new ContactModel(); 
+    }
+}

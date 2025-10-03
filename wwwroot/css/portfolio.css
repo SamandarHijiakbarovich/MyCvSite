@@ -1,0 +1,87 @@
+/* Hero Section uchun maxsus stillar */
+
+.hero-section {
+    padding: 100px 0; /* Yuqori va pastdan masofa */
+    min-height: 80vh; /* Ekranning katta qismini egallash */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa; /* Yengil fon */
+}
+
+/* Profil Rasmi uchun stil */
+.profile-pic img {
+    width: 250px; /* Rasm o'lchami */
+    height: 250px;
+    object-fit: cover;
+    border: 8px solid var(--bs-primary, #0c4b8f); /* Asosiy rangda chegara */
+    transition: transform 0.3s ease-in-out; /* Animatsiya uchun */
+}
+
+.profile-pic img:hover {
+    transform: scale(1.05) rotate(2deg); /* Hover effekti */
+}
+
+/* Sarlavhani stilizatsiya qilish */
+.hero-section h1 {
+    font-size: 3.5rem; /* Kattaroq shrift */
+    font-weight: 700;
+}
+
+.text-primary {
+    /* Agar siz Bootstrap ishlatmasangiz, bu rangni o'zingiz belgilashingiz kerak */
+    color: #012041; 
+}
+
+/* ProjectCard stili */
+.project-card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden; /* Rasmlarni chegaradan chiqarmaslik */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    height: 100%; /* Barcha kartalar balandligini bir xil qilish */
+}
+
+.project-card:hover {
+    transform: translateY(-5px); /* Yuqoriga siljish effekti */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.project-card img {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.tech-tags {
+    margin-top: 10px;
+}
+
+
+.form-label {
+    font-weight: 600;
+    color: #333;
+}
+
+.form-control:focus {
+    border-color: var(--bs-primary, #007bff);
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+/* Validatsiya xulosasi */
+.validation-summary-valid {
+    display: none;
+}
+
+.validation-summary-errors ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.alert-success {
+    border-left: 5px solid green;
+}
