@@ -1,0 +1,17 @@
+<div class="info-card shadow-sm p-4 text-center rounded">
+    <i class="@IconClass fa-3x text-primary mb-3"></i>
+    <h5 class="mb-2">@Title</h5>
+    <p class="text-muted">@Description</p>
+
+    @if (!string.IsNullOrWhiteSpace(Link))
+    {
+        <a href="@Link" target="_blank" class="btn btn-outline-primary mt-3">Batafsil</a>
+    }
+</div>
+
+@code {
+    [Parameter] public string IconClass { get; set; } = "fas fa-info-circle";
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Description { get; set; }
+    [Parameter] public string Link { get; set; }
+}

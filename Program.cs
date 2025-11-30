@@ -1,28 +1,37 @@
-using MyCvSite.Components;
+using MyCvSite; // App.razor uchun
+using MyCvSite.Components; // Layout va UI komponentlar uchun
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// ?? Servislar ro‘yxati
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+    .AddInteractiveServerComponents(); // Blazor Server interaktiv render
 
+// ?? Ilovani qurish
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// ?? HTTP pipeline konfiguratsiyasi
 if (!app.Environment.IsDevelopment())
 {
+    // Xatolik sahifasi va xavfsizlik
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    app.UseHsts(); // HTTPS xavfsizligi (production uchun)
+}
+else
+{
+    // Ishlab chiqish rejimi uchun developer tools
+    app.UseDeveloperExceptionPage();
 }
 
-app.UseHttpsRedirection();
+app.UseHttpsRedirection(); // HTTP ? HTTPS yo‘naltirish
+app.UseStaticFiles();       // wwwroot ichidagi fayllarni xizmat qilish
+app.UseRouting();           // URL marshrutlash
+app.UseAntiforgery();       // CSRF himoyasi
 
-
-app.UseAntiforgery();
-
-app.MapStaticAssets();
+// ?? App.razor yuklanadi va interaktiv render qo‘llaniladi
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
-app.Run();
+app.Run(); // Ilovani ishga tushirish

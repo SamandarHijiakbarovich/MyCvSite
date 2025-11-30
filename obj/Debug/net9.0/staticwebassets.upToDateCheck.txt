@@ -1,0 +1,8 @@
+D:\php_uchun\MyCvSite\wwwroot\css\app.css
+D:\php_uchun\MyCvSite\wwwroot\index.html
+D:\php_uchun\MyCvSite\wwwroot\css\portfolio.css
+wwwroot\css\app.css
+wwwroot\css\portfolio.css
+wwwroot\favicon.png
+wwwroot\images\my-photo.jpg
+wwwroot\index.html

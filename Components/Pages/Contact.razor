@@ -1,70 +1,302 @@
-@page "/contact"
-@using MyCvSite.Data
+﻿@page "/contact"
+@using Microsoft.AspNetCore.Components.Forms
+@using System.ComponentModel.DataAnnotations
 
-<div class="container py-5">
-    <h2 class="text-center mb-4">Menga Murojaat Qiling</h2>
-    <p class="text-center mb-5 lead">
-        Qiziqarli loyiha taklifingiz bormi? Xabar yuboring va men tez orada javob beraman.
-    </p>
-
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <EditForm Model="@ContactForm" OnValidSubmit="@HandleValidSubmit">
-                
-                <DataAnnotationsValidator />
-                <ValidationSummary />
-
-                <div class="mb-3">
-                    <label for="name" class="form-label">Ism</label>
-                    <InputText id="name" class="form-control" @bind-Value="ContactForm.Name" />
-                    <ValidationMessage For="@(() => ContactForm.Name)" class="text-danger" />
+<div class="contact-page">
+    <!-- Hero Section -->
+    <section class="contact-hero py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h1 class="display-4 fw-bold mb-4" style="color: #ffffff; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                        Bog'laning
+                    </h1>
+                    <p class="lead mb-5" style="color: #cbd5e1; font-size: 1.25rem;">
+                        Loyiha takliflaringiz yoki savollaringiz bo'lsa, men bilan bog'laning.
+                        Tez orada javob beraman.
+                    </p>
                 </div>
-
-                <div class="mb-3">
-                    <label for="email" class="form-label">Elektron Pochta</label>
-                    <InputText id="email" class="form-control" @bind-Value="ContactForm.Email" />
-                    <ValidationMessage For="@(() => ContactForm.Email)" class="text-danger" />
-                </div>
-
-                <div class="mb-4">
-                    <label for="message" class="form-label">Xabar</label>
-                    <InputTextArea id="message" class="form-control" rows="5" @bind-Value="ContactForm.Message" />
-                    <ValidationMessage For="@(() => ContactForm.Message)" class="text-danger" />
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-lg">Xabar Yuborish</button>
-            </EditForm>
-            
-            @if (IsSubmitted)
-            {
-                <div class="alert alert-success mt-4">
-                    Rahmat! Xabaringiz yuborildi. Tez orada sizga javob beraman.
-                </div>
-            }
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="contact-info py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="row g-4">
+                        <!-- Email -->
+                        <div class="col-md-4">
+                            <div class="contact-card text-center p-4">
+                                <div class="contact-icon mb-3">
+                                    <i class="fas fa-envelope fa-3x text-primary"></i>
+                                </div>
+                                <h5 class="contact-title mb-3">Email</h5>
+                                <p class="contact-detail">
+                                    <a href="mailto:mamasoatovsamandar@gmail.com" class="contact-link">
+                                        mamasoatovsamandar@gmail.com
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Telegram -->
+                        <div class="col-md-4">
+                            <div class="contact-card text-center p-4">
+                                <div class="contact-icon mb-3">
+                                    <i class="fab fa-telegram fa-3x text-primary"></i>
+                                </div>
+                                <h5 class="contact-title mb-3">Telegram</h5>
+                                <p class="contact-detail">
+                                    <a href="https://t.me/LinuxInstructor" target="_blank" class="contact-link">
+                                        @@LinuxInstructor
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="col-md-4">
+                            <div class="contact-card text-center p-4">
+                                <div class="contact-icon mb-3">
+                                    <i class="fas fa-map-marker-alt fa-3x text-primary"></i>
+                                </div>
+                                <h5 class="contact-title mb-3">Manzil</h5>
+                                <p class="contact-detail">Toshkent, O'zbekiston</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="contact-form-section py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="form-container p-4">
+                        <h3 class="text-center mb-4">Xabar Yuborish</h3>
+
+                        <EditForm Model="@contactModel" OnValidSubmit="@HandleValidSubmit">
+                            <DataAnnotationsValidator />
+
+                            @if (showSuccess)
+                            {
+                                <div class="alert alert-success mb-4">
+                                    <i class="fas fa-check-circle me-2"></i>
+                                    Rahmat! Xabaringiz muvaffaqiyatli yuborildi. Tez orada sizga javob beraman.
+                                </div>
+                            }
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Ismingiz *</label>
+                                    <InputText id="name" class="form-control" @bind-Value="contactModel.Name" />
+                                    <ValidationMessage For="() => contactModel.Name" class="text-danger small" />
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email manzilingiz *</label>
+                                    <InputText id="email" class="form-control" @bind-Value="contactModel.Email" />
+                                    <ValidationMessage For="() => contactModel.Email" class="text-danger small" />
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Mavzu</label>
+                                <InputText id="subject" class="form-control" @bind-Value="contactModel.Subject"
+                                           placeholder="Xabaringiz mavzusini yozing..." />
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="message" class="form-label">Xabaringiz *</label>
+                                <InputTextArea id="message" class="form-control" rows="6"
+                                               @bind-Value="contactModel.Message"
+                                               placeholder="Xabaringizni batafsil yozing..." />
+                                <ValidationMessage For="() => contactModel.Message" class="text-danger small" />
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg w-100 py-3" disabled="@isSubmitting">
+                                <i class="fas fa-paper-plane me-2"></i>
+                                @if (isSubmitting)
+                                {
+                                    <span>Yuborilmoqda...</span>
+                                }
+                                else
+                                {
+                                    <span>Xabarni Yuborish</span>
+                                }
+                            </button>
+                        </EditForm>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
-@code {
-    public ContactModel ContactForm = new ContactModel();
-    private bool IsSubmitted = false;
-
-    // Forma barcha tekshiruvlardan o'tganda ishlaydigan funksiya
-    private void HandleValidSubmit()
-    {
-        // 1. Shu yerda siz kelgan ma'lumotni qayta ishlaysiz.
-        // Eslatma: Blazor WebAssembly (mijoz tomoni) to'g'ridan-to'g'ri email yubora olmaydi.
-        // Real loyihada bu ma'lumotni ASP.NET Core API serveriga yuborish kerak bo'ladi.
-        
-        Console.WriteLine("Yuborilgan ma'lumot:");
-        Console.WriteLine($"Ism: {ContactForm.Name}");
-        Console.WriteLine($"Email: {ContactForm.Email}");
-        Console.WriteLine($"Xabar: {ContactForm.Message}");
-
-        // 2. Foydalanuvchiga xabar yuborilganini ko'rsatish
-        IsSubmitted = true;
-        
-        // 3. Formani tozalash (ixtiyoriy)
-        ContactForm = new ContactModel(); 
+<style>
+    .contact-page {
+        background: var(--color-background);
+        color: var(--color-text);
+        min-height: 100vh;
     }
+
+    .contact-hero {
+        background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-background) 100%);
+        border-bottom: 1px solid var(--color-border);
+    }
+
+        .contact-hero h1 {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+    .contact-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 16px;
+        box-shadow: var(--shadow-main);
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+
+        .contact-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+    .contact-icon {
+        color: var(--color-primary);
+    }
+
+    .contact-title {
+        color: var(--color-text);
+        font-weight: 600;
+    }
+
+    .contact-detail {
+        color: var(--color-text-secondary);
+        margin: 0;
+    }           
+
+    .contact-link {
+        color: var(--color-primary);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+        .contact-link:hover {
+            color: var(--color-secondary);
+        }
+
+    .form-container {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 16px;
+        box-shadow: var(--shadow-main);
+    }
+
+    .form-label {
+        color: var(--color-text);
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-control {
+        background: var(--color-card);
+        border: 1px solid var(--color-border);
+        color: var(--color-text);
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        transition: all 0.3s ease;
+    }
+
+        .form-control:focus {
+            background: var(--color-card);
+            border-color: var(--color-primary);
+            color: var(--color-text);
+            box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+        }
+
+        .form-control::placeholder {
+            color: var(--color-text-secondary);
+            opacity: 0.7;
+        }
+
+    .btn-primary {
+        background: var(--gradient-primary);
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+    .alert-success {
+        background: rgba(40, 167, 69, 0.1);
+        border: 1px solid rgba(40, 167, 69, 0.3);
+        color: #28a745;
+        border-radius: 8px;
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .contact-hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .contact-card {
+            margin-bottom: 1rem;
+        }
+
+        .form-container {
+            padding: 1.5rem !important;
+        }
+    }
+</style>
+
+@code {
+    private ContactModel contactModel= new ContactModel();
+    private bool isSubmitting = false;
+    private bool showSuccess = false;
+
+    private async Task HandleValidSubmit()
+    {
+        if (isSubmitting) return;
+
+        isSubmitting = true;
+        showSuccess = false;
+
+        try
+        {
+            // Simulyatsiya: Xabarni yuborish
+            await Task.Delay(2000);
+
+            // Muvaffaqiyatli yuborildi
+            showSuccess = true;
+            contactModel = new ContactModel();
+        }
+        finally
+        {
+            isSubmitting = false;
+            StateHasChanged();
+        }
+    }
+
+   
 }

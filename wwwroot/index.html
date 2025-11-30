@@ -1,5 +1,198 @@
-<link href="css/portfolio.css" rel="stylesheet" />
-<link href="css/app.css" rel="stylesheet" /> 
-<link href="MyCvSite.styles.css" rel="stylesheet" /> 
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Samandar Mamasoatov - .NET Backend Developer va Kiberxavfsizlik Mutaxassisi. Blazor, ASP.NET Core, C# dasturchi." />
+    <meta name="keywords" content="Samandar Mamasoatov, .NET Developer, Blazor, C#, ASP.NET Core, Backend, Kiberxavfsizlik, O'zbek dasturchi" />
+    <meta name="author" content="Samandar Mamasoatov" />
+    <meta property="og:title" content="Samandar Mamasoatov | .NET Backend Developer" />
+    <meta property="og:description" content="Professional .NET Backend Developer va Kiberxavfsizlik Mutaxassisi" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://samandar.dev" />
+    <meta property="og:image" content="images/my-photo.jpg" />
 
-<link href="css/portfolio.css" rel="stylesheet" />
+    <title>Samandar Mamasoatov | .NET Backend Developer</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" href="favicon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUa6e4D6s6E6S6E6S6E6S6E6S6E6S6E6S6E6S6E6S6E6S6E6S6E6S6E6S6E6S6" crossorigin="anonymous">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <!-- Custom Styles -->
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="css/portfolio.css" rel="stylesheet" />
+    <link href="MyCvSite.styles.css" rel="stylesheet" />
+
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="images/my-photo.jpg" as="image">
+    <link rel="preload" href="css/app.css" as="style">
+    <link rel="preload" href="_framework/blazor.webassembly.js" as="script">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Samandar Mamasoatov",
+            "jobTitle": ".NET Backend Developer",
+            "description": "Professional .NET Backend Developer va Kiberxavfsizlik Mutaxassisi",
+            "url": "https://samandar.dev",
+            "sameAs": [
+                "https://github.com/samandar",
+                "https://linkedin.com/in/samandar",
+                "https://t.me/samandar"
+            ],
+            "knowsAbout": ["C#", ".NET", "Blazor", "ASP.NET Core", "Kiberxavfsizlik", "SQL Server"],
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Toshkent",
+                "addressCountry": "Uzbekistan"
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        color: white;
+        font-family: 'Inter', sans-serif;
+    ">
+        <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <h4 class="mb-2">Samandar Mamasoatov</h4>
+        <p class="text-muted">Portfolio sayti yuklanmoqda...</p>
+    </div>
+
+    <!-- Blazor App Container -->
+    <div id="app">
+        <div class="d-flex justify-content-center align-items-center min-vh-100">
+            <div class="text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2 text-muted">Iltimos, kuting...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error UI (Blazor default) -->
+    <div id="blazor-error-ui" class="alert alert-danger position-fixed bottom-0 w-100 m-0 d-none" style="z-index: 1000;">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <span>Xatolik yuz berdi. Ilova yuklanmadi.</span>
+                </div>
+                <div>
+                    <a href="" class="btn btn-outline-danger btn-sm me-2">
+                        <i class="fas fa-redo me-1"></i> Qayta yuklash
+                    </a>
+                    <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap & Blazor Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"></script>
+
+    <script src="_framework/blazor.webassembly.js"></script>
+
+    <!-- Custom Loading Script -->
+    <script>
+        // Loading ekranini boshqarish
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                const loadingScreen = document.getElementById('loading-screen');
+                if (loadingScreen) {
+                    loadingScreen.style.opacity = '0';
+                    loadingScreen.style.transition = 'opacity 0.5s ease';
+                    setTimeout(() => loadingScreen.remove(), 500);
+                }
+            }, 1000);
+        });
+
+        // Blazor error UI ni sozlash
+        window.addEventListener('blazor:webassembly:error', function () {
+            const errorUI = document.getElementById('blazor-error-ui');
+            if (errorUI) {
+                errorUI.classList.remove('d-none');
+            }
+        });
+
+        // Error UI yopish
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('btn-close')) {
+                const errorUI = document.getElementById('blazor-error-ui');
+                if (errorUI) {
+                    errorUI.classList.add('d-none');
+                }
+            }
+        });
+
+        // Service Worker registratsiyasi (PWA uchun)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(function (registration) {
+                        console.log('ServiceWorker registered: ', registration.scope);
+                    })
+                    .catch(function (error) {
+                        console.log('ServiceWorker registration failed: ', error);
+                    });
+            });
+        }
+    </script>
+
+    <!-- Performance Monitoring -->
+    <script>
+        // Performance monitoring
+        window.addEventListener('load', function () {
+            // First Contentful Paint
+            const paintMetrics = performance.getEntriesByType('paint');
+            if (paintMetrics.length > 0) {
+                console.log('First Paint:', paintMetrics[0].startTime);
+            }
+
+            // Largest Contentful Paint
+            const observer = new PerformanceObserver((list) => {
+                for (const entry of list.getEntries()) {
+                    console.log('LCP:', entry.startTime);
+                }
+            });
+            observer.observe({ entryTypes: ['largest-contentful-paint'] });
+        });
+    </script>
+</body>
+</html>

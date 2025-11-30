@@ -1,27 +1,388 @@
 ﻿@page "/"
+@using MyCvSite.Data
+@inject NavigationManager Navigation
 
 <section class="hero-section">
-    <div class="container text-center">
-        <h1 class="display-3">
-            Salom, men <span class="text-primary">[Ismingiz]</span>.
-        </h1>
-        
-        <p class="lead my-4">
-            Men **Blazor (C#)** va **.NET** bo'yicha kuchli veb-ishlab chiquvchiman.
-            Murakkab g'oyalarni samarali yechimlarga aylantiraman.
-        </p>
-        
-        <div class="profile-pic my-5">
-            <img src="images/my-photo.jpg" alt="[Ismingiz] portreti" class="img-fluid rounded-circle shadow-lg" />
-        </div>
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <!-- Matn qismi -->
+            <div class="col-lg-6">
+                <div class="hero-content">
+                    <!-- Asosiy sarlavha -->
+                    <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInUp">
+                        Salom, men <span class="text-highlight">Samandar Mamasoatov</span>
+                    </h1>
 
-        <div class="mt-5 action-buttons">
-            <a href="/projects" class="btn btn-primary btn-lg mx-2">
-                Loyihalarni Ko'rish
-            </a>
-            <a href="downloads/my-cv.pdf" download class="btn btn-outline-secondary btn-lg mx-2">
-                CV yuklab olish
-            </a>
+                    <!-- Qisqa ta'rif -->
+                    <p class="hero-subtitle mb-4 animate__animated animate__fadeInUp animate__delay-1s">
+                        <strong>.NET Backend Developer</strong> va <strong>Kiberxavfsizlik Mutaxassisi</strong>
+                    </p>
+
+                    <!-- Tafsilotlar -->
+                    <div class="hero-description mb-5 animate__animated animate__fadeInUp animate__delay-2s">
+                        <p>
+                            Men <strong>Blazor</strong>, <strong>ASP.NET Core</strong> va <strong>C#</strong>
+                            texnologiyalari bo'yicha mutaxassis dasturchiman. Murakkab backend tizimlarini
+                            ishlab chiqish, xavfsiz API'lar yaratish va zamonaviy web ilovalarni qurish
+                            bo'yicha 2+ yillik tajribaga egaman.
+                        </p>
+                    </div>
+
+                    <!-- Asosiy ko'nikmalar -->
+                    <div class="skills-preview mb-5 animate__animated animate__fadeInUp animate__delay-3s">
+                        <h5 class="mb-3">Asosiy Texnologiyalar:</h5>
+                        <div class="skills-tags">
+                            <span class="skill-tag">C# / .NET Core</span>
+                            <span class="skill-tag">ASP.NET Core API</span>
+                            <span class="skill-tag">Blazor</span>
+                            <span class="skill-tag">SQL Server</span>
+                            <span class="skill-tag">Entity Framework</span>
+                            <span class="skill-tag">Kiberxavfsizlik</span>
+                        </div>
+                    </div>
+
+                    <!-- Statistika -->
+                    <div class="stats mb-5 animate__animated animate__fadeInUp animate__delay-4s">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3 class="text-highlight mb-1">2+</h3>
+                                    <small>Yillik Tajriba</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3 class="text-highlight mb-1">15+</h3>
+                                    <small>Bajargan Loyihalar</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3 class="text-highlight mb-1">10+</h3>
+                                    <small>Xamkorlar</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Harakat tugmalari -->
+                    <div class="action-buttons animate__animated animate__fadeInUp animate__delay-5s">
+                        <button class="btn btn-primary btn-lg me-3" @onclick="NavigateToProjects">
+                            <i class="fas fa-rocket me-2"></i> Loyihalarimni Ko'rish
+                        </button>
+                        <button class="btn btn-outline-light btn-lg" @onclick="NavigateToContact">
+                            <i class="fas fa-paper-plane me-2"></i> Bog'lanish
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profil rasmi -->
+            <div class="col-lg-6 text-center">
+                <div class="profile-container animate__animated animate__bounceIn">
+                    <div class="profile-pic">
+                        <img src="images/my-photo.jpg" alt="Samandar Mamasoatov"
+                             onerror="this.src='https://via.placeholder.com/280x280/1e293b/64748b?text=Samandar'" />
+                    </div>
+
+                    <!-- Qo'shimcha ma'lumotlar -->
+                    <div class="profile-info mt-4">
+                        <h5 class="mb-2">Samandar Mamasoatov</h5>
+                        <p class="text-muted mb-3">Full-Stack .NET Developer</p>
+
+                        <!-- Ijtimoiy tarmoqlar -->
+                        <div class="social-links">
+                            <a href="https://github.com/samandarHijiakbarovich" target="_blank" class="social-link" title="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://linkedin.com/in/samandar" target="_blank" class="social-link" title="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="https://t.me/LinuxInstructor" target="_blank" class="social-link" title="Telegram">
+                                <i class="fab fa-telegram"></i>
+                            </a>
+                            <a href="mailto:mamasoatovsamandar@gmail.com" class="social-link" title="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
+
+@code {
+    private void NavigateToProjects()
+    {
+        Navigation.NavigateTo("/projects");
+    }
+
+    private void NavigateToContact()
+    {
+        Navigation.NavigateTo("/contact");
+    }
+}
+
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, var(--color-background) 0%, var(--color-surface) 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-subtitle {
+        font-size: 1.5rem;
+        color: var(--color-text-secondary);
+        font-weight: 500;
+    }
+
+    .hero-description {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: var(--color-text-secondary);
+    }
+
+        .hero-description strong {
+            color: var(--color-primary);
+        }
+
+    /* Profil rasmi */
+    .profile-container {
+        position: relative;
+    }
+
+    .profile-pic img {
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 6px solid;
+        border-image: var(--gradient-primary) 1;
+        box-shadow: var(--shadow-main);
+        transition: all 0.5s ease;
+    }
+
+        .profile-pic img:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+
+    .profile-info {
+        background: var(--color-surface);
+        padding: 1.5rem;
+        border-radius: 16px;
+        box-shadow: var(--shadow-main);
+        border: 1px solid var(--color-border);
+    }
+
+    /* Ko'nikma teglari */
+    .skills-preview h5 {
+        color: var(--color-text);
+        font-weight: 600;
+    }
+
+    .skills-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .skill-tag {
+        background: var(--gradient-primary);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        box-shadow: var(--shadow-main);
+    }
+
+    /* Statistika */
+    .stats {
+        border-left: 4px solid var(--color-primary);
+        padding-left: 1.5rem;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item small {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+    /* Tugmalar */
+    .action-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        font-size: 1.1rem;
+    }
+
+    .btn-primary {
+        background: var(--gradient-primary);
+        color: white;
+        box-shadow: var(--shadow-main);
+    }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+    .btn-outline-light {
+        border: 2px solid var(--color-border);
+        color: var(--color-text);
+        background: transparent;
+    }
+
+        .btn-outline-light:hover {
+            border-color: var(--color-primary);
+            background: rgba(37, 99, 235, 0.1);
+            transform: translateY(-3px);
+        }
+
+    /* Ijtimoiy tarmoqlar */
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .social-link {
+        color: var(--color-text-secondary);
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+        padding: 0.5rem;
+        border-radius: 50%;
+        background: var(--color-card);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+    }
+
+        .social-link:hover {
+            color: var(--color-primary);
+            transform: translateY(-3px);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+    /* Animatsiyalar */
+    @@keyframes float {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+
+        50% {
+            transform: translateY(-20px) rotate(180deg);
+        }
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .hero-section {
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .profile-pic img {
+            width: 200px;
+            height: 200px;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .btn {
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .stats {
+            border-left: none;
+            border-top: 4px solid var(--color-primary);
+            padding-left: 0;
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item h3 {
+            font-size: 2rem;
+        }
+
+        .skills-tags {
+            justify-content: center;
+        }
+
+        .hero-content {
+            text-align: center;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .hero-subtitle {
+            font-size: 1.2rem;
+        }
+
+        .hero-description {
+            font-size: 1rem;
+        }
+
+        .profile-pic img {
+            width: 180px;
+            height: 180px;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+        }
+    }
+</style>

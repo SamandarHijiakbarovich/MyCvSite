@@ -1,50 +1,247 @@
 @page "/projects"
 @using MyCvSite.Data
+@using MyCvSite.Components.UI
 
-<div class="container py-5">
-    <h2>Mening Loyihalarim</h2>
-    <p class="lead mb-5">
-        Bu yerda men **Blazor, ASP.NET Core** va **C#** yordamida qilgan eng yaxshi ishlarimni ko'rishingiz mumkin.
-    </p>cle
+<div class="projects-page">
+    <div class="container py-5">
+        <div class="section-header text-center mb-5">
+            <h1 class="display-4 fw-bold mb-3">Mening Loyihalarim</h1>
+            <p class="lead text-muted" style="color:cornsilk"> 
+                .NET va Blazor texnologiyalari yordamida yaratilgan real loyihalar
+            </p>
+        </div>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        @foreach (var project in _Projects)
+        <!-- Loyihalar ro'yxati -->
+        <div class="row g-4">
+            @foreach (var project in projects)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="@project.ImageUrl" alt="@project.Title"
+                                 onerror="this.src='https://via.placeholder.com/400x250/1e293b/64748b?text=Project+Image'" />
+                            <div class="project-overlay">
+                                <div class="project-links">
+                                    @if (!string.IsNullOrEmpty(project.GithubUrl))
+                                    {
+                                        <a href="@project.GithubUrl" target="_blank" class="project-link">
+                                            <i class="fab fa-github"></i>
+                                        </a>
+                                    }
+                                    @if (!string.IsNullOrEmpty(project.LiveDemoUrl))
+                                    {
+                                        <a href="@project.LiveDemoUrl" target="_blank" class="project-link">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-content">
+                            <h4 class="project-title">@project.Title</h4>
+                            <p class="project-description">@project.Description</p>
+
+                            <div class="tech-tags">
+                                @foreach (var tech in project.Technologies)
+                                {
+                                    <span class="tech-tag">@tech</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Agar loyihalar bo'sh bo'lsa -->
+        @if (!projects.Any())
         {
-            <div class="col">
-                <ProjectCard Project="project" />
+            <div class="text-center py-5">
+                <i class="fas fa-folder-open fa-4x text-muted mb-3"></i>
+                <h3 class="text-muted">Hozircha loyihalar mavjud emas</h3>
+                <p class="text-muted">Tez orada yangi loyihalar qo'shiladi</p>
             </div>
         }
     </div>
 </div>
 
+<style>
+    .projects-page {
+        background: var(--color-background);
+        min-height: 100vh;
+    }
+
+    .section-header h1 {
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .project-card {
+        background: var(--color-surface);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: var(--shadow-main);
+        border: 1px solid var(--color-border);
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+    .project-image {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+    .project-card:hover .project-image img {
+        transform: scale(1.1);
+    }
+
+    .project-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .project-card:hover .project-overlay {
+        opacity: 1;
+    }
+
+    .project-links {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .project-link {
+        width: 50px;
+        height: 50px;
+        background: var(--gradient-primary);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+        .project-link:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-hover);
+        }
+
+    .project-content {
+        padding: 1.5rem;
+    }
+
+    .project-title {
+        color: var(--color-text);
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+    }
+
+    .project-description {
+        color: var(--color-text-secondary);
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+
+    .tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .tech-tag {
+        background: var(--color-card);
+        color: var(--color-primary);
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        border: 1px solid var(--color-border);
+    }
+
+    .project-subtitle {
+        color: #ffffff !important;
+        font-size: 1.25rem;
+        opacity: 0.9;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+</style>
+
 @code {
-    private List<ProjectModel> _Projects = new List<ProjectModel>();
+    private List<ProjectModel> projects = new List<ProjectModel>();
 
     protected override void OnInitialized()
     {
-        // Loyihalaringizni shu yerga kiriting!
-        _Projects.Add(new ProjectModel
-        {
-            Id = 1,
-            Title = "E-Commerce Dashboar (Blazor)",
-            Description = "ASP.NET Core Backend API bilan ulangan to'liq funksional admin paneli.",
-            ImageUrl = "images/project-1-ss.png",
-            Technologies = new[] { "Blazor WebAssembly", "C#", "SQL Server", "Bootstrap" },
-            GithubUrl = "https://github.com/...",
-            LiveDemoUrl = "https://demo.myproject.com"
-        });
+        // Loyihalarni to'ldirish
+        projects.Add(new ProjectModel
+            {
+                Id = 1,
+                Title = "E-Commerce Dashboard",
+                Description = "To'liq funksional admin paneli, real vaqtda yangilanishlar va hisobotlar bilan.",
+                ImageUrl = "images/project-1-ecommerce.png",
+                Technologies = new[] { "Blazor Server", "C#", "SQL Server", "SignalR" },
+                GithubUrl = "https://github.com/samandar/ecommerce",
+                LiveDemoUrl = "https://demo.myproject.com"
+            });
 
-        _Projects.Add(new ProjectModel
-        {
-            Id = 2,
-            Title = "Veb API Xizmati",
-            Description = "Yuqori unumdorlikka ega, RESTful me'morchiligidagi ma'lumotlar xizmati.",
-            ImageUrl = "images/project-2-ss.png",
-            Technologies = new[] { "ASP.NET Core API", "Dapper", "Swagger" },
-            GithubUrl = "https://github.com/...",
-            LiveDemoUrl = string.Empty // Agar Live Demo bo'lmasa, bo'sh qoldiring
-        });
-        
-        // ... yana loyihalar qo'shish
+        projects.Add(new ProjectModel
+            {
+                Id = 2,
+                Title = "RESTful Web API",
+                Description = "Yuqori unumdorlikka ega, zamonaviy .NET Core me'morchiligidagi ma'lumotlar xizmati.",
+                ImageUrl = "images/project-2-api.png",
+                Technologies = new[] { "ASP.NET Core API", "Dapper", "Swagger", "PostgreSQL" },
+                GithubUrl = "https://github.com/samandar/api",
+                LiveDemoUrl = ""
+            });
+
+        projects.Add(new ProjectModel
+            {
+                Id = 3,
+                Title = "Blazor Chat App",
+                Description = "SignalR yordamida qurilgan, real vaqtda ishlaydigan xabar almashish ilovasi.",
+                ImageUrl = "images/project-3-chat.png",
+                Technologies = new[] { "Blazor WebAssembly", "SignalR", "Azure Functions" },
+                GithubUrl = "https://github.com/samandar/chat",
+                LiveDemoUrl = "https://chat-app.com"
+            });
+
+        // Darmon loyihasi
+        projects.Add(new ProjectModel
+            {
+                Id = 4,
+                Title = "Darmon Platform",
+                Description = "Pharmacy delivery system with secure payment and role-based access.",
+                ImageUrl = "images/darmon.png",
+                Technologies = new[] { "ASP.NET Core", "EF Core", "JWT", "Click API" },
+                GithubUrl = "https://github.com/SamandarHijiakbarovich/Darmon",
+                LiveDemoUrl = ""
+            });
     }
 }

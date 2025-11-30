@@ -1,29 +1,359 @@
-﻿<div class="nav-scrollable" onclick="document.getElementById('nav-menu').classList.remove('show');">
-    <nav id="nav-menu" class="flex-column">
-        
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <i class="fas fa-home me-2"></i> Bosh Sahifa
-            </NavLink>
-        </div>
+﻿<!-- Components/Layout/NavMenu.razor -->
+<div class="nav-menu">
+    <div class="nav-items">
+        <NavLink href="/" class="nav-item" match="NavLinkMatch.All">
+            <div class="nav-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="nav-content">
+                <span class="nav-text">Bosh Sahifa</span>
+                <span class="nav-subtext">Asosiy sahifa va kirish</span>
+            </div>
+            <div class="nav-indicator">
+                <div class="indicator-dot"></div>
+            </div>
+        </NavLink>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="about">
-                <i class="fas fa-user me-2"></i> Men Haqimda
-            </NavLink>
-        </div>
+        <NavLink href="/about" class="nav-item">
+            <div class="nav-icon">
+                <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="nav-content">
+                <span class="nav-text">Men Haqimda</span>
+                <span class="nav-subtext">Shaxsiy ma'lumotlar va tajriba</span>
+            </div>
+            <div class="nav-indicator">
+                <div class="indicator-dot"></div>
+            </div>
+        </NavLink>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="projects">
-                <i class="fas fa-project-diagram me-2"></i> Loyihalar
-            </NavLink>
-        </div>
-        
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="contact">
-                <i class="fas fa-envelope me-2"></i> Aloqa
-            </NavLink>
-        </div>
+        <NavLink href="/projects" class="nav-item">
+            <div class="nav-icon">
+                <i class="fas fa-laptop-code"></i>
+            </div>
+            <div class="nav-content">
+                <span class="nav-text">Loyihalarim</span>
+                <span class="nav-subtext">Portfolio va bajargan ishlar</span>
+            </div>
+            <div class="nav-indicator">
+                <div class="indicator-dot"></div>
+            </div>
+        </NavLink>
 
-    </nav>
+        <NavLink href="/contact" class="nav-item">
+            <div class="nav-icon">
+                <i class="fas fa-paper-plane"></i>
+            </div>
+            <div class="nav-content">
+                <span class="nav-text">Aloqa</span>
+                <span class="nav-subtext">Bog'lanish va xabar yuborish</span>
+            </div>
+            <div class="nav-indicator">
+                <div class="indicator-dot"></div>
+            </div>
+        </NavLink>
+    </div>
+
+    <div class="nav-footer">
+        <div class="nav-stats">
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <span>Online Portfolio</span>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <span>Blazor Powered</span>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+    /* === NAV MENU CONTAINER === */
+    .nav-menu {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 0.5rem 0;
+    }
+
+    /* === NAV ITEMS === */
+    .nav-items {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        flex: 1;
+        padding: 0 0.75rem;
+    }
+
+    .nav-item {
+        display: flex;
+        align-items: center;
+        padding: 0.875rem 1rem;
+        color: var(--gray);
+        text-decoration: none;
+        border-radius: var(--radius);
+        transition: var(--transition);
+        position: relative;
+        border: 1.5px solid transparent;
+        background: transparent;
+        min-height: 58px;
+        overflow: hidden;
+    }
+
+    .nav-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--gradient);
+        opacity: 0.1;
+        transition: left 0.6s ease;
+    }
+
+    .nav-item:hover {
+        background: rgba(99, 102, 241, 0.08);
+        color: var(--primary);
+        border-color: rgba(99, 102, 241, 0.2);
+        transform: translateX(4px) scale(1.02);
+        box-shadow: var(--shadow);
+    }
+
+    .nav-item:hover::before {
+        left: 0;
+    }
+
+    .nav-item:hover .nav-subtext {
+        color: var(--primary);
+        opacity: 0.9;
+        transform: translateY(0);
+    }
+
+    .nav-item:hover .nav-icon {
+        background: var(--gradient);
+        color: white;
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: var(--shadow);
+    }
+
+    .nav-item.active {
+        background: var(--gradient);
+        color: white;
+        border-color: transparent;
+        transform: translateX(6px) scale(1.02);
+        box-shadow: var(--shadow), 0 0 20px rgba(99, 102, 241, 0.3);
+        animation: activePulse 2s ease-in-out infinite;
+    }
+
+    .nav-item.active::before {
+        display: none;
+    }
+
+    .nav-item.active .nav-subtext {
+        color: rgba(255, 255, 255, 0.9);
+        transform: translateY(0);
+    }
+
+    .nav-item.active .nav-icon {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        transform: scale(1.15);
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    }
+
+    @@keyframes activePulse {
+        0%, 100% { 
+            box-shadow: var(--shadow), 0 0 20px rgba(99, 102, 241, 0.3); 
+        }
+        50% { 
+            box-shadow: var(--shadow), 0 0 30px rgba(99, 102, 241, 0.5); 
+        }
+    }
+
+    /* === NAV ICON === */
+    .nav-icon {
+        width: 40px;
+        height: 40px;
+        background: var(--card-bg);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 0.875rem;
+        transition: var(--transition);
+        color: var(--gray);
+        font-size: 1rem;
+        border: 1.5px solid var(--border);
+        position: relative;
+        z-index: 2;
+    }
+
+    /* === NAV CONTENT === */
+    .nav-content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-width: 0;
+        position: relative;
+        z-index: 2;
+    }
+
+    .nav-text {
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: inherit;
+        transition: var(--transition);
+        margin-bottom: 0.1rem;
+        white-space: nowrap;
+        letter-spacing: 0.2px;
+    }
+
+    .nav-subtext {
+        font-size: 0.75rem;
+        color: var(--gray);
+        opacity: 0.8;
+        transition: var(--transition);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transform: translateY(1px);
+    }
+
+    /* === NAV INDICATOR === */
+    .nav-indicator {
+        margin-left: auto;
+        position: relative;
+        z-index: 2;
+    }
+
+    .indicator-dot {
+        width: 5px;
+        height: 5px;
+        background: var(--primary);
+        border-radius: 50%;
+        opacity: 0;
+        transition: var(--transition);
+        position: relative;
+    }
+
+    .nav-item.active .indicator-dot {
+        opacity: 1;
+        transform: scale(1.4);
+        background: white;
+        animation: dotPulse 1.5s ease-in-out infinite;
+    }
+
+    @@keyframes dotPulse {
+        0%, 100% { 
+            opacity: 1; 
+            transform: scale(1.4); 
+        }
+        50% { 
+            opacity: 0.7; 
+            transform: scale(1.1); 
+        }
+    }
+
+    /* === NAV FOOTER === */
+    .nav-footer {
+        padding: 1rem 1.25rem;
+        border-top: 1px solid var(--border);
+        margin-top: auto;
+        background: rgba(0, 0, 0, 0.02);
+    }
+
+    [data-theme="dark"] .nav-footer {
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    .nav-stats {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.8rem;
+        color: var(--gray);
+        padding: 0.5rem;
+        transition: var(--transition);
+        border-radius: 8px;
+    }
+
+    .stat-item:hover {
+        background: rgba(99, 102, 241, 0.05);
+        color: var(--primary);
+        transform: translateX(2px);
+    }
+
+    .stat-icon {
+        width: 26px;
+        height: 26px;
+        border-radius: 7px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--gradient);
+        color: white;
+        font-size: 0.75rem;
+        transition: var(--transition);
+    }
+
+    .stat-item:hover .stat-icon {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    .stat-item:first-child .stat-icon {
+        background: var(--gradient);
+    }
+
+    .stat-item:last-child .stat-icon {
+        background: linear-gradient(135deg, var(--warning), var(--accent));
+    }
+
+    /* === ANIMATIONS === */
+    @@keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(-20px) scale(0.95);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
+    }
+    @@keyframes slideOut {
+        from {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
+        to {
+            opacity: 0;
+            transform: translateX(20px) scale(0.95);
+        }
+    }
+
+    @@keyframes activePulse {
+        0% {
+            transform: translateX(6px) scale(1.02);
+        }
+
+        50% {
+            transform: translateX(6px) scale(1.05);
+        }
+
+        100% {
+            transform: translateX(6px) scale(1.02);
+        }
+    }
+</style>

@@ -24,6 +24,10 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/php_uchun/MyCvSite/Components/Component.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21wb25lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/php_uchun/MyCvSite/Components/Pages/About.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBYm91dC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
