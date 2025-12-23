@@ -1,30 +1,238 @@
 ﻿@page "/Error"
 @using System.Diagnostics
+@inject NavigationManager Navigation
 
-<PageTitle>Error</PageTitle>
+<PageTitle>System Error | Critical Halt</PageTitle>
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<div class="error-wrapper">
+    <div class="binary-overlay"></div>
 
-@if (ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@RequestId</code>
-    </p>
-}
+    <div class="container text-center content-box animate__animated animate__fadeIn">
+        <div class="error-icon-wrapper mb-4">
+            <div class="glitch-hex">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="scan-line"></div>
+        </div>
 
-<h3>Development Mode</h3>
-<p>
-    Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
-</p>
-<p>
-    <strong>The Development environment shouldn't be enabled for deployed applications.</strong>
-    It can result in displaying sensitive information from exceptions to end users.
-    For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
-    and restarting the app.
-</p>
+        <h1 class="error-code">ERROR 500</h1>
+        <h2 class="error-message">Tizimda kutilmagan uzilish yuz berdi</h2>
 
-@code{
+        <div class="error-description mx-auto mb-5">
+            <p>
+                Xavotir olmang, bizning backend xavfsizlik protokollarimiz xatolikni qayd etdi.
+                Hozirda muammo mutaxassislar (ya'ni Samandar) tomonidan ko'rib chiqilmoqda.
+            </p>
+        </div>
+
+        @if (ShowRequestId)
+        {
+            <div class="request-id-box mb-5">
+                <span class="label">TRACE_ID:</span>
+                <code class="id-value">@RequestId</code>
+                <button class="btn-copy" @onclick="CopyId" title="Nusxalash">
+                    <i class="fas fa-copy"></i>
+                </button>
+            </div>
+        }
+
+        <div class="action-group">
+            <button class="btn-back-home" @onclick="GoHome">
+                <i class="fas fa-terminal me-2"></i> Bosh sahifaga qaytish
+            </button>
+            <button class="btn-report" @onclick="GoContact">
+                <i class="fas fa-bug me-2"></i> Xato haqida xabar berish
+            </button>
+        </div>
+
+        <div class="dev-warning mt-5">
+            <i class="fas fa-info-circle me-2"></i>
+            <strong>Xavfsizlik eslatmasi:</strong> Deployed (Production) muhitda batafsil xatoliklar yashirilgan.
+        </div>
+    </div>
+</div>
+
+<style>
+    .error-wrapper {
+        min-height: 100vh;
+        background: #020617;
+        color: #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        padding: 20px;
+    }
+
+    /* Kiber fon effekti */
+    .binary-overlay {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at center, rgba(30, 41, 59, 0) 0%, #020617 100%), repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0px, rgba(255, 255, 255, 0.03) 1px, transparent 1px, transparent 2px);
+        background-size: 100% 3px;
+        z-index: 1;
+    }
+
+    .content-box {
+        position: relative;
+        z-index: 10;
+        max-width: 700px;
+    }
+
+    /* Glitch Ikonka */
+    .glitch-hex {
+        font-size: 5rem;
+        color: #ef4444;
+        position: relative;
+        display: inline-block;
+        animation: glitch-anim 3s infinite;
+    }
+
+    .error-code {
+        font-size: 4rem;
+        font-weight: 900;
+        letter-spacing: -2px;
+        background: linear-gradient(to bottom, #f87171, #b91c1c);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin: 0;
+    }
+
+    .error-message {
+        font-size: 1.5rem;
+        color: #94a3b8;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .error-description {
+        color: #64748b;
+        max-width: 500px;
+        line-height: 1.6;
+    }
+
+    /* Request ID Box */
+    .request-id-box {
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        padding: 12px 20px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        gap: 15px;
+        backdrop-filter: blur(10px);
+    }
+
+    .label {
+        color: #f87171;
+        font-weight: 700;
+        font-size: 0.8rem;
+    }
+
+    .id-value {
+        color: #cbd5e1;
+        font-family: 'Courier New', monospace;
+    }
+
+    .btn-copy {
+        background: none;
+        border: none;
+        color: #64748b;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        .btn-copy:hover {
+            color: #fff;
+        }
+
+    /* Tugmalar */
+    .action-group {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-back-home {
+        background: #3b82f6;
+        color: #fff;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        .btn-back-home:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+    .btn-report {
+        background: transparent;
+        color: #fff;
+        border: 1px solid rgba(255,255,255,0.2);
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        .btn-report:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: #fff;
+        }
+
+    .dev-warning {
+        font-size: 0.85rem;
+        color: #475569;
+        border-top: 1px solid rgba(255,255,255,0.05);
+        padding-top: 20px;
+    }
+
+    /* Animatsiyalar */
+    @@keyframes glitch-anim {
+        0% {
+            transform: translate(0);
+        }
+
+        20% {
+            transform: translate(-2px, 2px);
+            text-shadow: 2px 0 #00fff9, -2px 0 #ff00c1;
+        }
+
+        40% {
+            transform: translate(-2px, -2px);
+        }
+
+        60% {
+            transform: translate(2px, 2px);
+        }
+
+        80% {
+            transform: translate(2px, -2px);
+        }
+
+        100% {
+            transform: translate(0);
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .error-code {
+            font-size: 3rem;
+        }
+
+        .action-group button {
+            width: 100%;
+        }
+    }
+</style>
+
+@code {
     [CascadingParameter]
     private HttpContext? HttpContext { get; set; }
 
@@ -33,4 +241,18 @@
 
     protected override void OnInitialized() =>
         RequestId = Activity.Current?.Id ?? HttpContext?.TraceIdentifier;
+
+    private void GoHome() => Navigation.NavigateTo("/");
+    private void GoContact() => Navigation.NavigateTo("/contact");
+
+    private async Task CopyId()
+    {
+        if (!string.IsNullOrEmpty(RequestId))
+        {
+            await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", RequestId);
+            // Bu yerga kichik "Copied!" notification ham qo'shish mumkin
+        }
+    }
+
+    [Inject] public IJSRuntime JSRuntime { get; set; } = default!;
 }

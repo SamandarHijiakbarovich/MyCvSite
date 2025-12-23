@@ -1,1135 +1,423 @@
 ﻿@page "/about"
 @inject IJSRuntime JSRuntime
-@implements IDisposable
+@inject NavigationManager NavigationManager
 
-<div class="about-page">
-    <!-- Hero Section -->
-    <section class="about-hero">
-        <div class="hero-container">
-            <div class="hero-grid">
-                <div class="hero-content">
-                    <div class="hero-badge animate-on-scroll" data-delay="0">
-                        <span>👨‍💻 .NET Developer</span>
-                    </div>
-                    <h1 class="hero-title animate-on-scroll" data-delay="100">
-                        Samandar <span class="text-gradient">Mamasoatov</span>
-                    </h1>
-                    <p class="hero-subtitle animate-on-scroll" data-delay="200">
-                        Backend Dasturchi & Kiberxavfsizlik Mutaxassisi
-                    </p>
-                    <p class="hero-description animate-on-scroll" data-delay="300">
-                        5+ yillik tajribaga ega .NET mutaxassisi. Murakkab backend tizimlar,
-                        xavfsiz API'lar va zamonaviy web ilovalarni yaratishda kuchli ko'nikmalar.
-                    </p>
+<PageTitle>Men haqimda | Samandar Mamasoatov</PageTitle>
 
-                    <!-- Stats -->
-                    <div class="hero-stats animate-on-scroll" data-delay="400">
-                        <div class="stat-item">
-                            <div class="stat-number" data-count="5">0</div>
-                            <div class="stat-label">Yillik Tajriba</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" data-count="50">0</div>
-                            <div class="stat-label">Bajargan Loyihalar</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number" data-count="25">0</div>
-                            <div class="stat-label">Xamkorlar</div>
-                        </div>
-                    </div>
+<div class="about-wrapper">
+    @* === BACKDROP DECORATION === *@
+    <div class="bg-glow"></div>
+    <div class="bg-grid"></div>
 
-                    <!-- CTA Buttons -->
-                    <div class="hero-actions animate-on-scroll" data-delay="500">
-                        <button class="btn btn-primary" @onclick="DownloadCV">
-                            <i class="fas fa-download"></i>
-                            CV Yuklab Olish
-                        </button>
-                        <button class="btn btn-outline" @onclick="ScrollToContact">
-                            <i class="fas fa-paper-plane"></i>
-                            Bog'lanish
-                        </button>
-                    </div>
+    <div class="container py-5">
+        @* === HERO SECTION === *@
+        <div class="row align-items-center mb-5 hero-row">
+            <div class="col-lg-7 order-2 order-lg-1">
+                <div class="cyber-badge animate-fade-in">
+                    <span class="pulse-icon"></span>
+                    SECURE BACKEND DEVELOPER
                 </div>
+                <h1 class="main-title mb-3">
+                    Samandar <span class="gradient-text">Mamasoatov</span>
+                </h1>
+                <p class="lead-text mb-4">
+                    Backend muhandisligi va <span class="highlight">Kiberxavfsizlik</span> chorrahasida innovatsion yechimlar yaratuvchi mutaxassis.
+                </p>
+                <p class="description mb-5">
+                    Men faqat kod yozmayman, men <strong>xavfsiz raqamli infratuzilmalar</strong> quraman.
+                    .NET ekotizimida murakkab backend tizimlarni loyihalash va ularni tashqi hujumlardan
+                    himoyalash — mening asosiy missiyamdir.
+                </p>
 
-                <div class="hero-visual">
-                    <div class="profile-card animate-on-scroll" data-delay="300">
-                        <div class="profile-image-container">
-                            <img src="images/my-photo.jpg" alt="Samandar Mamasoatov"
-                                 class="profile-image"
-                                 onerror="this.src='https://via.placeholder.com/400x500/6366f1/8b5cf6?text=SM'" />
-                            <div class="image-glow"></div>
-                            <div class="floating-tech">
-                                <span class="tech-dot dot-1">C#</span>
-                                <span class="tech-dot dot-2">.NET</span>
-                                <span class="tech-dot dot-3">Blazor</span>
-                                <span class="tech-dot dot-4">SQL</span>
-                            </div>
+                <div class="action-buttons d-flex gap-3">
+                    @* CV yuklash uchun to'g'ridan-to'g'ri download tegi bilan *@
+                    <a href="files/SamandarResume.pdf" download="SamandarResume.pdf" class="btn-cyber-primary text-decoration-none">
+                        <i class="fas fa-file-download"></i> CV YUKLAB OLISH
+                    </a>
+
+                    @* Bog'lanish uchun NavigationManager orqali o'tish *@
+                    <button class="btn-cyber-outline" @onclick='() => Navigation.NavigateTo("/contact")'>
+                        <i class="fas fa-terminal"></i> BOG'LANISH
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-lg-5 order-1 order-lg-2 mb-5 mb-lg-0 text-center">
+                <div class="image-container">
+                    <div class="hex-border">
+                        <div class="image-frame">
+                            <img src="images/my-photo.jpg" alt="Samandar"
+                                 onerror="this.src='https://ui-avatars.com/api/?name=Samandar+Mamasoatov&background=6366f1&color=fff&size=512'" />
                         </div>
-                        <div class="profile-status">
-                            <div class="status-indicator"></div>
-                            <span>Available for new projects</span>
-                        </div>
+                    </div>
+                    @* Floating Icons *@
+                    <div class="float-tag t-1"><i class="fas fa-lock"></i> SSL</div>
+                    <div class="float-tag t-2"><i class="fas fa-key"></i> OAuth2</div>
+                    <div class="float-tag t-3"><i class="fas fa-bug"></i> Pentest</div>
+                </div>
+            </div>
+        </div>
+
+        @* === STATS SECTION === *@
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3 class="stat-num">2+</h3>
+                        <p class="stat-desc">Yillik Tajriba</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 class="stat-num">15+</h3>
+                        <p class="stat-desc">Xavfsiz Loyihalar</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 class="stat-num">100%</h3>
+                        <p class="stat-desc">Uptime & Security</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Floating Background Elements -->
-    <div class="floating-elements">
-        <div class="floating-element element-1"></div>
-        <div class="floating-element element-2"></div>
-        <div class="floating-element element-3"></div>
-        <div class="floating-element element-4"></div>
-    </div>
-
-    <!-- Main Content Sections -->
-    <div class="content-sections">
-        <!-- About Me Section -->
-        <section class="section about-intro">
-            <div class="container">
-                <div class="section-header center">
-                    <h2 class="section-title animate-on-scroll">Men Haqimda</h2>
-                    <p class="section-subtitle animate-on-scroll" data-delay="100">
-                        5+ yillik tajriba va doimiy o'sish sari intilish
-                    </p>
-                </div>
-
-                <div class="about-grid">
-                    <div class="about-text animate-on-scroll" data-delay="200">
-                        <p>
-                            Men <strong>Samandar Mamasoatov</strong> - .NET ekotizimida 5 yildan ortiq
-                            tajribaga ega full-stack dasturchiman. Asosan <strong>ASP.NET Core</strong>,
-                            <strong>Blazor</strong>, va <strong>Entity Framework</strong> texnologiyalari
-                            bilan korporativ darajadagi web ilovalar yaratishga ixtisoslashganman.
-                        </p>
-                        <p>
-                            Har bir loyihada <strong>Clean Architecture</strong>, <strong>SOLID tamoyillari</strong>
-                            va <strong>Best Practices</strong> ga qat'iy amal qilaman. Kod sifati,
-                            tizim barqarorligi va xavfsizlik - mening asosiy ustuvorliklarimdir.
-                        </p>
-
-                        <div class="expertise-areas">
-                            <div class="expertise-item">
-                                <i class="fas fa-shield-alt"></i>
-                                <span>Xavfsiz Kod</span>
-                            </div>
-                            <div class="expertise-item">
-                                <i class="fas fa-rocket"></i>
-                                <span>Tez Natijalar</span>
-                            </div>
-                            <div class="expertise-item">
-                                <i class="fas fa-code"></i>
-                                <span>Clean Code</span>
-                            </div>
-                            <div class="expertise-item">
-                                <i class="fas fa-users"></i>
-                                <span>Jamoa IshI</span>
-                            </div>
-                        </div>
+        @* === SKILLS SECTION === *@
+        <div class="row g-4 mt-4">
+            <div class="col-md-6">
+                <div class="skill-group-card">
+                    <div class="card-header-cyber">
+                        <i class="fas fa-server"></i> BACKEND ARCHITECTURE
                     </div>
-
-                    <div class="about-features animate-on-scroll" data-delay="300">
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-graduation-cap"></i>
+                    <div class="skill-body">
+                        @foreach (var skill in BackendSkills)
+                        {
+                            <div class="skill-box">
+                                <div class="d-flex justify-content-between">
+                                    <span>@skill.Name</span>
+                                    <span>@skill.Percent%</span>
+                                </div>
+                                <div class="progress-container">
+                                    <div class="progress-fill" style="width: @(skill.Percent)%"></div>
+                                </div>
                             </div>
-                            <div class="feature-content">
-                                <h4>Doimiy O'rganish</h4>
-                                <p>Yangi texnologiyalar va best practices ni o'rganishga doim tayyorman</p>
-                            </div>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-bug"></i>
-                            </div>
-                            <div class="feature-content">
-                                <h4>Muammolarni Yechish</h4>
-                                <p>Murakkab muammolarni tez va samarali yechish qobiliyati</p>
-                            </div>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-project-diagram"></i>
-                            </div>
-                            <div class="feature-content">
-                                <h4>Loyiha Boshqaruvi</h4>
-                                <p>Kichik va o'rta hajmdagi loyihalarni boshqarish tajribasi</p>
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Skills Section -->
-        <section class="section skills-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title animate-on-scroll">Texnik Ko'nikmalar</h2>
-                    <p class="section-subtitle animate-on-scroll" data-delay="100">
-                        Rivojlanayotgan texnologiyalar va mutaxassislik sohalari
-                    </p>
-                </div>
-
-                <div class="skills-grid">
-                    <!-- Backend Skills -->
-                    <div class="skill-category animate-on-scroll" data-delay="200">
-                        <div class="category-header">
-                            <div class="category-icon">
-                                <i class="fas fa-server"></i>
-                            </div>
-                            <h3>Backend Development</h3>
-                        </div>
-                        <div class="skills-list">
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">C# & .NET Core</span>
-                                    <span class="skill-percent">95%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="95"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">ASP.NET Core API</span>
-                                    <span class="skill-percent">90%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="90"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">Entity Framework</span>
-                                    <span class="skill-percent">85%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="85"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">SQL Server</span>
-                                    <span class="skill-percent">80%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="80"></div>
-                                </div>
-                            </div>
-                        </div>
+            <div class="col-md-6">
+                <div class="skill-group-card">
+                    <div class="card-header-cyber">
+                        <i class="fas fa-user-shield"></i> CYBER SECURITY SKILLS
                     </div>
-
-                    <!-- Frontend Skills -->
-                    <div class="skill-category animate-on-scroll" data-delay="300">
-                        <div class="category-header">
-                            <div class="category-icon">
-                                <i class="fas fa-desktop"></i>
-                            </div>
-                            <h3>Frontend & Frameworks</h3>
-                        </div>
-                        <div class="skills-list">
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">Blazor</span>
-                                    <span class="skill-percent">88%</span>
+                    <div class="skill-body">
+                        @foreach (var skill in SecuritySkills)
+                        {
+                            <div class="skill-box">
+                                <div class="d-flex justify-content-between">
+                                    <span>@skill.Name</span>
+                                    <span>@skill.Percent%</span>
                                 </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="88"></div>
+                                <div class="progress-container security">
+                                    <div class="progress-fill" style="width: @(skill.Percent)%"></div>
                                 </div>
                             </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">HTML/CSS/JS</span>
-                                    <span class="skill-percent">75%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="75"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">Bootstrap</span>
-                                    <span class="skill-percent">70%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="70"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">Razor Pages</span>
-                                    <span class="skill-percent">82%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="82"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Security & DevOps -->
-                    <div class="skill-category animate-on-scroll" data-delay="400">
-                        <div class="category-header">
-                            <div class="category-icon">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <h3>Xavfsizlik & DevOps</h3>
-                        </div>
-                        <div class="skills-list">
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">Kiberxavfsizlik</span>
-                                    <span class="skill-percent">85%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="85"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">JWT / Auth</span>
-                                    <span class="skill-percent">80%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="80"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">Docker</span>
-                                    <span class="skill-percent">70%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="70"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info">
-                                    <span class="skill-name">CI/CD</span>
-                                    <span class="skill-percent">65%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="65"></div>
-                                </div>
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- Work Process Section -->
-        <section class="section process-section">
-            <div class="container">
-                <div class="section-header center">
-                    <h2 class="section-title animate-on-scroll">Ish Jarayonim</h2>
-                    <p class="section-subtitle animate-on-scroll" data-delay="100">
-                        Har bir loyihani qanday amalga oshiraman
-                    </p>
-                </div>
-
-                <div class="process-steps">
-                    <div class="process-step animate-on-scroll" data-delay="200">
-                        <div class="step-number">01</div>
-                        <div class="step-content">
-                            <h4>Tahlil & Rejalashtirish</h4>
-                            <p>Loyiha talablarini chuqur o'rganish, texnik imkoniyatlar va timeline ni belgilash</p>
-                        </div>
-                        <div class="step-icon">
-                            <i class="fas fa-search"></i>
-                        </div>
-                    </div>
-                    <div class="process-step animate-on-scroll" data-delay="300">
-                        <div class="step-number">02</div>
-                        <div class="step-content">
-                            <h4>Dizayn & Arxitektura</h4>
-                            <p>Clean Architecture asosida tizim strukturasi va database dizaynini yaratish</p>
-                        </div>
-                        <div class="step-icon">
-                            <i class="fas fa-layer-group"></i>
-                        </div>
-                    </div>
-                    <div class="process-step animate-on-scroll" data-delay="400">
-                        <div class="step-number">03</div>
-                        <div class="step-content">
-                            <h4>Rivojlantirish</h4>
-                            <p>Test qo'llab quvvatlovchi dastur (TDD) va best practices lar asosida kod yozish</p>
-                        </div>
-                        <div class="step-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                    </div>
-                    <div class="process-step animate-on-scroll" data-delay="500">
-                        <div class="step-number">04</div>
-                        <div class="step-content">
-                            <h4>Xavfsizlik & Testlash</h4>
-                            <p>OWASP standartlari bo'yicha xavfsizlik testlari va unit testlarni o'tkazish</p>
-                        </div>
-                        <div class="step-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        </div>
     </div>
 </div>
 
 <style>
-    /* === VARIABLES === */
-    .about-page {
-        --primary: #6366f1;
-        --primary-dark: #4f46e5;
-        --secondary: #8b5cf6;
-        --accent: #06b6d4;
-        --success: #10b981;
-        --warning: #f59e0b;
-        --danger: #ef4444;
-        --dark: #1e293b;
-        --light: #f8fafc;
-        --gray: #64748b;
-        --border: #e2e8f0;
-        --card-bg: #ffffff;
-        --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
-        --gradient-text: linear-gradient(135deg, var(--primary), var(--accent));
-        --radius: 12px;
-        --shadow: 0 4px 20px -6px rgba(99, 102, 241, 0.15);
-        --shadow-lg: 0 10px 40px -8px rgba(0, 0, 0, 0.12);
-        --transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    [data-theme="dark"] .about-page {
-        --light: #0f172a;
-        --dark: #f8fafc;
-        --card-bg: #1e293b;
-        --border: #334155;
-        --gray: #94a3b8;
-        --shadow: 0 4px 20px -6px rgba(0, 0, 0, 0.3);
-        --shadow-lg: 0 10px 40px -8px rgba(0, 0, 0, 0.4);
-    }
-
-    /* === BASE STYLES === */
-    .about-page {
-        background: var(--light);
-        color: var(--dark);
-        overflow-x: hidden;
-        min-height: 100vh;
-    }
-
-    .container {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 0 1.25rem;
-    }
-
-    .section {
-        padding: 3.5rem 0;
-        position: relative;
-    }
-
-    .section-header {
-        margin-bottom: 3rem;
-    }
-
-    .section-header.center {
-        text-align: center;
-    }
-
-    .section-title {
-        font-size: 2.25rem;
-        font-weight: 800;
-        margin-bottom: 0.75rem;
-        background: var(--gradient-text);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        line-height: 1.2;
-    }
-
-    .section-subtitle {
-        font-size: 1rem;
-        color: var(--gray);
-        max-width: 500px;
-        margin: 0 auto;
-        line-height: 1.5;
-    }
-
-    /* === HERO SECTION === */
-    .about-hero {
-        padding: 6rem 0 4rem;
+    .about-wrapper {
         position: relative;
         overflow: hidden;
-        background: linear-gradient(135deg, var(--light) 0%, rgba(99, 102, 241, 0.03) 100%);
+        min-height: 100vh;
+        color: #fff;
+        padding-top: 40px;
     }
 
-    .hero-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 1.5rem;
+    /* Background decoration */
+    .bg-glow {
+        position: absolute;
+        top: 10%;
+        right: 10%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+        z-index: -1;
     }
 
-    .hero-grid {
-        display: grid;
-        grid-template-columns: 1.2fr 0.8fr;
-        gap: 3rem;
-        align-items: center;
+    .bg-grid {
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+        background-size: 50px 50px;
+        z-index: -1;
     }
 
-    .hero-content {
-        position: relative;
-        z-index: 2;
-    }
-
-    .hero-badge {
-        display: inline-block;
-        background: var(--gradient);
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 50px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        margin-bottom: 1.5rem;
-        box-shadow: var(--shadow);
-    }
-
-    .hero-title {
-        font-size: 2.75rem;
-        font-weight: 800;
-        line-height: 1.1;
-        margin-bottom: 0.75rem;
-    }
-
-    .text-gradient {
-        background: var(--gradient-text);
+    /* Titles */
+    .gradient-text {
+        background: linear-gradient(90deg, #6366f1, #a855f7);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        background-clip: text;
     }
 
-    .hero-subtitle {
-        font-size: 1.25rem;
-        color: var(--primary);
-        font-weight: 600;
-        margin-bottom: 1.25rem;
-        line-height: 1.4;
-    }
-
-    .hero-description {
-        font-size: 1rem;
-        color: var(--gray);
-        line-height: 1.6;
-        margin-bottom: 2rem;
-        max-width: 480px;
-    }
-
-    .hero-stats {
-        display: flex;
-        gap: 1.5rem;
-        margin-bottom: 2rem;
-    }
-
-    .stat-item {
-        text-align: center;
-        flex: 1;
-    }
-
-    .stat-number {
-        font-size: 1.75rem;
+    .main-title {
+        font-size: 3.5rem;
         font-weight: 800;
-        color: var(--primary);
-        margin-bottom: 0.25rem;
-        line-height: 1;
     }
 
-    .stat-label {
-        font-size: 0.8rem;
-        color: var(--gray);
-        font-weight: 500;
+    .lead-text {
+        font-size: 1.4rem;
+        color: #cbd5e1;
     }
 
-    .hero-actions {
-        display: flex;
-        gap: 0.875rem;
-        flex-wrap: wrap;
-    }
-
-    .btn {
-        padding: 0.75rem 1.5rem;
-        border-radius: var(--radius);
+    .highlight {
+        color: #a855f7;
         font-weight: 600;
-        text-decoration: none;
+    }
+
+    /* Cyber Badge */
+    .cyber-badge {
         display: inline-flex;
         align-items: center;
-        gap: 0.5rem;
-        transition: var(--transition);
-        border: none;
-        cursor: pointer;
-        font-size: 0.85rem;
-        line-height: 1;
-    }
-
-    .btn-primary {
-        background: var(--gradient);
-        color: white;
-        box-shadow: var(--shadow);
-    }
-
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-lg);
-    }
-
-    .btn-outline {
-        background: transparent;
-        color: var(--primary);
-        border: 2px solid var(--primary);
-    }
-
-    .btn-outline:hover {
-        background: var(--primary);
-        color: white;
-        transform: translateY(-2px);
-    }
-
-    /* Hero Visual */
-    .hero-visual {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .profile-card {
-        background: var(--card-bg);
-        border-radius: var(--radius);
-        padding: 1.5rem;
-        box-shadow: var(--shadow-lg);
-        position: relative;
-        max-width: 320px;
-        width: 100%;
-    }
-
-    .profile-image-container {
-        position: relative;
-        border-radius: var(--radius);
-        overflow: hidden;
-        margin-bottom: 1.25rem;
-    }
-
-    .profile-image {
-        width: 100%;
-        height: auto;
-        display: block;
-        border-radius: var(--radius);
-        aspect-ratio: 3/4;
-        object-fit: cover;
-    }
-
-    .image-glow {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: var(--gradient);
-        opacity: 0.08;
-        border-radius: var(--radius);
-    }
-
-    .floating-tech {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        pointer-events: none;
-    }
-
-    .tech-dot {
-        position: absolute;
-        background: var(--gradient);
-        color: white;
-        padding: 0.4rem 0.8rem;
+        background: rgba(99, 102, 241, 0.1);
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        padding: 6px 16px;
         border-radius: 50px;
-        font-size: 0.75rem;
+        color: #818cf8;
         font-weight: 600;
-        animation: float 3s ease-in-out infinite;
-        box-shadow: var(--shadow);
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
     }
 
-    .dot-1 {
-        top: 15%;
-        left: 10%;
-        animation-delay: 0s;
-    }
-
-    .dot-2 {
-        top: 25%;
-        right: 8%;
-        animation-delay: 1s;
-    }
-
-    .dot-3 {
-        bottom: 35%;
-        left: 5%;
-        animation-delay: 2s;
-    }
-
-    .dot-4 {
-        bottom: 25%;
-        right: 12%;
-        animation-delay: 1.5s;
-    }
-
-    .profile-status {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        justify-content: center;
-        color: var(--success);
-        font-weight: 600;
-        font-size: 0.8rem;
-    }
-
-    .status-indicator {
-        width: 6px;
-        height: 6px;
-        background: var(--success);
+    .pulse-icon {
+        width: 8px;
+        height: 8px;
+        background: #818cf8;
         border-radius: 50%;
+        margin-right: 10px;
+        box-shadow: 0 0 10px #818cf8;
         animation: pulse 2s infinite;
     }
 
-    /* === FLOATING ELEMENTS === */
-    .floating-elements {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        pointer-events: none;
-        z-index: 1;
-    }
-
-    .floating-element {
-        position: absolute;
-        border-radius: 50%;
-        background: var(--gradient);
-        opacity: 0.06;
-        animation: float 6s ease-in-out infinite;
-    }
-
-    .element-1 {
-        width: 80px;
-        height: 80px;
-        top: 15%;
-        left: 8%;
-        animation-delay: 0s;
-    }
-
-    .element-2 {
-        width: 120px;
-        height: 120px;
-        top: 25%;
-        right: 12%;
-        animation-delay: 2s;
-    }
-
-    .element-3 {
-        width: 60px;
-        height: 60px;
-        bottom: 35%;
-        left: 12%;
-        animation-delay: 4s;
-    }
-
-    .element-4 {
-        width: 100px;
-        height: 100px;
-        bottom: 25%;
-        right: 8%;
-        animation-delay: 1s;
-    }
-
-    /* === ABOUT INTRO === */
-    .about-grid {
-        display: grid;
-        grid-template-columns: 1.5fr 1fr;
-        gap: 3rem;
-        align-items: start;
-    }
-
-    .about-text p {
-        font-size: 1rem;
-        line-height: 1.7;
-        margin-bottom: 1.25rem;
-        color: var(--gray);
-    }
-
-    .expertise-areas {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.875rem;
-        margin-top: 1.5rem;
-    }
-
-    .expertise-item {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        padding: 0.875rem;
-        background: var(--card-bg);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        transition: var(--transition);
-        font-size: 0.85rem;
-    }
-
-    .expertise-item:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-lg);
-    }
-
-    .expertise-item i {
-        color: var(--primary);
-        font-size: 1.1rem;
-        width: 20px;
-        text-align: center;
-    }
-
-    .about-features {
-        display: flex;
-        flex-direction: column;
-        gap: 1.25rem;
-    }
-
-    .feature-card {
-        background: var(--card-bg);
-        padding: 1.25rem;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        transition: var(--transition);
-    }
-
-    .feature-card:hover {
-        transform: translateY(-3px);
-        box-shadow: var(--shadow-lg);
-    }
-
-    .feature-icon {
-        width: 45px;
-        height: 45px;
-        background: var(--gradient);
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 0.875rem;
+    /* Buttons */
+    .btn-cyber-primary {
+        background: linear-gradient(135deg, #6366f1, #a855f7);
+        border: none;
+        padding: 14px 28px;
+        border-radius: 12px;
         color: white;
-        font-size: 1.1rem;
+        font-weight: 700;
+        transition: 0.3s;
     }
 
-    .feature-content h4 {
-        font-size: 1rem;
-        margin-bottom: 0.5rem;
-        color: var(--dark);
-        font-weight: 600;
-    }
+        .btn-cyber-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+        }
 
-    .feature-content p {
-        color: var(--gray);
-        font-size: 0.85rem;
-        line-height: 1.5;
-        margin: 0;
-    }
-
-    /* === SKILLS SECTION === */
-    .skills-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 1.5rem;
-    }
-
-    .skill-category {
-        background: var(--card-bg);
-        padding: 1.5rem;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        transition: var(--transition);
-        height: fit-content;
-    }
-
-    .skill-category:hover {
-        transform: translateY(-3px);
-        box-shadow: var(--shadow-lg);
-    }
-
-    .category-header {
-        display: flex;
-        align-items: center;
-        gap: 0.875rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .category-icon {
-        width: 45px;
-        height: 45px;
-        background: var(--gradient);
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .btn-cyber-outline {
+        background: transparent;
+        border: 2px solid rgba(168, 85, 247, 0.5);
+        padding: 14px 28px;
+        border-radius: 12px;
         color: white;
-        font-size: 1.1rem;
-        flex-shrink: 0;
-    }
-
-    .category-header h3 {
-        font-size: 1.15rem;
-        color: var(--dark);
         font-weight: 700;
-        margin: 0;
+        transition: 0.3s;
     }
 
-    .skills-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1.25rem;
+        .btn-cyber-outline:hover {
+            background: rgba(168, 85, 247, 0.1);
+            border-color: #a855f7;
+        }
+
+    /* Image Container */
+    .image-container {
+        position: relative;
+        display: inline-block;
     }
 
-    .skill-item {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
+    .hex-border {
+        padding: 10px;
+        background: linear-gradient(45deg, #6366f1, #a855f7);
+        clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
     }
 
-    .skill-info {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .skill-name {
-        font-weight: 600;
-        color: var(--dark);
-        font-size: 0.9rem;
-    }
-
-    .skill-percent {
-        font-weight: 700;
-        color: var(--primary);
-        font-size: 0.85rem;
-    }
-
-    .skill-bar {
-        height: 6px;
-        background: var(--border);
-        border-radius: 10px;
+    .image-frame {
+        background: #0f172a;
+        clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        width: 300px;
+        height: 340px;
         overflow: hidden;
-        position: relative;
     }
 
-    .skill-progress {
-        height: 100%;
-        background: var(--gradient);
-        border-radius: 10px;
-        width: 0%;
-        transition: width 1.2s ease-in-out;
-        position: relative;
-    }
+        .image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-    .skill-progress::after {
-        content: '';
+    .float-tag {
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(255,255,255,0.1);
+        padding: 5px 12px;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        backdrop-filter: blur(5px);
+    }
+
+    .t-1 {
+        top: 10%;
+        right: -20px;
+    }
+
+    .t-2 {
+        bottom: 20%;
+        left: -30px;
+    }
+
+    .t-3 {
         bottom: 0;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-        animation: shimmer 2s infinite;
+        right: 20px;
+        color: #ef4444;
     }
 
-    /* === PROCESS SECTION === */
-    .process-steps {
+    /* Stats Grid */
+    .stats-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 1.5rem;
-        max-width: 900px;
-        margin: 0 auto;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        background: rgba(30, 41, 59, 0.5);
+        padding: 30px;
+        border-radius: 24px;
+        border: 1px solid rgba(255,255,255,0.05);
+        backdrop-filter: blur(10px);
     }
 
-    .process-step {
-        background: var(--card-bg);
-        padding: 1.5rem;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        position: relative;
-        transition: var(--transition);
-        text-align: center;
-        height: 100%;
-    }
-
-    .process-step:hover {
-        transform: translateY(-3px);
-        box-shadow: var(--shadow-lg);
-    }
-
-    .step-number {
-        font-size: 2.25rem;
+    .stat-num {
+        font-size: 2.5rem;
         font-weight: 800;
-        color: var(--primary);
-        opacity: 0.15;
-        position: absolute;
-        top: 0.75rem;
-        right: 0.75rem;
-        line-height: 1;
-    }
-
-    .step-content h4 {
-        font-size: 1.1rem;
-        margin-bottom: 0.75rem;
-        color: var(--dark);
-        font-weight: 600;
-    }
-
-    .step-content p {
-        color: var(--gray);
-        line-height: 1.5;
-        font-size: 0.85rem;
+        color: #6366f1;
         margin: 0;
     }
 
-    .step-icon {
-        width: 50px;
-        height: 50px;
-        background: var(--gradient);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 1.25rem;
-        margin: 1.25rem auto 0;
+    .stat-desc {
+        color: #94a3b8;
+        margin: 0;
     }
 
-    /* === ANIMATIONS === */
-    @@keyframes float {
-        0%, 100% {
-            transform: translateY(0) rotate(0deg);
-        }
-        50% {
-            transform: translateY(-12px) rotate(3deg);
-        }
+    /* Skill Cards */
+    .skill-group-card {
+        background: rgba(30, 41, 59, 0.4);
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.05);
+        overflow: hidden;
+    }
+
+    .card-header-cyber {
+        background: rgba(255,255,255,0.03);
+        padding: 15px 20px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        color: #cbd5e1;
+    }
+
+    .skill-body {
+        padding: 25px;
+    }
+
+    .skill-box {
+        margin-bottom: 18px;
+    }
+
+    .progress-container {
+        height: 8px;
+        background: #0f172a;
+        border-radius: 10px;
+        margin-top: 8px;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: var(--accent-gradient, linear-gradient(90deg, #6366f1, #a855f7));
+        border-radius: 10px;
+    }
+
+    .security .progress-fill {
+        background: linear-gradient(90deg, #a855f7, #ec4899);
     }
 
     @@keyframes pulse {
         0% {
-            transform: scale(0.95);
-            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            opacity: 0.5;
         }
-        70% {
-            transform: scale(1);
-            box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+
+        50% {
+            opacity: 1;
+            transform: scale(1.2);
         }
+
         100% {
-            transform: scale(0.95);
-            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-        }
-    }
-
-    @@keyframes shimmer {
-        0% {
-            transform: translateX(-100%);
-        }
-        100% {
-            transform: translateX(100%);
-        }
-    }
-
-    .animate-on-scroll {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.6s ease;
-    }
-
-    .animate-on-scroll.animated {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* === RESPONSIVE DESIGN === */
-    @@media (max-width: 1024px) {
-        .hero-grid {
-            grid-template-columns: 1fr;
-            gap: 2.5rem;
-            text-align: center;
-        }
-
-        .hero-title {
-            font-size: 2.5rem;
-        }
-
-        .about-grid {
-            grid-template-columns: 1fr;
-            gap: 2.5rem;
-        }
-
-        .skills-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .hero-stats {
-            justify-content: center;
+            opacity: 0.5;
         }
     }
 
     @@media (max-width: 768px) {
-        .hero-container {
-            padding: 0 1rem;
+        .main-title {
+            font-size: 2.5rem;
         }
 
-        .hero-title {
-            font-size: 2.25rem;
-        }
-
-        .hero-subtitle {
-            font-size: 1.1rem;
-        }
-
-        .hero-stats {
-            flex-direction: column;
-            gap: 1.25rem;
-            align-items: center;
-        }
-
-        .stat-item {
-            flex: none;
-            width: 120px;
-        }
-
-        .hero-actions {
-            justify-content: center;
-        }
-
-        .section {
-            padding: 2.5rem 0;
-        }
-
-        .section-title {
-            font-size: 2rem;
-        }
-
-        .expertise-areas {
+        .stats-grid {
             grid-template-columns: 1fr;
+            text-align: center;
         }
+    }
+</style>
 
-        .process-steps {
-            grid-template-columns: 1fr;
-        }
+@code {
+    private List<SkillModel> BackendSkills = new() {
+        new("C# & .NET Core Architecture", 95),
+        new("Microservices & Web API", 92),
+        new("SQL & Entity Framework Performance", 88),
+        new("Redis & Message Brokers", 75)
+    };
 
-        .container {
-            padding: 0 1rem;
-        }
+    private List<SkillModel> SecuritySkills = new() {
+        new("OAuth2 & JWT Implementation", 94),
+        new("OWASP Top 10 Security", 85),
+        new("Data Encryption & Hashing", 90),
+        new("Penetration Testing (Basics)", 70)
+    };
 
-        .hero-des
+    private async Task DownloadCV() => await JSRuntime.InvokeVoidAsync("open", "files/resume.pdf", "_blank");
+
+    private async Task ScrollToContact() => await JSRuntime.InvokeVoidAsync("eval", "window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})");
+
+    public record SkillModel(string Name, int Percent);
+}
+
+@inject NavigationManager Navigation
+
+@inject NavigationManager Navigation
+
+<div class="action-buttons d-flex gap-3">
+    <a href="files/SamandarResume.pdf" download class="btn-cyber-primary text-decoration-none" style="cursor: pointer;">
+        <i class="fas fa-shield-alt me-2"></i> CV YUKLAB OLISH
+    </a>
+
+    <button class="btn-cyber-outline" @onclick="GoToContact">
+        <i class="fas fa-terminal me-2"></i> BOG'LANISH
+    </button>
+</div>
+
+@code {
+    // Bog'lanish sahifasiga o'tkazish funksiyasi
+    private void GoToContact()
+    {
+        Navigation.NavigateTo("/contact");
+    }
+}

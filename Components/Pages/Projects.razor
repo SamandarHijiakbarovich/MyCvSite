@@ -1,36 +1,37 @@
 @page "/projects"
 @using MyCvSite.Data
-@using MyCvSite.Components.UI
+
+<PageTitle>Loyihalarim | Samandar Mamasoatov</PageTitle>
 
 <div class="projects-page">
     <div class="container py-5">
         <div class="section-header text-center mb-5">
-            <h1 class="display-4 fw-bold mb-3">Mening Loyihalarim</h1>
-            <p class="lead text-muted" style="color:cornsilk"> 
+            <h1 class="display-4 fw-bold mb-3 highlight-text">Mening Loyihalarim</h1>
+            <p class="lead custom-subtitle">
                 .NET va Blazor texnologiyalari yordamida yaratilgan real loyihalar
             </p>
+            <div class="header-line"></div>
         </div>
 
-        <!-- Loyihalar ro'yxati -->
         <div class="row g-4">
             @foreach (var project in projects)
             {
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6 animate__animated animate__fadeInUp">
                     <div class="project-card">
                         <div class="project-image">
                             <img src="@project.ImageUrl" alt="@project.Title"
-                                 onerror="this.src='https://via.placeholder.com/400x250/1e293b/64748b?text=Project+Image'" />
+                                 onerror="this.src='https://via.placeholder.com/400x250/1e293b/ffffff?text=@project.Title'" />
                             <div class="project-overlay">
                                 <div class="project-links">
                                     @if (!string.IsNullOrEmpty(project.GithubUrl))
                                     {
-                                        <a href="@project.GithubUrl" target="_blank" class="project-link">
+                                        <a href="@project.GithubUrl" target="_blank" class="project-link" title="GitHub">
                                             <i class="fab fa-github"></i>
                                         </a>
                                     }
                                     @if (!string.IsNullOrEmpty(project.LiveDemoUrl))
                                     {
-                                        <a href="@project.LiveDemoUrl" target="_blank" class="project-link">
+                                        <a href="@project.LiveDemoUrl" target="_blank" class="project-link" title="Live Demo">
                                             <i class="fas fa-external-link-alt"></i>
                                         </a>
                                     }
@@ -54,142 +55,183 @@
             }
         </div>
 
-        <!-- Agar loyihalar bo'sh bo'lsa -->
         @if (!projects.Any())
         {
-            <div class="text-center py-5">
-                <i class="fas fa-folder-open fa-4x text-muted mb-3"></i>
-                <h3 class="text-muted">Hozircha loyihalar mavjud emas</h3>
-                <p class="text-muted">Tez orada yangi loyihalar qo'shiladi</p>
+            <div class="text-center py-5 no-projects">
+                <i class="fas fa-folder-open fa-4x mb-3"></i>
+                <h3>Hozircha loyihalar mavjud emas</h3>
+                <p>Tez orada yangi loyihalar qo'shiladi</p>
             </div>
         }
     </div>
 </div>
 
 <style>
-    .projects-page {
-        background: var(--color-background);
-        min-height: 100vh;
+    /* Ranglar palitrasi */
+    :root {
+        --bg-dark: #0f172a;
+        --card-bg: #1e293b;
+        --accent-blue: #3b82f6;
+        --accent-purple: #8b5cf6;
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --border-color: rgba(255, 255, 255, 0.1);
     }
 
-    .section-header h1 {
-        background: var(--gradient-primary);
+    .projects-page {
+        background-color: var(--bg-dark);
+        min-height: 100vh;
+        color: var(--text-main);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Sarlavha stili */
+    .highlight-text {
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        background-clip: text;
+        font-size: 3rem;
     }
 
+    .custom-subtitle {
+        color: #cbd5e1 !important;
+        font-weight: 400;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .header-line {
+        width: 80px;
+        height: 4px;
+        background: var(--accent-blue);
+        margin: 20px auto;
+        border-radius: 2px;
+    }
+
+    /* Card Dizayni */
     .project-card {
-        background: var(--color-surface);
-        border-radius: 16px;
+        background: var(--card-bg);
+        border-radius: 20px;
         overflow: hidden;
-        box-shadow: var(--shadow-main);
-        border: 1px solid var(--color-border);
-        transition: all 0.3s ease;
+        border: 1px solid var(--border-color);
         height: 100%;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
         .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
+            transform: translateY(-12px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
         }
 
+    /* Rasm qismi */
     .project-image {
         position: relative;
-        height: 200px;
-        overflow: hidden;
+        height: 220px;
+        background: #000;
     }
 
         .project-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            opacity: 0.9;
+            transition: 0.5s;
         }
 
     .project-card:hover .project-image img {
-        transform: scale(1.1);
+        opacity: 0.4;
+        transform: scale(1.05);
     }
 
+    /* Overlay */
     .project-overlay {
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.7);
+        inset: 0;
         display: flex;
         align-items: center;
         justify-content: center;
+        background: rgba(15, 23, 42, 0.6);
         opacity: 0;
-        transition: opacity 0.3s ease;
+        transition: 0.3s;
     }
 
     .project-card:hover .project-overlay {
         opacity: 1;
     }
 
-    .project-links {
-        display: flex;
-        gap: 1rem;
-    }
-
     .project-link {
         width: 50px;
         height: 50px;
-        background: var(--gradient-primary);
+        background: var(--accent-blue);
         color: white;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
+        font-size: 1.2rem;
         text-decoration: none;
-        transition: all 0.3s ease;
+        transition: 0.3s;
     }
 
         .project-link:hover {
-            transform: scale(1.1);
-            box-shadow: var(--shadow-hover);
+            background: white;
+            color: var(--accent-blue);
+            transform: scale(1.2);
         }
 
+    /* Card Kontent */
     .project-content {
         padding: 1.5rem;
     }
 
     .project-title {
-        color: var(--color-text);
-        font-size: 1.3rem;
-        font-weight: 600;
-        margin-bottom: 0.75rem;
+        color: #fff;
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 0.8rem;
     }
 
     .project-description {
-        color: var(--color-text-secondary);
+        color: #94a3b8;
+        font-size: 0.95rem;
         line-height: 1.6;
-        margin-bottom: 1rem;
+        margin-bottom: 1.2rem;
+        min-height: 4.8rem; /* Matnlarni bir xil balandlikda ushlab turadi */
     }
 
+    /* Texnologiya teglar */
     .tech-tags {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.5rem;
+        gap: 8px;
     }
 
     .tech-tag {
-        background: var(--color-card);
-        color: var(--color-primary);
-        padding: 0.4rem 0.8rem;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 500;
-        border: 1px solid var(--color-border);
+        background: rgba(59, 130, 246, 0.1);
+        color: #60a5fa;
+        padding: 4px 12px;
+        border-radius: 8px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        border: 1px solid rgba(59, 130, 246, 0.2);
+        text-transform: uppercase;
     }
 
-    .project-subtitle {
-        color: #ffffff !important;
-        font-size: 1.25rem;
-        opacity: 0.9;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    .no-projects {
+        color: var(--text-muted);
+    }
+
+    /* Mobile moslashuv */
+    @@media (max-width: 768px) {
+        .highlight-text {
+            font-size: 2.2rem;
+        }
+
+        .project-image {
+            height: 180px;
+        }
     }
 </style>
 
@@ -198,50 +240,60 @@
 
     protected override void OnInitialized()
     {
-        // Loyihalarni to'ldirish
-        projects.Add(new ProjectModel
+        projects = new List<ProjectModel>
+        {
+            new ProjectModel
             {
                 Id = 1,
                 Title = "E-Commerce Dashboard",
-                Description = "To'liq funksional admin paneli, real vaqtda yangilanishlar va hisobotlar bilan.",
-                ImageUrl = "images/project-1-ecommerce.png",
+                Description = "To'liq funksional admin paneli, real vaqtda yangilanishlar va tahliliy hisobotlar tizimi.",
+                ImageUrl = "images/OIP.webp",
                 Technologies = new[] { "Blazor Server", "C#", "SQL Server", "SignalR" },
                 GithubUrl = "https://github.com/samandar/ecommerce",
                 LiveDemoUrl = "https://demo.myproject.com"
-            });
-
-        projects.Add(new ProjectModel
+            },
+            new ProjectModel
             {
                 Id = 2,
                 Title = "RESTful Web API",
-                Description = "Yuqori unumdorlikka ega, zamonaviy .NET Core me'morchiligidagi ma'lumotlar xizmati.",
-                ImageUrl = "images/project-2-api.png",
-                Technologies = new[] { "ASP.NET Core API", "Dapper", "Swagger", "PostgreSQL" },
+                Description = "Yuqori unumdorlikka ega, Clean Architecture asosida qurilgan backend xizmati.",
+                ImageUrl = "images/API.webp",
+                Technologies = new[] { "ASP.NET Core", "Dapper", "PostgreSQL", "Swagger" },
                 GithubUrl = "https://github.com/samandar/api",
                 LiveDemoUrl = ""
-            });
-
-        projects.Add(new ProjectModel
+            },
+            new ProjectModel
             {
                 Id = 3,
                 Title = "Blazor Chat App",
-                Description = "SignalR yordamida qurilgan, real vaqtda ishlaydigan xabar almashish ilovasi.",
-                ImageUrl = "images/project-3-chat.png",
-                Technologies = new[] { "Blazor WebAssembly", "SignalR", "Azure Functions" },
+                Description = "SignalR texnologiyasi yordamida real vaqt rejimida ishlovchi messenjer ilovasi.",
+                ImageUrl = "images/chatApp.webp",
+                Technologies = new[] { "Blazor Wasm", "SignalR", "Azure Functions" },
                 GithubUrl = "https://github.com/samandar/chat",
                 LiveDemoUrl = "https://chat-app.com"
-            });
-
-        // Darmon loyihasi
-        projects.Add(new ProjectModel
+            },
+            new ProjectModel
             {
                 Id = 4,
                 Title = "Darmon Platform",
-                Description = "Pharmacy delivery system with secure payment and role-based access.",
-                ImageUrl = "images/darmon.png",
+                Description = "Pharmacy delivery system with secure payment and role-based access management.",
+                ImageUrl = "images/Darmon.jpg",
                 Technologies = new[] { "ASP.NET Core", "EF Core", "JWT", "Click API" },
                 GithubUrl = "https://github.com/SamandarHijiakbarovich/Darmon",
                 LiveDemoUrl = ""
-            });
+            }
+        };
+    }
+
+    // Agar ProjectModel klassingiz boshqa joyda bo'lsa buni o'chirib tashlang
+    public class ProjectModel
+    {
+        public int Id { get; set; }
+        public string Title { get; set; } = "";
+        public string Description { get; set; } = "";
+        public string ImageUrl { get; set; } = "";
+        public string[] Technologies { get; set; } = new string[0];
+        public string GithubUrl { get; set; } = "";
+        public string LiveDemoUrl { get; set; } = "";
     }
 }

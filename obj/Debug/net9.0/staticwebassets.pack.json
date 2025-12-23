@@ -1,8 +1,8 @@
 {
   "Files": [
     {
-      "Id": "D:\\php_uchun\\MyCvSite\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\MyCvSite.bundle.scp.css",
-      "PackagePath": "staticwebassets\\MyCvSite.jy486s8byv.bundle.scp.css"
+      "Id": "D:\\php_uchun\\MyCvSite\\wwwroot\\Files\\SamandarResume.pdf",
+      "PackagePath": "staticwebassets\\Files\\SamandarResume.pdf"
     },
     {
       "Id": "D:\\php_uchun\\MyCvSite\\wwwroot\\css\\app.css",
@@ -17,12 +17,40 @@
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {
+      "Id": "D:\\php_uchun\\MyCvSite\\wwwroot\\images\\API.webp",
+      "PackagePath": "staticwebassets\\images\\API.webp"
+    },
+    {
+      "Id": "D:\\php_uchun\\MyCvSite\\wwwroot\\images\\Darmon.jpg",
+      "PackagePath": "staticwebassets\\images\\Darmon.jpg"
+    },
+    {
+      "Id": "D:\\php_uchun\\MyCvSite\\wwwroot\\images\\OIP.webp",
+      "PackagePath": "staticwebassets\\images\\OIP.webp"
+    },
+    {
+      "Id": "D:\\php_uchun\\MyCvSite\\wwwroot\\images\\chatApp.webp",
+      "PackagePath": "staticwebassets\\images\\chatApp.webp"
+    },
+    {
       "Id": "D:\\php_uchun\\MyCvSite\\wwwroot\\images\\my-photo.jpg",
       "PackagePath": "staticwebassets\\images\\my-photo.jpg"
     },
     {
       "Id": "D:\\php_uchun\\MyCvSite\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "D:\\php_uchun\\MyCvSite\\wwwroot\\js\\aboutPage.js",
+      "PackagePath": "staticwebassets\\js\\aboutPage.js"
+    },
+    {
+      "Id": "D:\\php_uchun\\MyCvSite\\wwwroot\\js\\app.js",
+      "PackagePath": "staticwebassets\\js\\app.js"
+    },
+    {
+      "Id": "D:\\php_uchun\\MyCvSite\\wwwroot\\js\\skillbar.js",
+      "PackagePath": "staticwebassets\\js\\skillbar.js"
     },
     {
       "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.MyCvSite.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",

@@ -12,10 +12,7 @@ D:\php_uchun\MyCvSite\obj\Debug\net9.0\MyCvSite.AssemblyInfoInputs.cache
 D:\php_uchun\MyCvSite\obj\Debug\net9.0\MyCvSite.AssemblyInfo.cs
 D:\php_uchun\MyCvSite\obj\Debug\net9.0\MyCvSite.csproj.CoreCompileInputs.cache
 D:\php_uchun\MyCvSite\obj\Debug\net9.0\MyCvSite.MvcApplicationPartsAssemblyInfo.cache
-D:\php_uchun\MyCvSite\obj\Debug\net9.0\scopedcss\Components\Layout\MainLayout.razor.rz.scp.css
-D:\php_uchun\MyCvSite\obj\Debug\net9.0\scopedcss\Components\Layout\NavMenu.razor.rz.scp.css
 D:\php_uchun\MyCvSite\obj\Debug\net9.0\scopedcss\bundle\MyCvSite.styles.css
-D:\php_uchun\MyCvSite\obj\Debug\net9.0\scopedcss\projectbundle\MyCvSite.bundle.scp.css
 D:\php_uchun\MyCvSite\obj\Debug\net9.0\staticwebassets.build.json
 D:\php_uchun\MyCvSite\obj\Debug\net9.0\staticwebassets.development.json
 D:\php_uchun\MyCvSite\obj\Debug\net9.0\staticwebassets.build.endpoints.json
@@ -31,9 +28,10 @@ D:\php_uchun\MyCvSite\obj\Debug\net9.0\MyCvSite.pdb
 D:\php_uchun\MyCvSite\obj\Debug\net9.0\MyCvSite.genruntimeconfig.cache
 D:\php_uchun\MyCvSite\obj\Debug\net9.0\ref\MyCvSite.dll
 D:\php_uchun\MyCvSite\obj\Debug\net9.0\MyCvSite.sourcelink.json
-D:\php_uchun\MyCvSite\obj\Debug\net9.0\compressed\nlr5stf2jo-jy486s8byv.gz
-D:\php_uchun\MyCvSite\obj\Debug\net9.0\compressed\s4w66jiwt7-jy486s8byv.gz
 D:\php_uchun\MyCvSite\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 D:\php_uchun\MyCvSite\obj\Debug\net9.0\compressed\vc75q5wrp5-gyodbwmckx.gz
-D:\php_uchun\MyCvSite\obj\Debug\net9.0\compressed\pjal181tgq-bnyhs1kufw.gz
-D:\php_uchun\MyCvSite\obj\Debug\net9.0\compressed\i5kdeej6n1-8s3yp8oozo.gz
+D:\php_uchun\MyCvSite\obj\Debug\net9.0\compressed\7maft7kk3s-940qoncwmq.gz
+D:\php_uchun\MyCvSite\obj\Debug\net9.0\compressed\57sv7161u7-nfroqprrxu.gz
+D:\php_uchun\MyCvSite\obj\Debug\net9.0\compressed\pjal181tgq-nnqyic5do5.gz
+D:\php_uchun\MyCvSite\obj\Debug\net9.0\compressed\jwrcw24x7h-q0lodru8qm.gz
+D:\php_uchun\MyCvSite\obj\Debug\net9.0\compressed\i5kdeej6n1-negn7eu61j.gz

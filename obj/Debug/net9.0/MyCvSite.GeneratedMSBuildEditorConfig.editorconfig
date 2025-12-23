@@ -24,12 +24,20 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/php_uchun/MyCvSite/Components/Component.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb21wb25lbnQucmF6b3I=
+[D:/php_uchun/MyCvSite/Components/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTWFpbkxheW91dC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/php_uchun/MyCvSite/Components/Layout/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/php_uchun/MyCvSite/Components/Pages/About.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBYm91dC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/php_uchun/MyCvSite/Components/Pages/Component.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb21wb25lbnQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/php_uchun/MyCvSite/Components/Pages/Contact.razor]
@@ -48,8 +56,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQcm9qZWN0cy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/php_uchun/MyCvSite/Components/Pages/_Imports.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xfSW1wb3J0cy5yYXpvcg==
+[D:/php_uchun/MyCvSite/Components/Pages/Services.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTZXJ2aWNlcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/php_uchun/MyCvSite/Components/Pages/Skills.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xTa2lsbHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/php_uchun/MyCvSite/Components/Routes.razor]
@@ -60,10 +72,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xVSVxQcm9qZWN0Q2FyZC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/php_uchun/MyCvSite/Components/UI/SkillBar.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xVSVxTa2lsbEJhci5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/php_uchun/MyCvSite/Components/UI/SocialIcon.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xVSVxTb2NpYWxJY29uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -71,11 +79,3 @@ build_metadata.AdditionalFiles.CssScope =
 [D:/php_uchun/MyCvSite/Components/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xfSW1wb3J0cy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
-
-[D:/php_uchun/MyCvSite/Components/Layout/MainLayout.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTWFpbkxheW91dC5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = b-stiximdpjh
-
-[D:/php_uchun/MyCvSite/Components/Layout/NavMenu.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = b-imektq0d15

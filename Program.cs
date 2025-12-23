@@ -1,37 +1,51 @@
-using MyCvSite; // App.razor uchun
-using MyCvSite.Components; // Layout va UI komponentlar uchun
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using MyCvSite.Components; // Loyihangiz nomiga qarab tekshiring
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ?? Servislar ro‘yxati
+// 1. BLAZOR SERVISLARINI QO'SHISH
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents(); // Blazor Server interaktiv render
+    .AddInteractiveServerComponents();
 
-// ?? Ilovani qurish
+// 2. LOKALIZATSIYA (Agar kerak bo'lsa)
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+// 3. HTTP CLIENT (Ma'lumotlar olish uchun)
+builder.Services.AddHttpClient();
+
 var app = builder.Build();
 
-// ?? HTTP pipeline konfiguratsiyasi
+// ==================== MIDDLEWARE PIPELINE ====================
+
+// 4. XATOLIKLARNI BOSHQARISH
 if (!app.Environment.IsDevelopment())
 {
-    // Xatolik sahifasi va xavfsizlik
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    app.UseHsts(); // HTTPS xavfsizligi (production uchun)
-}
-else
-{
-    // Ishlab chiqish rejimi uchun developer tools
-    app.UseDeveloperExceptionPage();
+    app.UseHsts();
 }
 
-app.UseHttpsRedirection(); // HTTP ? HTTPS yo‘naltirish
-app.UseStaticFiles();       // wwwroot ichidagi fayllarni xizmat qilish
-app.UseRouting();           // URL marshrutlash
-app.UseAntiforgery();       // CSRF himoyasi
+app.UseHttpsRedirection();
 
-// ?? App.razor yuklanadi va interaktiv render qo‘llaniladi
-app.MapRazorComponents<App>()
+// 5. STATIK FAYLLAR (CSS, JS, Rasmlar)
+app.UseStaticFiles();
+
+// 6. LOKALIZATSIYA SOZLAMALARI
+var supportedCultures = new[] { "uz", "en", "ru" };
+var localizationOptions = new RequestLocalizationOptions()
+    .SetDefaultCulture("uz")
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures);
+
+app.UseRequestLocalization(localizationOptions);
+
+// 7. ROUTING VA XAVFSIZLIK (Eng asosiylari)
+app.UseRouting();
+app.UseAntiforgery();
+
+// 8. BLAZOR KOMPONENTLARINI MAP QILISH
+app.MapRazorComponents<App>() // Bu yerda App.razor nazarda tutilgan
     .AddInteractiveServerRenderMode();
 
-app.Run(); // Ilovani ishga tushirish
+app.Run();

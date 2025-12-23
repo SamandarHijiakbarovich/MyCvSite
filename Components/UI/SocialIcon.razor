@@ -1,17 +1,17 @@
-<div class="social-icons">
-    <a href="mailto:mamasoatovsamandar5@gmail.com" target="_blank" title="Email">
-        <i class="fas fa-envelope"></i>
-    </a>
-    <a href="https://github.com/SamandarHijiakbarovich" target="_blank" title="GitHub">
-        <i class="fab fa-github"></i>
-    </a>
-    <a href="https://linkedin.com/in/SamandarMamasoatovCyberLab" target="_blank" title="LinkedIn">
-        <i class="fab fa-linkedin"></i>
-    </a>
-    <a href="https://t.me/samandar_dev" target="_blank" title="Telegram">
-        <i class="fab fa-telegram"></i>
-    </a>
-    <a href="https://instagram.com/samandar.dev" target="_blank" title="Instagram">
-        <i class="fab fa-instagram"></i>
-    </a>
+<div class="social-links-container d-flex gap-3">
+    <SocialLink Icon="fas fa-envelope" Url="mailto:mamasoatovsamandar5@gmail.com" Title="Email" Color="#ea4335" />
+    <SocialLink Icon="fab fa-github" Url="https://github.com/SamandarHijiakbarovich" Title="GitHub" Color="#333" />
+    <SocialLink Icon="fab fa-linkedin" Url="https://linkedin.com/in/SamandarMamasoatovCyberLab" Title="LinkedIn" Color="#0077b5" />
+    <SocialLink Icon="fab fa-telegram" Url="https://t.me/samandar_dev" Title="Telegram" Color="#0088cc" />
+    <SocialLink Icon="fab fa-instagram" Url="https://instagram.com/samandar.dev" Title="Instagram" Color="#e1306c" />
 </div>
+
+@* Ichki kichik komponent yoki alohida fayl *@
+@code {
+    public class SocialLinkProps {
+        public string Icon { get; set; }
+        public string Url { get; set; }
+        public string Title { get; set; }
+        public string Color { get; set; }
+    }
+}

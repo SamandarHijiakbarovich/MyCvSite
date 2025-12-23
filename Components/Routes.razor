@@ -1,6 +1,20 @@
-﻿<Router AppAssembly="typeof(Program).Assembly">
+﻿@using Microsoft.AspNetCore.Components.Routing
+
+<Router AppAssembly="@typeof(Program).Assembly">
     <Found Context="routeData">
-        <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" />
-        <FocusOnNavigate RouteData="routeData" Selector="h1" />
+        @* DefaultLayout uchun @ belgisini qo'shish kerak *@
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MyCvSite.Components.Layout.MainLayout)" />
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
+    <NotFound>
+        @* Sahifa topilmaganda ko'rsatiladigan qism *@
+        <PageTitle>Topilmadi</PageTitle>
+        <LayoutView Layout="@typeof(MyCvSite.Components.Layout.MainLayout)">
+            <div class="container text-center py-5">
+                <h1>404</h1>
+                <p>Kechirasiz, bunday sahifa mavjud emas.</p>
+                <a href="/" class="btn btn-primary">Bosh sahifaga qaytish</a>
+            </div>
+        </LayoutView>
+    </NotFound>
 </Router>

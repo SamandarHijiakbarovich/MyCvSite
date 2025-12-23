@@ -1,388 +1,480 @@
 ﻿@page "/"
-@using MyCvSite.Data
 @inject NavigationManager Navigation
 
-<section class="hero-section">
-    <div class="container">
-        <div class="row align-items-center min-vh-100">
-            <!-- Matn qismi -->
-            <div class="col-lg-6">
-                <div class="hero-content">
-                    <!-- Asosiy sarlavha -->
-                    <h1 class="display-4 fw-bold mb-4 animate__animated animate__fadeInUp">
-                        Salom, men <span class="text-highlight">Samandar Mamasoatov</span>
+<PageTitle>Samandar Mamasoatov | Portfolio</PageTitle>
+
+<div class="hero-wrapper">
+    <div class="cyber-dots"></div>
+    <div class="blob-glow"></div>
+    <div class="ambient-light"></div>
+
+    <section class="container hero-container">
+        <div class="row align-items-center min-vh-100 py-5">
+
+            <div class="col-lg-7 order-2 order-lg-1">
+                <div class="content-box animate__animated animate__fadeInLeft">
+                    <div class="status-badge mb-3">
+                        <span class="pulse-dot"></span> Online va Loyihalar uchun ochiq
+                    </div>
+
+                    <h1 class="glitch-title mb-3">
+                        Salom, men <br />
+                        <span class="highlight-gradient">Samandar Mamasoatov</span>
                     </h1>
 
-                    <!-- Qisqa ta'rif -->
-                    <p class="hero-subtitle mb-4 animate__animated animate__fadeInUp animate__delay-1s">
-                        <strong>.NET Backend Developer</strong> va <strong>Kiberxavfsizlik Mutaxassisi</strong>
+                    <h2 class="role-text mb-4">
+                        <i class="fas fa-user-shield me-2 text-primary"></i> .NET Backend Muhandisi & <span class="sec-text">Security Researcher</span>
+                    </h2>
+
+                    <p class="hero-bio mb-5">
+                        Men <strong>C# / .NET</strong> ekotizimida yuqori yuklamalarga chidamli tizimlar quraman.
+                        Mening yondashuvim: <strong>Kod faqat ishlashi emas, balki buzilmas bo'lishi kerak.</strong>
+                        Har bir arxitekturani kiberxavfsizlik prizmasidan o'tkazaman.
                     </p>
 
-                    <!-- Tafsilotlar -->
-                    <div class="hero-description mb-5 animate__animated animate__fadeInUp animate__delay-2s">
-                        <p>
-                            Men <strong>Blazor</strong>, <strong>ASP.NET Core</strong> va <strong>C#</strong>
-                            texnologiyalari bo'yicha mutaxassis dasturchiman. Murakkab backend tizimlarini
-                            ishlab chiqish, xavfsiz API'lar yaratish va zamonaviy web ilovalarni qurish
-                            bo'yicha 2+ yillik tajribaga egaman.
-                        </p>
-                    </div>
-
-                    <!-- Asosiy ko'nikmalar -->
-                    <div class="skills-preview mb-5 animate__animated animate__fadeInUp animate__delay-3s">
-                        <h5 class="mb-3">Asosiy Texnologiyalar:</h5>
-                        <div class="skills-tags">
-                            <span class="skill-tag">C# / .NET Core</span>
-                            <span class="skill-tag">ASP.NET Core API</span>
-                            <span class="skill-tag">Blazor</span>
-                            <span class="skill-tag">SQL Server</span>
-                            <span class="skill-tag">Entity Framework</span>
-                            <span class="skill-tag">Kiberxavfsizlik</span>
+                    <div class="stats-row mb-5">
+                        <div class="mini-stat">
+                            <span class="stat-val">2+</span>
+                            <span class="stat-lab">Yillik Tajriba</span>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="mini-stat">
+                            <span class="stat-val">15+</span>
+                            <span class="stat-lab">Loyihalar</span>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="mini-stat">
+                            <span class="stat-val">10+</span>
+                            <span class="stat-lab">Mijozlar</span>
                         </div>
                     </div>
 
-                    <!-- Statistika -->
-                    <div class="stats mb-5 animate__animated animate__fadeInUp animate__delay-4s">
-                        <div class="row text-center">
-                            <div class="col-4">
-                                <div class="stat-item">
-                                    <h3 class="text-highlight mb-1">2+</h3>
-                                    <small>Yillik Tajriba</small>
-                                </div>
+                    <div class="cta-group">
+                        <button class="btn-cyber-primary" @onclick='() => Navigation.NavigateTo("/projects")'>
+                            <div class="btn-inner">
+                                <i class="fas fa-code"></i> <span>PORTFOLIO</span>
                             </div>
-                            <div class="col-4">
-                                <div class="stat-item">
-                                    <h3 class="text-highlight mb-1">15+</h3>
-                                    <small>Bajargan Loyihalar</small>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="stat-item">
-                                    <h3 class="text-highlight mb-1">10+</h3>
-                                    <small>Xamkorlar</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Harakat tugmalari -->
-                    <div class="action-buttons animate__animated animate__fadeInUp animate__delay-5s">
-                        <button class="btn btn-primary btn-lg me-3" @onclick="NavigateToProjects">
-                            <i class="fas fa-rocket me-2"></i> Loyihalarimni Ko'rish
+                            <div class="btn-glow"></div>
                         </button>
-                        <button class="btn btn-outline-light btn-lg" @onclick="NavigateToContact">
-                            <i class="fas fa-paper-plane me-2"></i> Bog'lanish
+
+                        <button class="btn-cyber-outline" @onclick='() => Navigation.NavigateTo("/contact")'>
+                            <div class="btn-inner">
+                                <i class="fas fa-envelope"></i> <span>BOG'LANISH</span>
+                            </div>
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Profil rasmi -->
-            <div class="col-lg-6 text-center">
-                <div class="profile-container animate__animated animate__bounceIn">
-                    <div class="profile-pic">
-                        <img src="images/my-photo.jpg" alt="Samandar Mamasoatov"
-                             onerror="this.src='https://via.placeholder.com/280x280/1e293b/64748b?text=Samandar'" />
+            <div class="col-lg-5 order-1 order-lg-2 text-center position-relative">
+                <div class="avatar-portal animate__animated animate__zoomIn">
+                    <div class="portal-ring ring-1"></div>
+                    <div class="portal-ring ring-2"></div>
+                    <div class="main-photo-wrapper">
+                        <img src="images/my-photo.jpg" alt="Samandar" class="main-photo"
+                             onerror="this.src='https://ui-avatars.com/api/?name=Samandar&background=6366f1&color=fff&size=512'" />
                     </div>
 
-                    <!-- Qo'shimcha ma'lumotlar -->
-                    <div class="profile-info mt-4">
-                        <h5 class="mb-2">Samandar Mamasoatov</h5>
-                        <p class="text-muted mb-3">Full-Stack .NET Developer</p>
+                    <div class="floating-icon fi-1" title=".NET Core"><i class="fab fa-microsoft"></i></div>
+                    <div class="floating-icon fi-2" title="Security"><i class="fas fa-shield-alt"></i></div>
+                    <div class="floating-icon fi-3" title="SQL"><i class="fas fa-database"></i></div>
+                </div>
 
-                        <!-- Ijtimoiy tarmoqlar -->
-                        <div class="social-links">
-                            <a href="https://github.com/samandarHijiakbarovich" target="_blank" class="social-link" title="GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="https://linkedin.com/in/samandar" target="_blank" class="social-link" title="LinkedIn">
-                                <i class="fab fa-linkedin"></i>
-                            </a>
-                            <a href="https://t.me/LinuxInstructor" target="_blank" class="social-link" title="Telegram">
-                                <i class="fab fa-telegram"></i>
-                            </a>
-                            <a href="mailto:mamasoatovsamandar@gmail.com" class="social-link" title="Email">
-                                <i class="fas fa-envelope"></i>
-                            </a>
-                        </div>
-                    </div>
+                <div class="social-panel mt-5 animate__animated animate__fadeInUp animate__delay-1s">
+                    <a href="https://github.com/samandarHijiakbarovich" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/samandar" target="_blank" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://t.me/LinuxInstructor" target="_blank" class="social-link"><i class="fab fa-telegram-plane"></i></a>
                 </div>
             </div>
+
         </div>
-    </div>
-</section>
-
-@code {
-    private void NavigateToProjects()
-    {
-        Navigation.NavigateTo("/projects");
-    }
-
-    private void NavigateToContact()
-    {
-        Navigation.NavigateTo("/contact");
-    }
-}
+    </section>
+</div>
 
 <style>
-    .hero-section {
-        background: linear-gradient(135deg, var(--color-background) 0%, var(--color-surface) 100%);
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        position: relative;
-        overflow: hidden;
+    :root {
+        --cyber-blue: #3b82f6;
+        --cyber-purple: #8b5cf6;
+        --cyber-pink: #ec4899;
+        --dark-bg: #0f172a;
     }
 
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
-            animation: float 6s ease-in-out infinite;
-        }
+    .hero-wrapper {
+        min-height: 100vh;
+        background-color: var(--dark-bg);
+        position: relative;
+        overflow: hidden;
+        color: #f8fafc;
+        display: flex;
+        align-items: center;
+        z-index: 1;
+    }
 
-    .hero-content {
+    /* Fon elementlari - pointer-events: none tugmalarni bosishga xalaqit bermasligini ta'minlaydi */
+    .cyber-dots {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+        background-size: 30px 30px;
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    .blob-glow {
+        position: absolute;
+        top: 20%;
+        left: 10%;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+        filter: blur(80px);
+        z-index: -1;
+        pointer-events: none;
+        animation: moveBlob 20s infinite alternate;
+    }
+
+    .ambient-light {
+        position: absolute;
+        bottom: -10%;
+        right: -10%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(236, 72, 153, 0.05) 0%, transparent 70%);
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    /* Status Badge */
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        background: rgba(30, 41, 59, 0.7);
+        padding: 6px 16px;
+        border-radius: 50px;
+        border: 1px solid rgba(255,255,255,0.1);
+        font-size: 0.85rem;
+        backdrop-filter: blur(5px);
+    }
+
+    .pulse-dot {
+        width: 8px;
+        height: 8px;
+        background: #10b981;
+        border-radius: 50%;
+        margin-right: 10px;
+        box-shadow: 0 0 12px #10b981;
+        animation: pulse 2s infinite;
+    }
+
+    /* Sarlavhalar */
+    .glitch-title {
+        font-size: 3.8rem;
+        font-weight: 900;
+        line-height: 1.1;
+        letter-spacing: -1px;
+    }
+
+    .highlight-gradient {
+        background: linear-gradient(90deg, var(--cyber-blue), var(--cyber-purple));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.3));
+    }
+
+    .role-text {
+        font-size: 1.3rem;
+        color: #cbd5e1;
+        font-weight: 500;
+    }
+
+    .sec-text {
+        color: var(--cyber-pink);
+        font-weight: 700;
+    }
+
+    .hero-bio {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #94a3b8;
+        max-width: 600px;
+    }
+
+    /* Statistika qatori */
+    .stats-row {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        background: rgba(255,255,255,0.03);
+        padding: 20px 30px;
+        border-radius: 24px;
+        width: fit-content;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .stat-val {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #fff;
+        display: block;
+    }
+
+    .stat-lab {
+        font-size: 0.75rem;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+    }
+
+    .divider {
+        width: 1px;
+        height: 40px;
+        background: rgba(255,255,255,0.1);
+    }
+
+    /* TUGMALAR (ASOSIY TUZATISH) */
+    .cta-group {
+        display: flex;
+        gap: 20px;
+        position: relative;
+        z-index: 100;
+    }
+
+    .btn-cyber-primary, .btn-cyber-outline {
+        position: relative;
+        background: transparent;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .btn-inner {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 35px;
+        border-radius: 14px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: white;
         position: relative;
         z-index: 2;
     }
 
-    .hero-subtitle {
-        font-size: 1.5rem;
-        color: var(--color-text-secondary);
-        font-weight: 500;
+    .btn-cyber-primary .btn-inner {
+        background: linear-gradient(45deg, var(--cyber-blue), var(--cyber-purple));
     }
 
-    .hero-description {
-        font-size: 1.1rem;
-        line-height: 1.7;
-        color: var(--color-text-secondary);
+    .btn-cyber-primary:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
     }
 
-        .hero-description strong {
-            color: var(--color-primary);
-        }
+    .btn-cyber-outline .btn-inner {
+        background: var(--dark-bg);
+        border: 2px solid rgba(139, 92, 246, 0.5);
+    }
 
-    /* Profil rasmi */
-    .profile-container {
+    .btn-cyber-outline:hover .btn-inner {
+        border-color: var(--cyber-purple);
+        background: rgba(139, 92, 246, 0.1);
+    }
+
+    .btn-cyber-outline:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(139, 92, 246, 0.2);
+    }
+
+    /* Avatar Portal */
+    .avatar-portal {
         position: relative;
+        width: 320px;
+        height: 320px;
+        margin: 0 auto;
     }
 
-    .profile-pic img {
-        width: 280px;
-        height: 280px;
-        border-radius: 50%;
+    .main-photo-wrapper {
+        width: 100%;
+        height: 100%;
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        overflow: hidden;
+        border: 4px solid rgba(59, 130, 246, 0.2);
+        z-index: 5;
+        position: relative;
+        animation: morph 8s ease-in-out infinite;
+        box-shadow: 0 0 50px rgba(59, 130, 246, 0.15);
+    }
+
+    .main-photo {
+        width: 100%;
+        height: 100%;
         object-fit: cover;
-        border: 6px solid;
-        border-image: var(--gradient-primary) 1;
-        box-shadow: var(--shadow-main);
-        transition: all 0.5s ease;
     }
 
-        .profile-pic img:hover {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-hover);
-        }
-
-    .profile-info {
-        background: var(--color-surface);
-        padding: 1.5rem;
-        border-radius: 16px;
-        box-shadow: var(--shadow-main);
-        border: 1px solid var(--color-border);
-    }
-
-    /* Ko'nikma teglari */
-    .skills-preview h5 {
-        color: var(--color-text);
-        font-weight: 600;
-    }
-
-    .skills-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-
-    .skill-tag {
-        background: var(--gradient-primary);
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        font-size: 0.9rem;
-        font-weight: 500;
-        box-shadow: var(--shadow-main);
-    }
-
-    /* Statistika */
-    .stats {
-        border-left: 4px solid var(--color-primary);
-        padding-left: 1.5rem;
-    }
-
-    .stat-item {
-        text-align: center;
-    }
-
-        .stat-item h3 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item small {
-            color: var(--color-text-secondary);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-    /* Tugmalar */
-    .action-buttons {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-    }
-
-    .btn {
-        padding: 1rem 2rem;
-        border-radius: 50px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        border: none;
-        cursor: pointer;
-        font-size: 1.1rem;
-    }
-
-    .btn-primary {
-        background: var(--gradient-primary);
-        color: white;
-        box-shadow: var(--shadow-main);
-    }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
-
-    .btn-outline-light {
-        border: 2px solid var(--color-border);
-        color: var(--color-text);
-        background: transparent;
-    }
-
-        .btn-outline-light:hover {
-            border-color: var(--color-primary);
-            background: rgba(37, 99, 235, 0.1);
-            transform: translateY(-3px);
-        }
-
-    /* Ijtimoiy tarmoqlar */
-    .social-links {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-    }
-
-    .social-link {
-        color: var(--color-text-secondary);
-        font-size: 1.5rem;
-        transition: all 0.3s ease;
-        padding: 0.5rem;
+    .portal-ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         border-radius: 50%;
-        background: var(--color-card);
-        text-decoration: none;
+        border: 2px dashed rgba(139, 92, 246, 0.3);
+    }
+
+    .ring-1 {
+        width: 120%;
+        height: 120%;
+        animation: spin 20s linear infinite;
+    }
+
+    .ring-2 {
+        width: 140%;
+        height: 140%;
+        animation: spin 30s linear infinite reverse;
+    }
+
+    /* Floating Icons */
+    .floating-icon {
+        position: absolute;
+        width: 55px;
+        height: 55px;
+        background: rgba(30, 41, 59, 0.9);
+        border-radius: 15px;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 50px;
-        height: 50px;
+        font-size: 1.6rem;
+        color: var(--cyber-blue);
+        border: 1px solid rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        z-index: 10;
+        animation: float 4s ease-in-out infinite;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .fi-1 {
+        top: -10px;
+        right: -10px;
+        color: #0078d4;
+    }
+
+    .fi-2 {
+        bottom: 15%;
+        left: -30px;
+        color: var(--cyber-pink);
+    }
+
+    .fi-3 {
+        bottom: -10px;
+        right: 20%;
+        color: #f59e0b;
+    }
+
+    /* Social Links */
+    .social-link {
+        display: inline-flex;
+        width: 55px;
+        height: 55px;
+        background: rgba(255,255,255,0.05);
+        margin: 0 10px;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 14px;
+        font-size: 1.4rem;
+        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid rgba(255,255,255,0.05);
     }
 
         .social-link:hover {
-            color: var(--color-primary);
-            transform: translateY(-3px);
-            background: rgba(37, 99, 235, 0.1);
+            background: var(--cyber-blue);
+            transform: translateY(-10px) rotate(8deg);
+            color: white;
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.3);
         }
 
-    /* Animatsiyalar */
-    @@keyframes float {
+    /* Keyframes */
+    @@keyframes morph {
         0%, 100% {
-            transform: translateY(0px) rotate(0deg);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
         }
 
         50% {
-            transform: translateY(-20px) rotate(180deg);
+            border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
         }
     }
 
-    /* Responsive */
-    @@media (max-width: 768px) {
-        .hero-section {
-            padding: 2rem 0;
+    @@keyframes spin {
+        from {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+
+        to {
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+    }
+
+    @@keyframes pulse {
+        0%, 100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        50% {
+            opacity: 0.5;
+            transform: scale(1.4);
+        }
+    }
+
+    @@keyframes float {
+        0%, 100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-20px);
+        }
+    }
+
+    @@keyframes moveBlob {
+        from {
+            transform: translate(0,0);
+        }
+
+        to {
+            transform: translate(120px, 60px);
+        }
+    }
+
+    /* Responsive Design */
+    @@media (max-width: 991px) {
+        .hero-container {
             text-align: center;
         }
 
-        .profile-pic img {
-            width: 200px;
-            height: 200px;
-        }
-
-        .action-buttons {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .btn {
-            width: 100%;
-            max-width: 300px;
-            text-align: center;
-        }
-
-        .stats {
-            border-left: none;
-            border-top: 4px solid var(--color-primary);
-            padding-left: 0;
-            padding-top: 1rem;
-            margin-top: 1rem;
-        }
-
-        .stat-item h3 {
-            font-size: 2rem;
-        }
-
-        .skills-tags {
+        .hero-bio, .stats-row, .cta-group {
+            margin-left: auto;
+            margin-right: auto;
             justify-content: center;
         }
 
-        .hero-content {
-            text-align: center;
-        }
-    }
-
-    @@media (max-width: 576px) {
-        .hero-subtitle {
-            font-size: 1.2rem;
+        .glitch-title {
+            font-size: 2.8rem;
         }
 
-        .hero-description {
-            font-size: 1rem;
+        .avatar-portal {
+            width: 260px;
+            height: 260px;
+            margin-bottom: 40px;
         }
 
-        .profile-pic img {
-            width: 180px;
-            height: 180px;
+        .cta-group {
+            flex-direction: column;
         }
 
-        .btn {
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
+        .btn-cyber-primary, .btn-cyber-outline {
+            width: 100%;
         }
     }
 </style>

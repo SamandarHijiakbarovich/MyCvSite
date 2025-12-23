@@ -1,0 +1,297 @@
+﻿@page "/skills"
+@using MyCvSite.Data
+@inject NavigationManager Navigation
+
+<PageTitle>Ko'nikmalar | Samandar Mamasoatov</PageTitle>
+
+<div class="skills-page-wrapper">
+    <div class="cyber-grid"></div>
+    <div class="glow-orb"></div>
+    <div class="glow-orb-secondary"></div>
+
+    <section class="container py-5 position-relative" style="z-index: 2;">
+        <div class="text-center mb-5 animate__animated animate__fadeInDown">
+            <h1 class="display-4 fw-bold glitch-text">
+                TEXNIK <span class="highlight-gradient">KO'NIKMALAR</span>
+            </h1>
+            <p class="lead custom-subtitle mx-auto">
+                Backend arxitekturasi, ma'lumotlar xavfsizligi va yuqori yuklamali tizimlar bo'yicha professional texnologik stack.
+            </p>
+            <div class="divider-cyber mx-auto"></div>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            @foreach (var item in MySkillsList)
+            {
+                <div class="col-lg-6 col-xl-5 animate__animated animate__zoomIn">
+                    <div class="skill-container-card">
+                        <div class="card-content">
+                            <div class="skill-item-box">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="icon-box" style="background: @(item.Color + "20"); border: 1px solid @item.Color">
+                                            <i class="@item.Icon" style="color: @item.Color;"></i>
+                                        </div>
+                                        <span class="skill-name ms-3">@item.Name</span>
+                                    </div>
+                                    <span class="percentage-badge" style="color: @item.Color; border: 1px solid @item.Color">
+                                        @item.Level%
+                                    </span>
+                                </div>
+
+                                <div class="progress-bg">
+                                    <div class="progress-fill"
+                                         style="width: @item.Level%; background: linear-gradient(90deg, @item.Color, #fff); box-shadow: 0 0 15px @item.Color;">
+                                    </div>
+                                </div>
+
+                                @if (!string.IsNullOrEmpty(item.Description))
+                                {
+                                    <p class="skill-desc mt-3 mb-0">@item.Description</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="text-center mt-5 pt-4 animate__animated animate__fadeInUp">
+            <p class="text-muted-custom">Loyihangiz uchun xavfsiz va tezkor backend kerakmi?</p>
+            <button class="btn-cyber-contact" @onclick='() => Navigation.NavigateTo("/contact")'>
+                <span class="btn-text"><i class="fas fa-paper-plane me-2"></i> MEN BILAN BOG'LANISH</span>
+            </button>
+        </div>
+    </section>
+</div>
+
+<style>
+    :root {
+        --bg-deep: #0f172a;
+        --card-dark: #1e293b;
+        --text-bright: #f8fafc;
+        --text-dim: #94a3b8;
+    }
+
+    .skills-page-wrapper {
+        min-height: 100vh;
+        background-color: var(--bg-deep);
+        position: relative;
+        overflow: hidden;
+        padding-top: 60px;
+        color: var(--text-bright);
+    }
+
+    /* Orqa fon effektlari */
+    .cyber-grid {
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+        background-size: 40px 40px;
+        z-index: 1;
+    }
+
+    .glow-orb {
+        position: absolute;
+        top: 10%;
+        right: -5%;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+        filter: blur(80px);
+        z-index: 0;
+    }
+
+    .glow-orb-secondary {
+        position: absolute;
+        bottom: 10%;
+        left: -5%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+        filter: blur(60px);
+        z-index: 0;
+    }
+
+    /* Sarlavha */
+    .glitch-text {
+        font-size: 3.5rem;
+        letter-spacing: 3px;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+    .highlight-gradient {
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .custom-subtitle {
+        color: var(--text-dim) !important;
+        max-width: 650px;
+        line-height: 1.6;
+    }
+
+    /* Karta Dizayni */
+    .skill-container-card {
+        background: rgba(30, 41, 59, 0.5);
+        border-radius: 20px;
+        position: relative;
+        padding: 1px;
+        transition: 0.4s;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .card-content {
+        background: #1e293b;
+        padding: 30px;
+        border-radius: 19px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .skill-container-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        border-color: rgba(59, 130, 246, 0.4);
+    }
+
+    /* Ikonka va Matn */
+    .icon-box {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        font-size: 1.5rem;
+    }
+
+    .skill-name {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: white;
+    }
+
+    .percentage-badge {
+        font-size: 0.85rem;
+        font-weight: 800;
+        padding: 4px 12px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    /* Progress Bar */
+    .progress-bg {
+        height: 10px;
+        background: rgba(15, 23, 42, 0.6);
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .progress-fill {
+        height: 100%;
+        border-radius: 20px;
+        transition: width 2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .skill-desc {
+        color: var(--text-dim);
+        font-size: 0.95rem;
+        font-weight: 400;
+    }
+
+    .divider-cyber {
+        width: 120px;
+        height: 4px;
+        background: linear-gradient(90deg, #3b82f6, #ec4899);
+        border-radius: 10px;
+        margin-top: 20px;
+        box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+    }
+
+    /* Button Style */
+    .btn-cyber-contact {
+        position: relative;
+        background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+        border: none;
+        color: white;
+        padding: 15px 40px;
+        border-radius: 12px;
+        font-weight: 700;
+        overflow: hidden;
+        transition: 0.3s;
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+    }
+
+        .btn-cyber-contact:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 35px rgba(59, 130, 246, 0.6);
+        }
+
+    .text-muted-custom {
+        color: #64748b;
+        margin-bottom: 15px;
+        font-size: 1.1rem;
+    }
+
+    @@media (max-width: 768px) {
+        .glitch-text {
+            font-size: 2.2rem;
+        }
+
+        .skill-name {
+            font-size: 1.1rem;
+        }
+    }
+</style>
+
+@code {
+    private List<SkillModel> MySkillsList = new()
+    {
+        new SkillModel {
+            Name = "C# / ASP.NET Core",
+            Level = 95,
+            Icon = "fab fa-microsoft",
+            Color = "#3b82f6",
+            Description = "Web API, Microservices, Entity Framework Core, LINQ"
+        },
+        new SkillModel {
+            Name = "SQL / PostgreSQL",
+            Level = 88,
+            Icon = "fas fa-database",
+            Color = "#10b981",
+            Description = "Query Optimization, Database Design, Stored Procedures"
+        },
+        new SkillModel {
+            Name = "Security Research",
+            Level = 82,
+            Icon = "fas fa-user-shield",
+            Color = "#f43f5e",
+            Description = "OWASP Top 10, Penetration Testing, Vulnerability Assessment"
+        },
+        new SkillModel {
+            Name = "Linux / Docker",
+            Level = 75,
+            Icon = "fab fa-docker",
+            Color = "#0ea5e9",
+            Description = "Containerization, CI/CD, Server Administration"
+        },
+        new SkillModel {
+            Name = "Blazor WebAssembly",
+            Level = 80,
+            Icon = "fas fa-bolt",
+            Color = "#f59e0b",
+            Description = "Interactive UI development, State Management, Interop"
+        }
+    };
+
+    public class SkillModel
+    {
+        public string Name { get; set; } = "";
+        public int Level { get; set; }
+        public string Icon { get; set; } = "";
+        public string Color { get; set; } = "";
+        public string Description { get; set; } = "";
+    }
+}
