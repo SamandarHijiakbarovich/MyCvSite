@@ -1,0 +1,1926 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Samandar Mamasoatov | .NET Backend Developer</title>
+<meta name="description" content="Samandar Mamasoatov — .NET Backend Muhandisi va Security Researcher. C#, ASP.NET Core, Clean Architecture, Kiberxavfsizlik." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+
+<style>
+/* ===========================
+   CSS RESET & ROOT VARIABLES
+   =========================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #030712;
+  --bg2:      #0f172a;
+  --bg3:      #1e293b;
+  --accent:   #6366f1;
+  --accent2:  #a855f7;
+  --blue:     #3b82f6;
+  --cyan:     #06b6d4;
+  --green:    #10b981;
+  --pink:     #ec4899;
+  --red:      #ef4444;
+  --gold:     #f59e0b;
+  --text:     #f8fafc;
+  --text2:    #cbd5e1;
+  --text3:    #94a3b8;
+  --text4:    #64748b;
+  --border:   rgba(255,255,255,0.07);
+  --card:     rgba(30,41,59,0.6);
+  --grad:     linear-gradient(135deg,#6366f1,#a855f7);
+  --grad2:    linear-gradient(90deg,#3b82f6,#8b5cf6);
+  --trans:    all .3s cubic-bezier(.4,0,.2,1);
+  --sidebar-w: 270px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+/* ===========================
+   LAYOUT
+   =========================== */
+.layout { display: flex; min-height: 100vh; }
+
+/* ===========================
+   SIDEBAR
+   =========================== */
+.sidebar {
+  width: var(--sidebar-w);
+  background: rgba(5,8,17,.96);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  top: 0; left: 0;
+  z-index: 200;
+  backdrop-filter: blur(12px);
+  transition: var(--trans);
+}
+
+.sidebar-header {
+  padding: 1.8rem 1.4rem 1.2rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,.02);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 12px 14px;
+}
+
+.logo {
+  width: 46px; height: 46px; min-width: 46px;
+  background: var(--grad);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 1.15rem; color: #fff;
+  position: relative; overflow: hidden;
+}
+
+.logo::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(255,255,255,.1);
+  transform: translateX(-100%) rotate(45deg);
+  transition: .4s;
+}
+
+.logo:hover::after { transform: translateX(100%) rotate(45deg); }
+
+.brand-info { flex: 1; }
+.brand-name { display: block; font-weight: 700; font-size: .85rem; color: var(--text); letter-spacing: .5px; }
+
+.online-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: .65rem; color: var(--green); font-weight: 600; letter-spacing: .5px;
+}
+
+.online-dot {
+  width: 6px; height: 6px;
+  background: var(--green); border-radius: 50%;
+  box-shadow: 0 0 6px var(--green);
+  animation: pulse 2s infinite;
+}
+
+.nav-section {
+  padding: .5rem 1rem;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.nav-label {
+  font-size: .6rem; font-weight: 700;
+  color: var(--text4); letter-spacing: 2px;
+  padding: 1rem .6rem .5rem;
+  text-transform: uppercase;
+}
+
+.nav-link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 12px;
+  border-radius: 13px;
+  color: var(--text3);
+  font-size: .87rem; font-weight: 500;
+  transition: var(--trans);
+  cursor: pointer;
+  margin-bottom: 3px;
+  border: 1px solid transparent;
+}
+
+.nav-link:hover, .nav-link.active {
+  background: rgba(99,102,241,.1);
+  border-color: rgba(99,102,241,.18);
+  color: var(--text);
+}
+
+.nav-link.active .nav-icon {
+  background: var(--grad);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(99,102,241,.45);
+}
+
+.nav-icon {
+  width: 36px; height: 36px; min-width: 36px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  transition: var(--trans);
+}
+
+.nav-text { flex: 1; }
+.nav-title { display: block; font-weight: 600; font-size: .85rem; }
+.nav-sub { display: block; font-size: .68rem; color: var(--text4); margin-top: 1px; }
+
+.sidebar-footer {
+  padding: 1rem 1.4rem 1.4rem;
+}
+
+.security-badge {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(0,0,0,.35);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: .7rem; color: var(--text4);
+}
+
+.security-badge i { color: var(--accent); font-size: .85rem; }
+
+/* ===========================
+   MAIN CONTENT
+   =========================== */
+.main {
+  flex: 1;
+  margin-left: var(--sidebar-w);
+  min-height: 100vh;
+}
+
+/* Top Bar */
+.topbar {
+  height: 62px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2.5rem;
+  background: rgba(3,7,18,.6);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+}
+
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+
+.hamburger {
+  width: 36px; height: 36px;
+  background: none; border: none; color: var(--text3);
+  cursor: pointer; font-size: 1.1rem;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  transition: var(--trans);
+}
+
+.hamburger:hover { background: var(--card); color: var(--text); }
+
+.breadcrumb { font-size: .8rem; color: var(--text4); }
+.breadcrumb span { color: var(--text2); }
+
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+
+.top-btn {
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text3); font-size: .9rem;
+  cursor: pointer; transition: var(--trans);
+}
+
+.top-btn:hover { background: var(--card); color: var(--text); }
+
+.avatar-top {
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  background: var(--grad);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: .8rem;
+  cursor: pointer;
+}
+
+/* Page Wrapper */
+.page-inner {
+  padding: 2.5rem;
+  max-width: 1300px;
+}
+
+/* ===========================
+   SECTIONS
+   =========================== */
+section { display: none; }
+section.active { display: block; animation: fadeUp .5s ease; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===========================
+   COMMON COMPONENTS
+   =========================== */
+.section-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(99,102,241,.1);
+  border: 1px solid rgba(99,102,241,.25);
+  color: #818cf8;
+  padding: 5px 15px;
+  border-radius: 50px;
+  font-size: .72rem; font-weight: 700; letter-spacing: 1.5px;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-size: 2.6rem; font-weight: 800;
+  line-height: 1.15; margin-bottom: .8rem;
+}
+
+.grad-text {
+  background: var(--grad2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-sub {
+  color: var(--text3); font-size: 1rem; max-width: 580px;
+  margin-bottom: 2.5rem;
+}
+
+.divider {
+  width: 80px; height: 4px;
+  background: var(--grad2);
+  border-radius: 4px;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 0 12px rgba(99,102,241,.35);
+}
+
+/* Grid helpers */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+
+/* Card */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  transition: var(--trans);
+}
+
+.card:hover {
+  border-color: rgba(99,102,241,.3);
+  box-shadow: 0 15px 40px rgba(0,0,0,.3);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 26px;
+  border-radius: 12px;
+  font-weight: 700; font-size: .9rem;
+  cursor: pointer; transition: var(--trans);
+  border: none;
+}
+
+.btn-primary {
+  background: var(--grad);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(99,102,241,.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(99,102,241,.45);
+  color: #fff;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid rgba(168,85,247,.4);
+  color: var(--text);
+}
+
+.btn-outline:hover {
+  background: rgba(168,85,247,.1);
+  border-color: var(--accent2);
+  transform: translateY(-3px);
+}
+
+/* ===========================
+   HOME SECTION
+   =========================== */
+#home { }
+
+.hero { min-height: calc(100vh - 62px); display: flex; align-items: center; }
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem;
+  align-items: center;
+  width: 100%;
+  padding: 2rem 0;
+}
+
+.status-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(30,41,59,.7);
+  border: 1px solid rgba(255,255,255,.1);
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: .82rem;
+  margin-bottom: 1.4rem;
+  backdrop-filter: blur(5px);
+}
+
+.pulse-dot {
+  width: 8px; height: 8px;
+  background: var(--green); border-radius: 50%;
+  box-shadow: 0 0 10px var(--green);
+  animation: pulse 2s infinite;
+}
+
+.hero-name {
+  font-size: 4rem; font-weight: 900;
+  line-height: 1.05; margin-bottom: .6rem;
+}
+
+.hero-role {
+  font-size: 1.25rem; color: var(--text2);
+  margin-bottom: 1.4rem;
+}
+
+.sec-text { color: var(--pink); font-weight: 700; }
+
+.hero-bio {
+  color: var(--text3); line-height: 1.8;
+  max-width: 560px; margin-bottom: 2rem; font-size: .95rem;
+}
+
+.stats-strip {
+  display: flex; align-items: center; gap: 25px;
+  background: rgba(255,255,255,.02);
+  border: 1px solid rgba(255,255,255,.05);
+  border-radius: 20px;
+  padding: 18px 28px;
+  width: fit-content;
+  margin-bottom: 2.2rem;
+  backdrop-filter: blur(6px);
+}
+
+.stat-v { font-size: 1.8rem; font-weight: 800; color: #fff; display: block; }
+.stat-l { font-size: .7rem; color: var(--text4); text-transform: uppercase; letter-spacing: 1.5px; }
+.stat-div { width: 1px; height: 36px; background: rgba(255,255,255,.1); }
+
+.cta-row { display: flex; gap: 15px; flex-wrap: wrap; }
+
+/* Avatar */
+.avatar-zone {
+  position: relative;
+  width: 300px; height: 300px;
+}
+
+.avatar-photo-ring {
+  width: 100%; height: 100%;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  overflow: hidden;
+  border: 3px solid rgba(99,102,241,.2);
+  animation: morph 8s ease-in-out infinite;
+  box-shadow: 0 0 50px rgba(99,102,241,.12);
+  position: relative; z-index: 5;
+}
+
+.avatar-photo-ring img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+.ring {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  border: 2px dashed rgba(139,92,246,.25);
+}
+
+.ring-1 { width: 120%; height: 120%; animation: spin 20s linear infinite; }
+.ring-2 { width: 145%; height: 145%; animation: spin 35s linear infinite reverse; }
+
+.fi {
+  position: absolute; z-index: 10;
+  width: 52px; height: 52px;
+  background: rgba(30,41,59,.95);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  backdrop-filter: blur(8px);
+  animation: float 4s ease-in-out infinite;
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+}
+
+.fi-1 { top: -8px; right: -8px; color: #0078d4; animation-delay: 0s; }
+.fi-2 { bottom: 18%; left: -28px; color: var(--pink); animation-delay: .8s; }
+.fi-3 { bottom: -8px; right: 22%; color: var(--gold); animation-delay: 1.6s; }
+
+.socials {
+  display: flex; gap: 10px;
+  margin-top: 1.4rem;
+  justify-content: center;
+}
+
+.social-btn {
+  width: 48px; height: 48px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 13px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text2); font-size: 1.25rem;
+  transition: var(--trans);
+}
+
+.social-btn:hover {
+  background: var(--blue);
+  color: #fff;
+  transform: translateY(-8px) rotate(6deg);
+  box-shadow: 0 12px 25px rgba(59,130,246,.3);
+}
+
+/* ===========================
+   ABOUT SECTION
+   =========================== */
+#about {}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 3rem;
+  align-items: start;
+}
+
+.about-text p {
+  color: var(--text3); line-height: 1.8; margin-bottom: 1rem;
+}
+
+.about-text strong { color: var(--text2); }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 28px; margin-top: 2rem; }
+
+.timeline::before {
+  content: '';
+  position: absolute; left: 7px; top: 8px; bottom: 8px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+}
+
+.tl-item { position: relative; margin-bottom: 28px; }
+
+.tl-dot {
+  position: absolute; left: -24px; top: 7px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(99,102,241,.4);
+  background: rgba(99,102,241,.15);
+}
+
+.tl-dot.now {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(99,102,241,.6);
+  animation: pulse 2.5s infinite;
+}
+
+.tl-box {
+  background: rgba(30,41,59,.5);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 16px;
+  padding: 18px 22px;
+  transition: var(--trans);
+}
+
+.tl-box:hover {
+  border-color: rgba(99,102,241,.28);
+  transform: translateX(5px);
+}
+
+.tl-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 10px; margin-bottom: 8px; flex-wrap: wrap;
+}
+
+.tl-job { font-weight: 700; font-size: 1rem; color: var(--text); }
+.tl-company { color: #818cf8; font-size: .85rem; font-weight: 600; margin-top: 2px; }
+
+.tl-period {
+  background: rgba(99,102,241,.1);
+  border: 1px solid rgba(99,102,241,.2);
+  color: var(--text3);
+  padding: 3px 11px;
+  border-radius: 50px;
+  font-size: .75rem; white-space: nowrap;
+}
+
+.tl-period.now { background: rgba(16,185,129,.1); border-color: rgba(16,185,129,.3); color: var(--green); }
+
+.tl-desc { color: var(--text3); font-size: .88rem; line-height: 1.65; }
+
+.tl-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+
+.tl-tag {
+  background: rgba(99,102,241,.08);
+  color: #818cf8;
+  border: 1px solid rgba(99,102,241,.18);
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: .7rem; font-weight: 600;
+}
+
+/* Stats sidebar */
+.about-sidebar {}
+
+.stats-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 1.5rem;
+}
+
+.stat-row { text-align: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.stat-row:last-child { border-bottom: none; }
+.stat-big { font-size: 2.2rem; font-weight: 800; color: var(--accent); }
+.stat-caption { font-size: .78rem; color: var(--text3); margin-top: 3px; }
+
+.info-list { display: flex; flex-direction: column; gap: 12px; }
+
+.info-item {
+  display: flex; align-items: center; gap: 12px;
+  background: rgba(30,41,59,.5);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 13px 16px;
+  transition: var(--trans);
+}
+
+.info-item:hover { border-color: rgba(99,102,241,.3); transform: translateX(5px); }
+
+.info-icon {
+  width: 40px; height: 40px; min-width: 40px;
+  background: rgba(99,102,241,.1);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: #818cf8; font-size: 1rem;
+}
+
+.info-label { font-size: .7rem; color: var(--text4); }
+.info-value { font-size: .88rem; color: var(--text2); font-weight: 500; }
+.info-value a { color: var(--text2); }
+.info-value a:hover { color: var(--accent); }
+
+/* ===========================
+   SKILLS SECTION
+   =========================== */
+#skills {}
+
+.skill-bar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 2.5rem; }
+
+.skill-bar-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px 20px;
+  transition: var(--trans);
+}
+
+.skill-bar-card:hover {
+  border-color: rgba(99,102,241,.3);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0,0,0,.3);
+}
+
+.skill-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.skill-icon-box {
+  width: 44px; height: 44px; min-width: 44px;
+  border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+}
+
+.skill-name-wrap { flex: 1; margin-left: 12px; }
+.skill-name { font-weight: 700; font-size: .95rem; }
+.skill-desc-sm { font-size: .72rem; color: var(--text4); margin-top: 2px; }
+
+.skill-pct {
+  font-size: .78rem; font-weight: 800;
+  padding: 3px 10px; border-radius: 20px;
+  background: rgba(255,255,255,.03);
+}
+
+.skill-bar-track {
+  height: 8px;
+  background: rgba(15,23,42,.8);
+  border-radius: 20px; overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%; border-radius: 20px;
+  transition: width 1.8s cubic-bezier(.22,1,.36,1);
+}
+
+/* Badge grid */
+.badge-title {
+  font-size: .72rem; font-weight: 700;
+  color: var(--accent); letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+
+.badge-wrap { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.tech-pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(15,23,42,.7);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  padding: 8px 16px;
+  font-size: .82rem; font-weight: 600; color: var(--text2);
+  transition: var(--trans);
+}
+
+.tech-pill:hover {
+  background: rgba(99,102,241,.1);
+  border-color: rgba(99,102,241,.3);
+  color: var(--text);
+  transform: translateY(-3px);
+}
+
+.tech-pill i { font-size: 1rem; }
+
+/* ===========================
+   PROJECTS SECTION
+   =========================== */
+#projects {}
+
+.projects-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+
+.proj-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 20px; overflow: hidden;
+  transition: var(--trans);
+  display: flex; flex-direction: column;
+}
+
+.proj-card:hover {
+  border-color: var(--blue);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(59,130,246,.18);
+}
+
+.proj-img { position: relative; height: 200px; background: #0b1120; overflow: hidden; }
+
+.proj-img img {
+  width: 100%; height: 100%;
+  object-fit: cover; opacity: .85;
+  transition: .5s;
+}
+
+.proj-card:hover .proj-img img { opacity: .3; transform: scale(1.06); }
+
+.proj-overlay {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  background: rgba(15,23,42,.5);
+  opacity: 0; transition: .3s;
+}
+
+.proj-card:hover .proj-overlay { opacity: 1; }
+
+.proj-link {
+  width: 46px; height: 46px;
+  background: var(--blue); color: #fff;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  transition: var(--trans);
+}
+
+.proj-link:hover { background: #fff; color: var(--blue); transform: scale(1.2); }
+
+.proj-body { padding: 1.4rem; flex: 1; display: flex; flex-direction: column; }
+.proj-title { font-size: 1.2rem; font-weight: 700; margin-bottom: .5rem; }
+.proj-desc { color: var(--text3); font-size: .88rem; line-height: 1.6; flex: 1; margin-bottom: 1rem; }
+
+.proj-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.proj-tag {
+  background: rgba(59,130,246,.1);
+  color: #60a5fa;
+  border: 1px solid rgba(59,130,246,.2);
+  padding: 3px 10px;
+  border-radius: 7px;
+  font-size: .7rem; font-weight: 600; text-transform: uppercase;
+}
+
+/* ===========================
+   SERVICES SECTION
+   =========================== */
+#services {}
+
+.services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.4rem; }
+
+.svc-card {
+  background: rgba(30,41,59,.6);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 32px 26px;
+  text-align: center;
+  transition: var(--trans);
+  position: relative;
+}
+
+.svc-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: var(--accent);
+  box-shadow: 0 20px 45px rgba(0,0,0,.4);
+}
+
+.svc-card.featured {
+  background: rgba(99,102,241,.1);
+  border: 2px solid var(--accent);
+}
+
+.featured-tag {
+  position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+  background: var(--accent);
+  padding: 5px 18px;
+  border-radius: 50px;
+  font-size: .7rem; font-weight: 800; letter-spacing: 1px; color: #fff;
+}
+
+.svc-icon { font-size: 3rem; margin-bottom: 1rem; transition: var(--trans); }
+.svc-card:hover .svc-icon { transform: scale(1.12); }
+.svc-title { font-size: 1.2rem; font-weight: 700; margin-bottom: .5rem; }
+.svc-price { margin: 1rem 0; }
+.svc-amount { font-size: 2.5rem; font-weight: 800; color: #fff; }
+.svc-currency { color: var(--accent); font-weight: 700; font-size: 1.2rem; vertical-align: top; line-height: 3; }
+.svc-period { color: var(--text4); }
+
+.svc-list { list-style: none; text-align: left; margin: 1.2rem 0; }
+.svc-list li { color: var(--text2); margin-bottom: 10px; font-size: .9rem; }
+.svc-list li i { color: var(--accent); margin-right: 8px; font-size: .8rem; }
+
+.svc-btn {
+  display: block; padding: 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  color: var(--text); font-weight: 700;
+  transition: var(--trans); cursor: pointer;
+}
+
+.svc-btn:hover { background: #fff; color: var(--bg2); }
+.svc-btn.svc-btn-accent { background: var(--accent); box-shadow: 0 8px 18px rgba(99,102,241,.3); }
+.svc-btn.svc-btn-accent:hover { background: #4f46e5; color: #fff; }
+
+/* ===========================
+   CONTACT SECTION
+   =========================== */
+#contact {}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.contact-info { display: flex; flex-direction: column; gap: 14px; }
+
+.contact-card {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(30,41,59,.5);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+  transition: var(--trans);
+}
+
+.contact-card:hover { border-color: rgba(99,102,241,.3); transform: translateX(8px); }
+
+.c-icon {
+  width: 48px; height: 48px; min-width: 48px;
+  background: rgba(99,102,241,.1);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  color: #818cf8; font-size: 1.2rem;
+}
+
+.c-label { font-size: .72rem; color: var(--text4); margin-bottom: 2px; }
+.c-value { font-size: .9rem; color: var(--text2); font-weight: 500; }
+.c-value a { color: var(--text2); }
+.c-value a:hover { color: var(--accent); }
+
+.social-list { display: flex; gap: 10px; margin-top: .5rem; }
+
+.social-pill {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(30,41,59,.5);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 9px 15px;
+  color: var(--text2); font-size: .85rem;
+  transition: var(--trans);
+}
+
+.social-pill:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* Contact Form */
+.contact-form-card {
+  background: rgba(30,41,59,.4);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 36px;
+  backdrop-filter: blur(10px);
+}
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+.form-group { margin-bottom: 1.2rem; }
+.form-group:last-child { margin-bottom: 0; }
+
+.form-label { display: block; font-size: .82rem; font-weight: 600; color: var(--text2); margin-bottom: 7px; }
+
+.form-input, .form-textarea {
+  width: 100%;
+  background: rgba(15,23,42,.6);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 11px;
+  padding: 12px 15px;
+  color: var(--text); font-family: inherit; font-size: .9rem;
+  transition: var(--trans);
+  outline: none;
+}
+
+.form-input:focus, .form-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(99,102,241,.12);
+}
+
+.form-textarea { resize: vertical; min-height: 130px; }
+
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px; border: none;
+  background: var(--grad);
+  color: #fff; font-weight: 700; font-size: .95rem;
+  cursor: pointer; transition: var(--trans);
+  box-shadow: 0 4px 20px rgba(99,102,241,.3);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+
+.submit-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(99,102,241,.45); }
+
+.form-success {
+  display: none;
+  background: rgba(16,185,129,.1);
+  border: 1px solid var(--green);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 1.5rem;
+  color: var(--green);
+  align-items: center; gap: 12px;
+}
+
+.form-success.show { display: flex; animation: fadeUp .4s ease; }
+
+/* ===========================
+   BACK TO TOP
+   =========================== */
+.back-top {
+  position: fixed; bottom: 28px; right: 28px;
+  width: 46px; height: 46px;
+  background: var(--grad);
+  border: none; border-radius: 13px;
+  color: #fff; font-size: 1rem;
+  cursor: pointer;
+  opacity: 0; pointer-events: none;
+  transition: var(--trans);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 20px rgba(99,102,241,.35);
+  z-index: 300;
+}
+
+.back-top.show { opacity: 1; pointer-events: all; }
+.back-top:hover { transform: translateY(-4px); box-shadow: 0 12px 25px rgba(99,102,241,.5); }
+
+/* ===========================
+   KEYFRAMES
+   =========================== */
+@keyframes morph {
+  0%,100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+  50%      { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
+}
+
+@keyframes spin {
+  from { transform: translate(-50%,-50%) rotate(0deg); }
+  to   { transform: translate(-50%,-50%) rotate(360deg); }
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-16px); }
+}
+
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%     { opacity:.5; transform:scale(1.3); }
+}
+
+/* ===========================
+   MOBILE OVERLAY & TOGGLE
+   =========================== */
+.overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.6);
+  z-index: 150;
+  backdrop-filter: blur(2px);
+}
+
+/* ===========================
+   RESPONSIVE
+   =========================== */
+@media (max-width: 1100px) {
+  .projects-grid, .services-grid { grid-template-columns: repeat(2,1fr); }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-sidebar { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+}
+
+@media (max-width: 900px) {
+  :root { --sidebar-w: 0px; }
+  .sidebar { transform: translateX(-270px); width: 270px; }
+  .sidebar.open { transform: translateX(0); }
+  .overlay { display: block; }
+  .overlay.show { display: block; }
+  .main { margin-left: 0; }
+  .hero-inner { grid-template-columns: 1fr; text-align: center; }
+  .avatar-zone { margin: 0 auto; }
+  .stats-strip, .cta-row, .socials { justify-content: center; }
+  .section-sub { margin: 0 auto 2.5rem; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .skill-bar-grid { grid-template-columns: 1fr; }
+  .hero-name { font-size: 2.8rem; }
+  .section-title { font-size: 2rem; }
+}
+
+@media (max-width: 600px) {
+  .page-inner { padding: 1.5rem; }
+  .projects-grid, .services-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .about-sidebar { grid-template-columns: 1fr; }
+  .hero-name { font-size: 2.2rem; }
+  .topbar { padding: 0 1.4rem; }
+}
+</style>
+</head>
+
+<body>
+<div class="layout">
+
+  <!-- ==================== SIDEBAR ==================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="brand">
+        <div class="logo">SM</div>
+        <div class="brand-info">
+          <span class="brand-name">SAMANDAR</span>
+          <div class="online-badge">
+            <span class="online-dot"></span> ONLINE
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav-section">
+      <p class="nav-label">Asosiy Menyu</p>
+
+      <a class="nav-link active" data-section="home" onclick="showSection('home',this)">
+        <div class="nav-icon"><i class="fas fa-th-large"></i></div>
+        <div class="nav-text">
+          <span class="nav-title">Bosh Sahifa</span>
+          <span class="nav-sub">Overview</span>
+        </div>
+      </a>
+
+      <a class="nav-link" data-section="about" onclick="showSection('about',this)">
+        <div class="nav-icon"><i class="fas fa-user-astronaut"></i></div>
+        <div class="nav-text">
+          <span class="nav-title">Men Haqimda</span>
+          <span class="nav-sub">Bio & Tajriba</span>
+        </div>
+      </a>
+
+      <a class="nav-link" data-section="skills" onclick="showSection('skills',this)">
+        <div class="nav-icon"><i class="fas fa-microchip"></i></div>
+        <div class="nav-text">
+          <span class="nav-title">Ko'nikmalar</span>
+          <span class="nav-sub">Tech Stack</span>
+        </div>
+      </a>
+
+      <a class="nav-link" data-section="projects" onclick="showSection('projects',this)">
+        <div class="nav-icon"><i class="fas fa-code-branch"></i></div>
+        <div class="nav-text">
+          <span class="nav-title">Loyihalar</span>
+          <span class="nav-sub">Portfolio</span>
+        </div>
+      </a>
+
+      <a class="nav-link" data-section="services" onclick="showSection('services',this)">
+        <div class="nav-icon"><i class="fas fa-handshake"></i></div>
+        <div class="nav-text">
+          <span class="nav-title">Xizmatlar</span>
+          <span class="nav-sub">Solutions</span>
+        </div>
+      </a>
+
+      <a class="nav-link" data-section="contact" onclick="showSection('contact',this)">
+        <div class="nav-icon"><i class="fas fa-satellite-dish"></i></div>
+        <div class="nav-text">
+          <span class="nav-title">Aloqa</span>
+          <span class="nav-sub">Bog'lanish</span>
+        </div>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="security-badge">
+        <i class="fas fa-lock"></i>
+        <span>AES-256 Encrypted</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Mobile overlay -->
+  <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+  <!-- ==================== MAIN ==================== -->
+  <main class="main">
+
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="breadcrumb">System / <span id="breadcrumb-title">Dashboard</span></div>
+      </div>
+      <div class="topbar-right">
+        <button class="top-btn" title="CV yuklab olish" onclick="downloadCV()">
+          <i class="fas fa-file-download"></i>
+        </button>
+        <div class="avatar-top" title="Samandar Mamasoatov">SM</div>
+      </div>
+    </header>
+
+    <!-- ==================== PAGE CONTENT ==================== -->
+    <div class="page-inner">
+
+      <!-- ========== HOME ========== -->
+      <section id="home" class="active">
+        <div class="hero">
+          <div class="hero-inner">
+            <div class="hero-left">
+              <div class="status-pill">
+                <span class="pulse-dot"></span>
+                Online — loyihalar uchun ochiq
+              </div>
+
+              <h1 class="hero-name">
+                Salom, men <br />
+                <span class="grad-text">Samandar Mamasoatov</span>
+              </h1>
+
+              <p class="hero-role">
+                <i class="fas fa-user-shield" style="color:var(--blue);margin-right:8px;"></i>
+                .NET Backend Muhandisi &amp; <span class="sec-text">Security Researcher</span>
+              </p>
+
+              <p class="hero-bio">
+                Men <strong>C# / .NET</strong> ekotizimida yuqori yuklamalarga chidamli tizimlar quraman.
+                Mening yondashuvim: <strong>Kod faqat ishlashi emas, balki buzilmas bo'lishi kerak.</strong>
+                Har bir arxitekturani kiberxavfsizlik prizmasidan o'tkazaman.
+              </p>
+
+              <div class="stats-strip">
+                <div>
+                  <span class="stat-v">2+</span>
+                  <span class="stat-l">Yillik Tajriba</span>
+                </div>
+                <div class="stat-div"></div>
+                <div>
+                  <span class="stat-v">15+</span>
+                  <span class="stat-l">Loyihalar</span>
+                </div>
+                <div class="stat-div"></div>
+                <div>
+                  <span class="stat-v">10+</span>
+                  <span class="stat-l">Mijozlar</span>
+                </div>
+              </div>
+
+              <div class="cta-row">
+                <button class="btn btn-primary" onclick="showSection('projects', document.querySelector('[data-section=projects]'))">
+                  <i class="fas fa-code"></i> PORTFOLIO
+                </button>
+                <button class="btn btn-outline" onclick="showSection('contact', document.querySelector('[data-section=contact]'))">
+                  <i class="fas fa-envelope"></i> BOG'LANISH
+                </button>
+              </div>
+            </div>
+
+            <div class="hero-right" style="text-align:center;">
+              <div class="avatar-zone">
+                <div class="ring ring-1"></div>
+                <div class="ring ring-2"></div>
+                <div class="avatar-photo-ring">
+                  <img src="images/my-photo.jpg" alt="Samandar Mamasoatov"
+                    onerror="this.src='https://ui-avatars.com/api/?name=Samandar+Mamasoatov&background=6366f1&color=fff&size=512'" />
+                </div>
+                <div class="fi fi-1" title=".NET"><i class="fab fa-microsoft"></i></div>
+                <div class="fi fi-2" title="Security"><i class="fas fa-shield-alt"></i></div>
+                <div class="fi fi-3" title="Database"><i class="fas fa-database"></i></div>
+              </div>
+
+              <div class="socials">
+                <a class="social-btn" href="https://github.com/SamandarHijiakbarovich" target="_blank" rel="noopener" title="GitHub">
+                  <i class="fab fa-github"></i>
+                </a>
+                <a class="social-btn" href="https://linkedin.com/in/samandar" target="_blank" rel="noopener" title="LinkedIn">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a class="social-btn" href="https://t.me/LinuxInstructor" target="_blank" rel="noopener" title="Telegram">
+                  <i class="fab fa-telegram-plane"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== ABOUT ========== -->
+      <section id="about">
+        <div class="section-badge"><i class="fas fa-user-shield"></i> BIO</div>
+        <h2 class="section-title">Men <span class="grad-text">Haqimda</span></h2>
+        <div class="divider"></div>
+
+        <div class="about-grid">
+          <div class="about-text">
+            <p>
+              Men <strong>Samandar Mamasoatov</strong> — .NET ekotizimida ixtisoslashgan Backend Muhandisi va
+              Security Researcher. Backend muhandisligi va Kiberxavfsizlik chorrahasida innovatsion yechimlar
+              yarataman.
+            </p>
+            <p>
+              Men faqat kod yozmayman, men <strong>xavfsiz raqamli infratuzilmalar</strong> quraman.
+              ASP.NET Core yordamida yuqori yuklamali mikroservislar, Clean Architecture asosida
+              toza va kengaytiriladigan tizimlar loyihalash — mening kuchli tomonim.
+            </p>
+            <p>
+              Har bir proyektda OWASP standartlariga amal qilaman: JWT xavfsizligi, SQL Injection
+              himoyasi, Rate Limiting va shifrlash — bular majburiy element, ixtiyoriy emas.
+            </p>
+
+            <!-- TIMELINE -->
+            <h3 style="margin-top:2rem;margin-bottom:1.2rem;font-size:1rem;font-weight:700;
+                        color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;">
+              <i class="fas fa-briefcase me-2" style="margin-right:8px;"></i> Ish Tajribasi
+            </h3>
+
+            <div class="timeline">
+
+              <div class="tl-item">
+                <div class="tl-dot now"></div>
+                <div class="tl-box">
+                  <div class="tl-top">
+                    <div>
+                      <div class="tl-job">Backend Dasturchi</div>
+                      <div class="tl-company">EduProctor</div>
+                    </div>
+                    <span class="tl-period now">2025 — Hozir</span>
+                  </div>
+                  <p class="tl-desc">AI asosida onlayn imtihon nazorat tizimining backend qismini yaratish.
+                    SignalR orqali real-vaqt monitoring, yuz tanish API integratsiyasi va JWT autentifikatsiya.</p>
+                  <div class="tl-tags">
+                    <span class="tl-tag">ASP.NET Core</span>
+                    <span class="tl-tag">SignalR</span>
+                    <span class="tl-tag">EF Core</span>
+                    <span class="tl-tag">PostgreSQL</span>
+                    <span class="tl-tag">JWT</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot now"></div>
+                <div class="tl-box">
+                  <div class="tl-top">
+                    <div>
+                      <div class="tl-job">.NET Backend Dasturchi</div>
+                      <div class="tl-company">TATU Inkubatsiya Markazi</div>
+                    </div>
+                    <span class="tl-period now">2025 — Hozir</span>
+                  </div>
+                  <p class="tl-desc">Startap loyihalar uchun backend API ishlab chiqish, xavfsizlik auditi
+                    va Clean Architecture bo'yicha mentorlik.</p>
+                  <div class="tl-tags">
+                    <span class="tl-tag">C#</span>
+                    <span class="tl-tag">Clean Architecture</span>
+                    <span class="tl-tag">Docker</span>
+                    <span class="tl-tag">SQL Server</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tl-item">
+                <div class="tl-dot"></div>
+                <div class="tl-box">
+                  <div class="tl-top">
+                    <div>
+                      <div class="tl-job">Junior .NET Dasturchi</div>
+                      <div class="tl-company">LiderBooks</div>
+                    </div>
+                    <span class="tl-period">2024 — 2025</span>
+                  </div>
+                  <p class="tl-desc">Kitob savdosi platformasining e-commerce backend tizimini yaratish.
+                    To'lov integratsiyasi, mahsulot katalogi API va foydalanuvchi autentifikatsiyasi.</p>
+                  <div class="tl-tags">
+                    <span class="tl-tag">ASP.NET Core</span>
+                    <span class="tl-tag">EF Core</span>
+                    <span class="tl-tag">Redis</span>
+                    <span class="tl-tag">SQL Server</span>
+                    <span class="tl-tag">LINQ</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <div class="about-sidebar">
+            <div class="stats-card">
+              <div class="stat-row">
+                <div class="stat-big">2+</div>
+                <div class="stat-caption">Yillik Tajriba</div>
+              </div>
+              <div class="stat-row">
+                <div class="stat-big">15+</div>
+                <div class="stat-caption">Xavfsiz Loyihalar</div>
+              </div>
+              <div class="stat-row">
+                <div class="stat-big">100%</div>
+                <div class="stat-caption">Tizim Barqarorligi</div>
+              </div>
+            </div>
+
+            <div class="info-list">
+              <div class="info-item">
+                <div class="info-icon"><i class="fas fa-at"></i></div>
+                <div>
+                  <div class="info-label">Email</div>
+                  <div class="info-value">
+                    <a href="mailto:mamasoatovsamandar@gmail.com">mamasoatovsamandar<br/>@gmail.com</a>
+                  </div>
+                </div>
+              </div>
+              <div class="info-item">
+                <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+                <div>
+                  <div class="info-label">Telefon</div>
+                  <div class="info-value"><a href="tel:+998901234567">+998 90 123 45 67</a></div>
+                </div>
+              </div>
+              <div class="info-item">
+                <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div>
+                  <div class="info-label">Manzil</div>
+                  <div class="info-value">Toshkent, O'zbekiston</div>
+                </div>
+              </div>
+              <div class="info-item">
+                <div class="info-icon"><i class="fab fa-telegram-plane"></i></div>
+                <div>
+                  <div class="info-label">Telegram</div>
+                  <div class="info-value">
+                    <a href="https://t.me/LinuxInstructor" target="_blank">@LinuxInstructor</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:1.4rem;">
+              <a href="files/SamandarResume.pdf" download class="btn btn-primary" style="width:100%;justify-content:center;">
+                <i class="fas fa-file-download"></i> CV YUKLAB OLISH
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== SKILLS ========== -->
+      <section id="skills">
+        <div class="section-badge"><i class="fas fa-microchip"></i> TECH STACK</div>
+        <h2 class="section-title">Texnik <span class="grad-text">Ko'nikmalar</span></h2>
+        <div class="divider"></div>
+
+        <!-- Progress Bars -->
+        <div class="skill-bar-grid">
+
+          <div class="skill-bar-card">
+            <div class="skill-head">
+              <div class="skill-icon-box" style="background:#3b82f620;border:1px solid #3b82f6;">
+                <i class="fab fa-microsoft" style="color:#3b82f6;"></i>
+              </div>
+              <div class="skill-name-wrap">
+                <div class="skill-name">C# / ASP.NET Core</div>
+                <div class="skill-desc-sm">Web API, Middleware, DI, Background Services</div>
+              </div>
+              <span class="skill-pct" style="color:#3b82f6;border:1px solid #3b82f6;">95%</span>
+            </div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" style="width:95%;background:linear-gradient(90deg,#3b82f6,#60a5fa);box-shadow:0 0 10px #3b82f6;"></div>
+            </div>
+          </div>
+
+          <div class="skill-bar-card">
+            <div class="skill-head">
+              <div class="skill-icon-box" style="background:#10b98120;border:1px solid #10b981;">
+                <i class="fas fa-database" style="color:#10b981;"></i>
+              </div>
+              <div class="skill-name-wrap">
+                <div class="skill-name">EF Core &amp; LINQ</div>
+                <div class="skill-desc-sm">Migrations, Query Optimization, Relationships</div>
+              </div>
+              <span class="skill-pct" style="color:#10b981;border:1px solid #10b981;">88%</span>
+            </div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" style="width:88%;background:linear-gradient(90deg,#10b981,#34d399);box-shadow:0 0 10px #10b981;"></div>
+            </div>
+          </div>
+
+          <div class="skill-bar-card">
+            <div class="skill-head">
+              <div class="skill-icon-box" style="background:#f59e0b20;border:1px solid #f59e0b;">
+                <i class="fas fa-server" style="color:#f59e0b;"></i>
+              </div>
+              <div class="skill-name-wrap">
+                <div class="skill-name">SQL Server / PostgreSQL</div>
+                <div class="skill-desc-sm">Schema Design, Stored Procs, Indexing</div>
+              </div>
+              <span class="skill-pct" style="color:#f59e0b;border:1px solid #f59e0b;">87%</span>
+            </div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" style="width:87%;background:linear-gradient(90deg,#f59e0b,#fbbf24);box-shadow:0 0 10px #f59e0b;"></div>
+            </div>
+          </div>
+
+          <div class="skill-bar-card">
+            <div class="skill-head">
+              <div class="skill-icon-box" style="background:#8b5cf620;border:1px solid #8b5cf6;">
+                <i class="fas fa-broadcast-tower" style="color:#8b5cf6;"></i>
+              </div>
+              <div class="skill-name-wrap">
+                <div class="skill-name">SignalR / Realtime</div>
+                <div class="skill-desc-sm">WebSocket Hubs, Groups, Notifications</div>
+              </div>
+              <span class="skill-pct" style="color:#8b5cf6;border:1px solid #8b5cf6;">82%</span>
+            </div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" style="width:82%;background:linear-gradient(90deg,#8b5cf6,#a78bfa);box-shadow:0 0 10px #8b5cf6;"></div>
+            </div>
+          </div>
+
+          <div class="skill-bar-card">
+            <div class="skill-head">
+              <div class="skill-icon-box" style="background:#ef444420;border:1px solid #ef4444;">
+                <i class="fas fa-shield-alt" style="color:#ef4444;"></i>
+              </div>
+              <div class="skill-name-wrap">
+                <div class="skill-name">JWT / OAuth2 / Security</div>
+                <div class="skill-desc-sm">Identity, RBAC, OWASP Top 10, Encryption</div>
+              </div>
+              <span class="skill-pct" style="color:#ef4444;border:1px solid #ef4444;">90%</span>
+            </div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" style="width:90%;background:linear-gradient(90deg,#ef4444,#f87171);box-shadow:0 0 10px #ef4444;"></div>
+            </div>
+          </div>
+
+          <div class="skill-bar-card">
+            <div class="skill-head">
+              <div class="skill-icon-box" style="background:#0ea5e920;border:1px solid #0ea5e9;">
+                <i class="fab fa-docker" style="color:#0ea5e9;"></i>
+              </div>
+              <div class="skill-name-wrap">
+                <div class="skill-name">Docker &amp; DevOps</div>
+                <div class="skill-desc-sm">Containerization, CI/CD, Linux Server</div>
+              </div>
+              <span class="skill-pct" style="color:#0ea5e9;border:1px solid #0ea5e9;">75%</span>
+            </div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" style="width:75%;background:linear-gradient(90deg,#0ea5e9,#38bdf8);box-shadow:0 0 10px #0ea5e9;"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Tech Badges -->
+        <div class="card" style="padding:28px 30px;">
+          <div class="badge-title">Barcha Texnologiyalar</div>
+          <div class="badge-wrap">
+            <span class="tech-pill"><i class="fab fa-microsoft" style="color:#3b82f6;"></i> C#</span>
+            <span class="tech-pill"><i class="fas fa-code" style="color:#6366f1;"></i> ASP.NET Core</span>
+            <span class="tech-pill"><i class="fas fa-layer-group" style="color:#10b981;"></i> EF Core</span>
+            <span class="tech-pill"><i class="fas fa-filter" style="color:#06b6d4;"></i> LINQ</span>
+            <span class="tech-pill"><i class="fas fa-sitemap" style="color:#8b5cf6;"></i> Clean Architecture</span>
+            <span class="tech-pill"><i class="fas fa-database" style="color:#3b82f6;"></i> PostgreSQL</span>
+            <span class="tech-pill"><i class="fas fa-database" style="color:#e11d48;"></i> SQL Server</span>
+            <span class="tech-pill"><i class="fas fa-bolt" style="color:#ef4444;"></i> Redis</span>
+            <span class="tech-pill"><i class="fas fa-wifi" style="color:#f59e0b;"></i> SignalR</span>
+            <span class="tech-pill"><i class="fas fa-key" style="color:#10b981;"></i> JWT</span>
+            <span class="tech-pill"><i class="fab fa-docker" style="color:#0ea5e9;"></i> Docker</span>
+            <span class="tech-pill"><i class="fab fa-git-alt" style="color:#f97316;"></i> Git</span>
+            <span class="tech-pill"><i class="fas fa-vial" style="color:#a855f7;"></i> xUnit</span>
+            <span class="tech-pill"><i class="fas fa-book" style="color:#22c55e;"></i> Swagger</span>
+            <span class="tech-pill"><i class="fab fa-linux" style="color:#eab308;"></i> Linux</span>
+            <span class="tech-pill"><i class="fas fa-shield-alt" style="color:#ef4444;"></i> OWASP</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== PROJECTS ========== -->
+      <section id="projects">
+        <div class="section-badge"><i class="fas fa-code-branch"></i> PORTFOLIO</div>
+        <h2 class="section-title">Mening <span class="grad-text">Loyihalarim</span></h2>
+        <p class="section-sub">.NET ekotizimida yaratilgan real va ishlab turgan loyihalar</p>
+        <div class="divider"></div>
+
+        <div class="projects-grid">
+
+          <div class="proj-card">
+            <div class="proj-img">
+              <img src="images/OIP.webp" alt="EduProctor"
+                onerror="this.src='https://placehold.co/400x200/1e293b/6366f1?text=EduProctor'" />
+              <div class="proj-overlay">
+                <a class="proj-link" href="https://github.com/SamandarHijiakbarovich" target="_blank" rel="noopener">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+            </div>
+            <div class="proj-body">
+              <h4 class="proj-title">EduProctor</h4>
+              <p class="proj-desc">AI asosida ishlovchi onlayn imtihon nazorat tizimi. Real vaqtda yuz tanish, xatti-harakat tahlili va SignalR monitoring.</p>
+              <div class="proj-tags">
+                <span class="proj-tag">ASP.NET Core</span>
+                <span class="proj-tag">SignalR</span>
+                <span class="proj-tag">EF Core</span>
+                <span class="proj-tag">PostgreSQL</span>
+                <span class="proj-tag">JWT</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="proj-card">
+            <div class="proj-img">
+              <img src="images/API.webp" alt="LiderBooks"
+                onerror="this.src='https://placehold.co/400x200/1e293b/3b82f6?text=LiderBooks'" />
+              <div class="proj-overlay">
+                <a class="proj-link" href="https://github.com/SamandarHijiakbarovich" target="_blank" rel="noopener">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+            </div>
+            <div class="proj-body">
+              <h4 class="proj-title">LiderBooks</h4>
+              <p class="proj-desc">Kitob savdosi uchun to'liq e-commerce platformasi. Mahsulot katalogi, savat tizimi, to'lov integratsiyasi va Redis kesh.</p>
+              <div class="proj-tags">
+                <span class="proj-tag">ASP.NET Core</span>
+                <span class="proj-tag">EF Core</span>
+                <span class="proj-tag">SQL Server</span>
+                <span class="proj-tag">Redis</span>
+                <span class="proj-tag">LINQ</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="proj-card">
+            <div class="proj-img">
+              <img src="images/Darmon.jpg" alt="Darmon Dorixona"
+                onerror="this.src='https://placehold.co/400x200/1e293b/10b981?text=Darmon'" />
+              <div class="proj-overlay">
+                <a class="proj-link" href="https://github.com/SamandarHijiakbarovich/Darmon" target="_blank" rel="noopener">
+                  <i class="fab fa-github"></i>
+                </a>
+              </div>
+            </div>
+            <div class="proj-body">
+              <h4 class="proj-title">Darmon Dorixona</h4>
+              <p class="proj-desc">Dorixona uchun raqamli to'lov va buyurtma tizimi. Click/Payme integratsiyasi va rol asosidagi kirish boshqaruvi.</p>
+              <div class="proj-tags">
+                <span class="proj-tag">ASP.NET Core</span>
+                <span class="proj-tag">EF Core</span>
+                <span class="proj-tag">PostgreSQL</span>
+                <span class="proj-tag">Click API</span>
+                <span class="proj-tag">xUnit</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ========== SERVICES ========== -->
+      <section id="services">
+        <div class="section-badge"><i class="fas fa-handshake"></i> XIZMATLAR</div>
+        <h2 class="section-title">Biznesingiz uchun <span class="grad-text">Yechimlar</span></h2>
+        <p class="section-sub">Backend tizimlardan DevOps va xavfsizlik auditgacha — professional darajada</p>
+        <div class="divider"></div>
+
+        <div class="services-grid">
+
+          <div class="svc-card">
+            <div class="svc-icon" style="color:#3b82f6;"><i class="fas fa-server"></i></div>
+            <h3 class="svc-title">Backend Development</h3>
+            <div class="svc-price">
+              <span class="svc-currency">$</span><span class="svc-amount">200</span><span class="svc-period">/dan</span>
+            </div>
+            <ul class="svc-list">
+              <li><i class="fas fa-check-circle"></i> ASP.NET Core REST API</li>
+              <li><i class="fas fa-check-circle"></i> SQL Server / PostgreSQL</li>
+              <li><i class="fas fa-check-circle"></i> Clean Architecture</li>
+              <li><i class="fas fa-check-circle"></i> JWT &amp; Identity Security</li>
+            </ul>
+            <a href="#" class="svc-btn" onclick="showSection('contact',document.querySelector('[data-section=contact]'))">Buyurtma berish</a>
+          </div>
+
+          <div class="svc-card featured">
+            <div class="featured-tag">MASHHUR</div>
+            <div class="svc-icon" style="color:#a855f7;"><i class="fas fa-bezier-curve"></i></div>
+            <h3 class="svc-title">Full-Stack &amp; Blazor</h3>
+            <div class="svc-price">
+              <span class="svc-currency">$</span><span class="svc-amount">500</span><span class="svc-period">/dan</span>
+            </div>
+            <ul class="svc-list">
+              <li><i class="fas fa-check-circle"></i> Full-stack (Blazor + .NET)</li>
+              <li><i class="fas fa-check-circle"></i> Admin Panel &amp; CRM</li>
+              <li><i class="fas fa-check-circle"></i> SignalR Real-time</li>
+              <li><i class="fas fa-check-circle"></i> Server Deploy</li>
+            </ul>
+            <a href="#" class="svc-btn svc-btn-accent" onclick="showSection('contact',document.querySelector('[data-section=contact]'))">Loyiha boshlash</a>
+          </div>
+
+          <div class="svc-card">
+            <div class="svc-icon" style="color:#0ea5e9;"><i class="fab fa-docker"></i></div>
+            <h3 class="svc-title">DevOps &amp; Cloud</h3>
+            <div class="svc-price">
+              <span class="svc-currency">$</span><span class="svc-amount">250</span><span class="svc-period">/dan</span>
+            </div>
+            <ul class="svc-list">
+              <li><i class="fas fa-check-circle"></i> Docker &amp; Containerization</li>
+              <li><i class="fas fa-check-circle"></i> CI/CD Pipeline</li>
+              <li><i class="fas fa-check-circle"></i> Linux Server sozlash</li>
+              <li><i class="fas fa-check-circle"></i> Monitoring &amp; Logging</li>
+            </ul>
+            <a href="#" class="svc-btn" onclick="showSection('contact',document.querySelector('[data-section=contact]'))">Xizmatni so'rash</a>
+          </div>
+
+          <div class="svc-card">
+            <div class="svc-icon" style="color:#ef4444;"><i class="fas fa-user-shield"></i></div>
+            <h3 class="svc-title">Cyber Security</h3>
+            <div class="svc-price">
+              <span class="svc-currency">$</span><span class="svc-amount">150</span><span class="svc-period">/dan</span>
+            </div>
+            <ul class="svc-list">
+              <li><i class="fas fa-check-circle"></i> Pentesting &amp; Scanning</li>
+              <li><i class="fas fa-check-circle"></i> Kod xavfsizligi auditi</li>
+              <li><i class="fas fa-check-circle"></i> OWASP Top 10 tekshiruv</li>
+              <li><i class="fas fa-check-circle"></i> Zaifliklarni bartaraf etish</li>
+            </ul>
+            <a href="#" class="svc-btn" onclick="showSection('contact',document.querySelector('[data-section=contact]'))">Tekshirish</a>
+          </div>
+
+          <div class="svc-card">
+            <div class="svc-icon" style="color:#22c55e;"><i class="fas fa-vial"></i></div>
+            <h3 class="svc-title">Testing &amp; QA</h3>
+            <div class="svc-price">
+              <span class="svc-currency">$</span><span class="svc-amount">100</span><span class="svc-period">/dan</span>
+            </div>
+            <ul class="svc-list">
+              <li><i class="fas fa-check-circle"></i> xUnit Unit Tests</li>
+              <li><i class="fas fa-check-circle"></i> Integration Testing</li>
+              <li><i class="fas fa-check-circle"></i> API Testing (Postman)</li>
+              <li><i class="fas fa-check-circle"></i> Performance Testing</li>
+            </ul>
+            <a href="#" class="svc-btn" onclick="showSection('contact',document.querySelector('[data-section=contact]'))">Buyurtma</a>
+          </div>
+
+          <div class="svc-card">
+            <div class="svc-icon" style="color:#f59e0b;"><i class="fas fa-graduation-cap"></i></div>
+            <h3 class="svc-title">Mentorlik</h3>
+            <div class="svc-price">
+              <span class="svc-currency">$</span><span class="svc-amount">50</span><span class="svc-period">/soat</span>
+            </div>
+            <ul class="svc-list">
+              <li><i class="fas fa-check-circle"></i> .NET / C# o'rgatish</li>
+              <li><i class="fas fa-check-circle"></i> Clean Architecture</li>
+              <li><i class="fas fa-check-circle"></i> Kod review</li>
+              <li><i class="fas fa-check-circle"></i> Karyera maslahat</li>
+            </ul>
+            <a href="#" class="svc-btn" onclick="showSection('contact',document.querySelector('[data-section=contact]'))">Dars olish</a>
+          </div>
+
+        </div>
+
+        <p style="text-align:center;color:var(--text4);margin-top:2rem;font-style:italic;font-size:.9rem;">
+          <i class="fas fa-info-circle" style="margin-right:6px;"></i>
+          Narxlar loyiha murakkabligiga ko'ra kelishiladi. Birinchi konsultatsiya — <strong style="color:var(--green);">bepul!</strong>
+        </p>
+      </section>
+
+      <!-- ========== CONTACT ========== -->
+      <section id="contact">
+        <div class="section-badge"><i class="fas fa-satellite-dish"></i> ALOQA</div>
+        <h2 class="section-title">Men bilan <span class="grad-text">Bog'laning</span></h2>
+        <p class="section-sub">Loyiha takliflari, hamkorlik yoki xavfsizlik bo'yicha savollar bormi?</p>
+        <div class="divider"></div>
+
+        <div class="contact-grid">
+
+          <!-- Info -->
+          <div>
+            <div class="contact-info">
+              <div class="contact-card">
+                <div class="c-icon"><i class="fas fa-at"></i></div>
+                <div>
+                  <div class="c-label">Email</div>
+                  <div class="c-value">
+                    <a href="mailto:mamasoatovsamandar@gmail.com">mamasoatovsamandar@gmail.com</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="contact-card">
+                <div class="c-icon"><i class="fas fa-phone-alt"></i></div>
+                <div>
+                  <div class="c-label">Telefon</div>
+                  <div class="c-value"><a href="tel:+998901234567">+998 90 123 45 67</a></div>
+                </div>
+              </div>
+
+              <div class="contact-card">
+                <div class="c-icon"><i class="fab fa-telegram-plane"></i></div>
+                <div>
+                  <div class="c-label">Telegram</div>
+                  <div class="c-value">
+                    <a href="https://t.me/LinuxInstructor" target="_blank" rel="noopener">@LinuxInstructor</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="contact-card">
+                <div class="c-icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div>
+                  <div class="c-label">Manzil</div>
+                  <div class="c-value">Toshkent, O'zbekiston</div>
+                </div>
+              </div>
+
+              <div class="contact-card">
+                <div class="c-icon"><i class="fas fa-clock"></i></div>
+                <div>
+                  <div class="c-label">Ish vaqti</div>
+                  <div class="c-value">Du–Ju: 09:00–18:00 (UTC+5)</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="social-list" style="margin-top:1.4rem;">
+              <a class="social-pill" href="https://github.com/SamandarHijiakbarovich" target="_blank" rel="noopener">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+              <a class="social-pill" href="https://linkedin.com/in/samandar" target="_blank" rel="noopener">
+                <i class="fab fa-linkedin"></i> LinkedIn
+              </a>
+              <a class="social-pill" href="https://t.me/LinuxInstructor" target="_blank" rel="noopener">
+                <i class="fab fa-telegram-plane"></i> Telegram
+              </a>
+            </div>
+          </div>
+
+          <!-- Form -->
+          <div class="contact-form-card">
+            <div class="form-success" id="form-success">
+              <i class="fas fa-check-circle" style="font-size:1.4rem;color:var(--green);"></i>
+              <div>
+                <strong>Xabar yuborildi!</strong>
+                <p style="font-size:.85rem;color:var(--text3);margin-top:3px;">
+                  Tez orada siz bilan bog'lanaman.
+                </p>
+              </div>
+            </div>
+
+            <form id="contact-form" onsubmit="submitForm(event)">
+              <div class="form-row">
+                <div>
+                  <label class="form-label">Ismingiz</label>
+                  <input class="form-input" type="text" placeholder="Sardor..." required />
+                </div>
+                <div>
+                  <label class="form-label">Email</label>
+                  <input class="form-input" type="email" placeholder="sardor@mail.com" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Mavzu</label>
+                <input class="form-input" type="text" placeholder="Loyiha taklifi / Konsultatsiya" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Xabar</label>
+                <textarea class="form-textarea" placeholder="Xabaringizni bu yerga yozing..." required minlength="10"></textarea>
+              </div>
+
+              <div class="form-group">
+                <button type="submit" class="submit-btn" id="submit-btn">
+                  <i class="fas fa-paper-plane"></i> XABARNI YUBORISH
+                </button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- Back to top -->
+<button class="back-top" id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Yuqoriga">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+<!-- ==================== JAVASCRIPT ==================== -->
+<script>
+// ── Navigation ──────────────────────────────────────────
+const sectionTitles = {
+  home: 'Dashboard',
+  about: 'Men Haqimda',
+  skills: "Ko'nikmalar",
+  projects: 'Loyihalar',
+  services: 'Xizmatlar',
+  contact: 'Aloqa'
+};
+
+function showSection(id, el) {
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  if (el) el.classList.add('active');
+  document.getElementById('breadcrumb-title').textContent = sectionTitles[id] || id;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Close sidebar on mobile
+  if (window.innerWidth <= 900) closeSidebar();
+}
+
+// ── Sidebar toggle ───────────────────────────────────────
+function toggleSidebar() {
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('overlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('show');
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+// ── Back to top ──────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('back-top');
+  btn.classList.toggle('show', window.pageYOffset > 300);
+});
+
+// ── Contact form ─────────────────────────────────────────
+function submitForm(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Yuborilmoqda...';
+  setTimeout(() => {
+    document.getElementById('contact-form').style.display = 'none';
+    const success = document.getElementById('form-success');
+    success.classList.add('show');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-paper-plane"></i> XABARNI YUBORISH';
+  }, 1500);
+}
+
+// ── CV Download ──────────────────────────────────────────
+function downloadCV() {
+  const a = document.createElement('a');
+  a.href = 'files/SamandarResume.pdf';
+  a.download = 'SamandarMamasoatov-CV.pdf';
+  a.click();
+}
+
+// ── Skill bar animation on view ──────────────────────────
+const skillObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const fills = entry.target.querySelectorAll('.skill-bar-fill');
+      fills.forEach(fill => {
+        const w = fill.style.width;
+        fill.style.width = '0';
+        setTimeout(() => { fill.style.width = w; }, 100);
+      });
+      skillObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.skill-bar-grid').forEach(el => skillObserver.observe(el));
+
+// ── Initial section from URL hash ───────────────────────
+const hash = location.hash.replace('#','');
+if (hash && document.getElementById(hash)) {
+  const link = document.querySelector(`[data-section="${hash}"]`);
+  showSection(hash, link);
+}
+</script>
+
+</body>
+</html>

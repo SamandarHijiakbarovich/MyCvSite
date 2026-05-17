@@ -21,10 +21,10 @@
                 @if (!IsCollapsed)
                 {
                     <div class="brand-details">
-                        <span class="brand-name">SAMANDAR</span>
+                        <span class="brand-name">Samandar M.</span>
                         <div class="status-indicator">
                             <span class="pulse-dot"></span>
-                            <span class="status-text">SYSTEM ONLINE</span>
+                            <span class="status-text">Online</span>
                         </div>
                     </div>
                 }
@@ -35,17 +35,16 @@
             <div class="nav-group">
                 @if (!IsCollapsed)
                 {
-                    <p class="group-label">ASOSIY MENYU</p>
+                    <p class="group-label">Menyu</p>
                 }
 
                 <NavLink href="" class="nav-card" Match="NavLinkMatch.All">
                     <div class="nav-card-inner">
-                        <div class="nav-icon"><i class="fas fa-th-large"></i></div>
+                        <div class="nav-icon"><i class="fas fa-home"></i></div>
                         @if (!IsCollapsed)
                         {
                             <div class="nav-info">
-                                <span class="nav-title">Bosh Sahifa</span>
-                                <span class="nav-desc">Tizim nazorati</span>
+                                <span class="nav-title">Bosh sahifa</span>
                             </div>
                         }
                     </div>
@@ -53,12 +52,11 @@
 
                 <NavLink href="about" class="nav-card">
                     <div class="nav-card-inner">
-                        <div class="nav-icon"><i class="fas fa-user-ninja"></i></div>
+                        <div class="nav-icon"><i class="fas fa-user"></i></div>
                         @if (!IsCollapsed)
                         {
                             <div class="nav-info">
-                                <span class="nav-title">Men Haqimda</span>
-                                <span class="nav-desc">Bio va tajriba</span>
+                                <span class="nav-title">Men haqimda</span>
                             </div>
                         }
                     </div>
@@ -66,12 +64,11 @@
 
                 <NavLink href="projects" class="nav-card">
                     <div class="nav-card-inner">
-                        <div class="nav-icon"><i class="fas fa-project-diagram"></i></div>
+                        <div class="nav-icon"><i class="fas fa-folder-open"></i></div>
                         @if (!IsCollapsed)
                         {
                             <div class="nav-info">
-                                <span class="nav-title">Loyihalarim</span>
-                                <span class="nav-desc">Portfolio</span>
+                                <span class="nav-title">Loyihalar</span>
                             </div>
                         }
                     </div>
@@ -79,26 +76,35 @@
 
                 <NavLink href="skills" class="nav-card">
                     <div class="nav-card-inner">
-                        <div class="nav-icon"><i class="fas fa-microchip"></i></div>
+                        <div class="nav-icon"><i class="fas fa-code"></i></div>
                         @if (!IsCollapsed)
                         {
                             <div class="nav-info">
                                 <span class="nav-title">Ko'nikmalar</span>
-                                <span class="nav-desc">Tech stack</span>
                             </div>
                         }
                     </div>
                 </NavLink>
 
-                @* Aloqa tugmasi NavigationManager orqali *@
+                <NavLink href="services" class="nav-card">
+                    <div class="nav-card-inner">
+                        <div class="nav-icon"><i class="fas fa-briefcase"></i></div>
+                        @if (!IsCollapsed)
+                        {
+                            <div class="nav-info">
+                                <span class="nav-title">Xizmatlar</span>
+                            </div>
+                        }
+                    </div>
+                </NavLink>
+
                 <button class="nav-card btn-link-style" @onclick="@(() => NavigationManager.NavigateTo("/contact"))">
                     <div class="nav-card-inner">
-                        <div class="nav-icon"><i class="fas fa-satellite-dish"></i></div>
+                        <div class="nav-icon"><i class="fas fa-envelope"></i></div>
                         @if (!IsCollapsed)
                         {
                             <div class="nav-info">
                                 <span class="nav-title">Aloqa</span>
-                                <span class="nav-desc">Bog'lanish</span>
                             </div>
                         }
                     </div>
@@ -107,13 +113,19 @@
         </nav>
 
         <div class="sidebar-bottom">
-            <div class="version-tag">
-                @if (!IsCollapsed)
-                {
-                    <div class="v-pill">CORE v2.5</div>
-                }
-                <div class="v-status">STABLE</div>
-            </div>
+            @if (!IsCollapsed)
+            {
+                <a href="files/SamandarResume.pdf" download class="cv-download-btn">
+                    <i class="fas fa-file-download"></i>
+                    <span>CV yuklab olish</span>
+                </a>
+            }
+            else
+            {
+                <a href="files/SamandarResume.pdf" download class="cv-download-btn collapsed-btn" title="CV yuklab olish">
+                    <i class="fas fa-file-download"></i>
+                </a>
+            }
         </div>
     </aside>
 
@@ -125,16 +137,18 @@
                 <button class="toggle-btn" @onclick="ToggleSidebar">
                     <i class="fas fa-bars"></i>
                 </button>
-                <span class="b-root">System</span>
-                <i class="fas fa-chevron-right"></i>
-                <span class="b-active">Terminal</span>
+                <span class="page-name">Portfolio</span>
             </div>
             <div class="top-actions">
-                <div class="action-btn"><i class="fas fa-search"></i></div>
-                <div class="action-btn"><i class="fas fa-bell"></i><span class="badge"></span></div>
-                <div class="user-profile">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Samandar" alt="User" />
-                </div>
+                <a href="https://github.com/SamandarHijiakbarovich" target="_blank" rel="noopener" class="action-btn" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://t.me/LinuxInstructor" target="_blank" rel="noopener" class="action-btn" title="Telegram">
+                    <i class="fab fa-telegram-plane"></i>
+                </a>
+                <a href="mailto:mamasoatovsamandar@gmail.com" class="action-btn" title="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
             </div>
         </header>
 
@@ -224,26 +238,71 @@
         gap: 12px;
         padding: 12px;
         background: rgba(255,255,255,0.02);
-        border-radius: 20px;
+        border-radius: 18px;
         border: 1px solid var(--border);
+        min-width: 0;
+    }
+
+    .brand-details {
+        min-width: 0;
+        flex: 1;
+        overflow: hidden;
+    }
+
+    .brand-name {
+        display: block;
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--c-text);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        letter-spacing: 0.2px;
+    }
+
+    .status-indicator {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 3px;
+        font-size: 0.72rem;
+        color: #10b981;
+        font-weight: 500;
+    }
+
+    .pulse-dot {
+        width: 7px;
+        height: 7px;
+        background: #10b981;
+        border-radius: 50%;
+        box-shadow: 0 0 8px #10b981;
+        animation: pulse 2s infinite;
+        flex-shrink: 0;
+    }
+
+    @@keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50%      { opacity: 0.5; transform: scale(1.25); }
     }
 
     .logo-box {
-        width: 48px;
-        height: 48px;
-        min-width: 48px;
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
         background: var(--grad);
-        border-radius: 14px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
+        flex-shrink: 0;
     }
 
     .logo-text {
         font-weight: 900;
-        font-size: 1.2rem;
+        font-size: 1.05rem;
         color: white;
+        letter-spacing: -0.5px;
     }
 
     .nav-container {
@@ -330,17 +389,112 @@
     }
 
     .top-bar {
-        height: 70px;
+        height: 64px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 3rem;
-        background: rgba(3, 7, 18, 0.5);
-        backdrop-filter: blur(10px);
+        padding: 0 2rem;
+        background: rgba(3, 7, 18, 0.6);
+        backdrop-filter: blur(12px);
         position: sticky;
         top: 0;
         z-index: 90;
         border-bottom: 1px solid var(--border);
+    }
+
+    .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .page-name {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--c-text);
+        letter-spacing: 0.2px;
+    }
+
+    .top-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .action-btn {
+        width: 38px;
+        height: 38px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--c-subtext);
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: var(--trans);
+        cursor: pointer;
+    }
+
+    .action-btn:hover {
+        background: rgba(99, 102, 241, 0.1);
+        border-color: rgba(99, 102, 241, 0.3);
+        color: var(--c-text);
+        transform: translateY(-2px);
+    }
+
+    /* CV Download Button in sidebar-bottom */
+    .sidebar-bottom {
+        padding: 1.2rem 1rem 1.4rem;
+    }
+
+    .cv-download-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 13px 16px;
+        background: var(--grad);
+        color: white;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.85rem;
+        transition: var(--trans);
+        box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+    }
+
+    .cv-download-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 22px rgba(99, 102, 241, 0.45);
+        color: white;
+    }
+
+    .cv-download-btn.collapsed-btn {
+        padding: 13px;
+        font-size: 1rem;
+    }
+
+    .toggle-btn {
+        width: 38px;
+        height: 38px;
+        background: none;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        color: var(--c-subtext);
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--trans);
+    }
+
+    .toggle-btn:hover {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: var(--border);
+        color: var(--c-text);
     }
 
     .main-content {
