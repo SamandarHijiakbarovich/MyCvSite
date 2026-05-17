@@ -15,8 +15,10 @@
         <div class="sidebar-header">
             <div class="brand-wrapper">
                 <div class="logo-box">
-                    <span class="logo-text">SM</span>
-                    <div class="logo-orb"></div>
+                    <img src="images/my-photo.jpg" alt="Samandar"
+                         class="logo-photo"
+                         onerror="this.style.display='none'; this.parentElement.querySelector('.logo-fallback').style.display='flex';" />
+                    <span class="logo-fallback">SM</span>
                 </div>
                 @if (!IsCollapsed)
                 {
@@ -98,7 +100,7 @@
                     </div>
                 </NavLink>
 
-                <button class="nav-card btn-link-style" @onclick="@(() => NavigationManager.NavigateTo("/contact"))">
+                <NavLink href="contact" class="nav-card">
                     <div class="nav-card-inner">
                         <div class="nav-icon"><i class="fas fa-envelope"></i></div>
                         @if (!IsCollapsed)
@@ -108,7 +110,7 @@
                             </div>
                         }
                     </div>
-                </button>
+                </NavLink>
             </div>
         </nav>
 
@@ -296,9 +298,29 @@
         justify-content: center;
         position: relative;
         flex-shrink: 0;
+        overflow: hidden;
+        box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+        transition: var(--trans);
     }
 
-    .logo-text {
+    .logo-box:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+    }
+
+    .logo-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .logo-fallback {
+        display: none;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
         font-weight: 900;
         font-size: 1.05rem;
         color: white;
