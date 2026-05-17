@@ -1,5 +1,4 @@
-﻿@page "/skills"
-@using MyCvSite.Data
+@page "/skills"
 @inject NavigationManager Navigation
 
 <PageTitle>Ko'nikmalar | Samandar Mamasoatov</PageTitle>
@@ -11,19 +10,21 @@
 
     <section class="container py-5 position-relative" style="z-index: 2;">
         <div class="text-center mb-5 animate__animated animate__fadeInDown">
+            <div class="page-badge mb-3">TECH STACK</div>
             <h1 class="display-4 fw-bold glitch-text">
                 TEXNIK <span class="highlight-gradient">KO'NIKMALAR</span>
             </h1>
             <p class="lead custom-subtitle mx-auto">
-                Backend arxitekturasi, ma'lumotlar xavfsizligi va yuqori yuklamali tizimlar bo'yicha professional texnologik stack.
+                Backend arxitekturasi, ma'lumotlar bazasi va xavfsizlik bo'yicha professional texnologik stack.
             </p>
             <div class="divider-cyber mx-auto"></div>
         </div>
 
-        <div class="row g-4 justify-content-center">
-            @foreach (var item in MySkillsList)
+        @* === SKILL PROGRESS BARS === *@
+        <div class="row g-4 mb-5">
+            @foreach (var item in MainSkills)
             {
-                <div class="col-lg-6 col-xl-5 animate__animated animate__zoomIn">
+                <div class="col-lg-6 animate__animated animate__zoomIn">
                     <div class="skill-container-card">
                         <div class="card-content">
                             <div class="skill-item-box">
@@ -34,20 +35,18 @@
                                         </div>
                                         <span class="skill-name ms-3">@item.Name</span>
                                     </div>
-                                    <span class="percentage-badge" style="color: @item.Color; border: 1px solid @item.Color">
+                                    <span class="percentage-badge" style="color: @item.Color; border-color: @item.Color">
                                         @item.Level%
                                     </span>
                                 </div>
-
                                 <div class="progress-bg">
                                     <div class="progress-fill"
-                                         style="width: @item.Level%; background: linear-gradient(90deg, @item.Color, #fff); box-shadow: 0 0 15px @item.Color;">
+                                         style="width: @item.Level%; background: linear-gradient(90deg, @item.Color, @item.ColorEnd); box-shadow: 0 0 12px @item.Color;">
                                     </div>
                                 </div>
-
                                 @if (!string.IsNullOrEmpty(item.Description))
                                 {
-                                    <p class="skill-desc mt-3 mb-0">@item.Description</p>
+                                    <p class="skill-desc mt-2 mb-0">@item.Description</p>
                                 }
                             </div>
                         </div>
@@ -56,10 +55,29 @@
             }
         </div>
 
-        <div class="text-center mt-5 pt-4 animate__animated animate__fadeInUp">
+        @* === TECH BADGE GRID === *@
+        <div class="badges-section mb-5">
+            <h3 class="badges-title">TEXNOLOGIYALAR</h3>
+            <div class="badge-grid">
+                @foreach (var badge in TechBadges)
+                {
+                    <div class="tech-badge-card">
+                        <i class="@badge.Icon" style="color: @badge.Color; font-size: 1.8rem; margin-bottom: 8px; display:block;"></i>
+                        <span>@badge.Name</span>
+                        @if (!string.IsNullOrEmpty(badge.Category))
+                        {
+                            <small>@badge.Category</small>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+        @* === CTA === *@
+        <div class="text-center mt-5 animate__animated animate__fadeInUp">
             <p class="text-muted-custom">Loyihangiz uchun xavfsiz va tezkor backend kerakmi?</p>
             <button class="btn-cyber-contact" @onclick='() => Navigation.NavigateTo("/contact")'>
-                <span class="btn-text"><i class="fas fa-paper-plane me-2"></i> MEN BILAN BOG'LANISH</span>
+                <i class="fas fa-paper-plane me-2"></i> MEN BILAN BOG'LANISH
             </button>
         </div>
     </section>
@@ -82,13 +100,14 @@
         color: var(--text-bright);
     }
 
-    /* Orqa fon effektlari */
     .cyber-grid {
         position: absolute;
         inset: 0;
-        background-image: linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+        background-image: linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+                          linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
         background-size: 40px 40px;
         z-index: 1;
+        pointer-events: none;
     }
 
     .glow-orb {
@@ -97,9 +116,10 @@
         right: -5%;
         width: 500px;
         height: 500px;
-        background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 70%);
         filter: blur(80px);
         z-index: 0;
+        pointer-events: none;
     }
 
     .glow-orb-secondary {
@@ -111,13 +131,24 @@
         background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
         filter: blur(60px);
         z-index: 0;
+        pointer-events: none;
     }
 
-    /* Sarlavha */
+    .page-badge {
+        display: inline-block;
+        background: rgba(99, 102, 241, 0.1);
+        border: 1px solid rgba(99, 102, 241, 0.25);
+        color: #818cf8;
+        padding: 5px 18px;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+    }
+
     .glitch-text {
-        font-size: 3.5rem;
-        letter-spacing: 3px;
-        text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        font-size: 3.2rem;
+        letter-spacing: 2px;
     }
 
     .highlight-gradient {
@@ -127,78 +158,9 @@
     }
 
     .custom-subtitle {
-        color: var(--text-dim) !important;
+        color: var(--text-dim);
         max-width: 650px;
         line-height: 1.6;
-    }
-
-    /* Karta Dizayni */
-    .skill-container-card {
-        background: rgba(30, 41, 59, 0.5);
-        border-radius: 20px;
-        position: relative;
-        padding: 1px;
-        transition: 0.4s;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .card-content {
-        background: #1e293b;
-        padding: 30px;
-        border-radius: 19px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    }
-
-    .skill-container-card:hover {
-        transform: translateY(-8px) scale(1.02);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-        border-color: rgba(59, 130, 246, 0.4);
-    }
-
-    /* Ikonka va Matn */
-    .icon-box {
-        width: 50px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 12px;
-        font-size: 1.5rem;
-    }
-
-    .skill-name {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: white;
-    }
-
-    .percentage-badge {
-        font-size: 0.85rem;
-        font-weight: 800;
-        padding: 4px 12px;
-        border-radius: 20px;
-        background: rgba(255, 255, 255, 0.03);
-    }
-
-    /* Progress Bar */
-    .progress-bg {
-        height: 10px;
-        background: rgba(15, 23, 42, 0.6);
-        border-radius: 20px;
-        overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .progress-fill {
-        height: 100%;
-        border-radius: 20px;
-        transition: width 2s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .skill-desc {
-        color: var(--text-dim);
-        font-size: 0.95rem;
-        font-weight: 400;
     }
 
     .divider-cyber {
@@ -210,80 +172,224 @@
         box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
     }
 
-    /* Button Style */
+    /* Skill Card */
+    .skill-container-card {
+        background: rgba(30, 41, 59, 0.5);
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: 0.35s;
+    }
+
+    .skill-container-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(59, 130, 246, 0.35);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+    }
+
+    .card-content {
+        background: #1e293b;
+        padding: 26px;
+        border-radius: 17px;
+    }
+
+    .icon-box {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        font-size: 1.4rem;
+    }
+
+    .skill-name {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: white;
+    }
+
+    .percentage-badge {
+        font-size: 0.8rem;
+        font-weight: 800;
+        padding: 4px 12px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid;
+    }
+
+    .progress-bg {
+        height: 9px;
+        background: rgba(15, 23, 42, 0.7);
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .progress-fill {
+        height: 100%;
+        border-radius: 20px;
+        transition: width 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .skill-desc {
+        color: var(--text-dim);
+        font-size: 0.85rem;
+    }
+
+    /* Badges Section */
+    .badges-section {
+        background: rgba(30, 41, 59, 0.4);
+        border: 1px solid rgba(255,255,255,0.05);
+        border-radius: 24px;
+        padding: 35px;
+    }
+
+    .badges-title {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #6366f1;
+        letter-spacing: 3px;
+        margin-bottom: 25px;
+    }
+
+    .badge-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 14px;
+    }
+
+    .tech-badge-card {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 14px;
+        padding: 18px 10px;
+        text-align: center;
+        transition: 0.3s;
+        cursor: default;
+    }
+
+    .tech-badge-card:hover {
+        background: rgba(99, 102, 241, 0.08);
+        border-color: rgba(99, 102, 241, 0.3);
+        transform: translateY(-4px);
+    }
+
+    .tech-badge-card span {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #cbd5e1;
+    }
+
+    .tech-badge-card small {
+        display: block;
+        font-size: 0.65rem;
+        color: #64748b;
+        margin-top: 3px;
+    }
+
+    /* Button */
     .btn-cyber-contact {
-        position: relative;
         background: linear-gradient(45deg, #3b82f6, #8b5cf6);
         border: none;
         color: white;
         padding: 15px 40px;
         border-radius: 12px;
         font-weight: 700;
-        overflow: hidden;
         transition: 0.3s;
-        box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.25);
+        cursor: pointer;
     }
 
-        .btn-cyber-contact:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 35px rgba(59, 130, 246, 0.6);
-        }
+    .btn-cyber-contact:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 35px rgba(59, 130, 246, 0.5);
+    }
 
     .text-muted-custom {
         color: #64748b;
         margin-bottom: 15px;
-        font-size: 1.1rem;
+        font-size: 1.05rem;
     }
 
     @@media (max-width: 768px) {
-        .glitch-text {
-            font-size: 2.2rem;
-        }
-
-        .skill-name {
-            font-size: 1.1rem;
-        }
+        .glitch-text { font-size: 2.2rem; }
+        .badge-grid { grid-template-columns: repeat(3, 1fr); }
     }
 </style>
 
 @code {
-    private List<SkillModel> MySkillsList = new()
+    private List<SkillModel> MainSkills = new()
     {
-        new SkillModel {
+        new() {
             Name = "C# / ASP.NET Core",
             Level = 95,
             Icon = "fab fa-microsoft",
             Color = "#3b82f6",
-            Description = "Web API, Microservices, Entity Framework Core, LINQ"
+            ColorEnd = "#60a5fa",
+            Description = "Web API, Middleware, Dependency Injection, Background Services"
         },
-        new SkillModel {
-            Name = "SQL / PostgreSQL",
+        new() {
+            Name = "EF Core & LINQ",
             Level = 88,
             Icon = "fas fa-database",
             Color = "#10b981",
-            Description = "Query Optimization, Database Design, Stored Procedures"
+            ColorEnd = "#34d399",
+            Description = "Code First, Migrations, Query Optimization, Relationships"
         },
-        new SkillModel {
-            Name = "Security Research",
+        new() {
+            Name = "SQL Server & PostgreSQL",
+            Level = 87,
+            Icon = "fas fa-server",
+            Color = "#f59e0b",
+            ColorEnd = "#fbbf24",
+            Description = "Schema Design, Stored Procedures, Performance Tuning, Indexing"
+        },
+        new() {
+            Name = "SignalR & Real-time",
             Level = 82,
-            Icon = "fas fa-user-shield",
-            Color = "#f43f5e",
-            Description = "OWASP Top 10, Penetration Testing, Vulnerability Assessment"
+            Icon = "fas fa-broadcast-tower",
+            Color = "#8b5cf6",
+            ColorEnd = "#a78bfa",
+            Description = "WebSocket Hubs, Groups, Real-time Notifications & Monitoring"
         },
-        new SkillModel {
-            Name = "Linux / Docker",
+        new() {
+            Name = "Security (JWT / OAuth2)",
+            Level = 90,
+            Icon = "fas fa-shield-alt",
+            Color = "#ef4444",
+            ColorEnd = "#f87171",
+            Description = "Identity, Role-based Access, Token Validation, OWASP Top 10"
+        },
+        new() {
+            Name = "Docker & DevOps",
             Level = 75,
             Icon = "fab fa-docker",
             Color = "#0ea5e9",
-            Description = "Containerization, CI/CD, Server Administration"
-        },
-        new SkillModel {
-            Name = "Blazor WebAssembly",
-            Level = 80,
-            Icon = "fas fa-bolt",
-            Color = "#f59e0b",
-            Description = "Interactive UI development, State Management, Interop"
+            ColorEnd = "#38bdf8",
+            Description = "Containerization, docker-compose, CI/CD Pipelines, Linux Server"
         }
+    };
+
+    private List<TechBadge> TechBadges = new()
+    {
+        new("C#", "fab fa-microsoft", "#3b82f6", ".NET"),
+        new("ASP.NET Core", "fas fa-code", "#6366f1", "Backend"),
+        new("EF Core", "fas fa-layer-group", "#10b981", "ORM"),
+        new("LINQ", "fas fa-filter", "#06b6d4", "Query"),
+        new("Clean Arch", "fas fa-sitemap", "#8b5cf6", "Pattern"),
+        new("PostgreSQL", "fas fa-database", "#3b82f6", "Database"),
+        new("SQL Server", "fas fa-database", "#e11d48", "Database"),
+        new("Redis", "fas fa-bolt", "#ef4444", "Cache"),
+        new("SignalR", "fas fa-wifi", "#f59e0b", "Realtime"),
+        new("JWT", "fas fa-key", "#10b981", "Auth"),
+        new("Docker", "fab fa-docker", "#0ea5e9", "DevOps"),
+        new("Git", "fab fa-git-alt", "#f97316", "VCS"),
+        new("xUnit", "fas fa-vial", "#a855f7", "Testing"),
+        new("Swagger", "fas fa-book", "#22c55e", "Docs"),
+        new("Linux", "fab fa-linux", "#eab308", "OS"),
+        new("Postman", "fas fa-paper-plane", "#f97316", "API"),
     };
 
     public class SkillModel
@@ -292,6 +398,9 @@
         public int Level { get; set; }
         public string Icon { get; set; } = "";
         public string Color { get; set; } = "";
+        public string ColorEnd { get; set; } = "#fff";
         public string Description { get; set; } = "";
     }
+
+    public record TechBadge(string Name, string Icon, string Color, string Category);
 }
