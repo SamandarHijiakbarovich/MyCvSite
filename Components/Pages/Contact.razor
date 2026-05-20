@@ -35,7 +35,7 @@
                         <div class="info-icon-box"><i class="fas fa-phone-alt"></i></div>
                         <div>
                             <h4>Telefon</h4>
-                            <a href="tel:+998901234567">+998 90 123 45 67</a>
+                            <a href="tel:+998937650083">+998 93 765 00 83</a>
                         </div>
                     </div>
 
@@ -350,13 +350,29 @@
     }
 
     @@media (max-width: 768px) {
-        .contact-title {
-            font-size: 2.2rem;
-        }
+        .contact-title { font-size: 1.8rem; line-height: 1.2; }
+        .contact-subtitle { font-size: 0.92rem; padding: 0 0.5rem; }
+        .security-badge { font-size: 0.65rem; padding: 4px 11px; }
 
-        .cyber-form-container {
-            padding: 25px;
-        }
+        .cyber-form-container { padding: 22px 18px; border-radius: 18px; }
+        .cyber-input { font-size: 0.9rem; padding: 11px 14px 11px 40px; }
+        .cyber-label { font-size: 0.85rem; }
+
+        .info-card { padding: 16px 14px; gap: 12px; }
+        .info-icon-box { width: 42px; height: 42px; font-size: 1rem; }
+        .info-card h4 { font-size: 0.92rem; }
+        .info-card a, .info-card span { font-size: 0.82rem; word-break: break-word; }
+
+        .cyber-submit-btn { padding: 14px; font-size: 0.9rem; }
+
+        .glow-orb { width: 300px; height: 300px; }
+    }
+
+    @@media (max-width: 480px) {
+        .contact-title { font-size: 1.5rem; }
+        .cyber-form-container { padding: 18px 14px; }
+        .info-icon-box { width: 38px; height: 38px; }
+        .info-card a, .info-card span { font-size: 0.78rem; }
     }
 </style>
 

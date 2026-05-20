@@ -314,8 +314,25 @@
     }
 
     @@media (max-width: 768px) {
-        .glitch-text { font-size: 2.2rem; }
-        .badge-grid { grid-template-columns: repeat(3, 1fr); }
+        .glitch-text { font-size: 1.8rem; letter-spacing: 1px; }
+        .custom-subtitle { font-size: 0.9rem; padding: 0 1rem; }
+        .badge-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .tech-badge-card { padding: 14px 8px; }
+        .tech-badge-card span { font-size: 0.72rem; }
+        .badges-section { padding: 22px 18px; }
+        .badges-title { font-size: 0.68rem; letter-spacing: 2px; }
+        .card-content { padding: 20px; }
+        .skill-name { font-size: 1rem; }
+        .icon-box { width: 42px; height: 42px; font-size: 1.2rem; }
+        .skill-desc { font-size: 0.8rem; }
+        .btn-cyber-contact { padding: 13px 30px; font-size: 0.85rem; width: 100%; max-width: 320px; }
+    }
+
+    @@media (max-width: 480px) {
+        .glitch-text { font-size: 1.5rem; }
+        .badge-grid { grid-template-columns: repeat(2, 1fr); }
+        .tech-badge-card { padding: 12px 6px; }
+        .badges-section { padding: 18px 14px; }
     }
 </style>
 

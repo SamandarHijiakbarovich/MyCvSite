@@ -1,17 +1,20 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
 @using Microsoft.AspNetCore.Components.Routing
-@* 1. Navigatsiya xizmatini ulash *@
 @inject NavigationManager NavigationManager
 
-<div class="page-container">
+<div class="page-container @(IsMobileOpen ? "mobile-open" : "")">
+
+    @* Mobil uchun overlay backdrop *@
+    <div class="mobile-backdrop @(IsMobileOpen ? "show" : "")" @onclick="CloseMobile"></div>
+
     @* --- ORQA FON EFFEKTI --- *@
     <div class="bg-visuals">
         <div class="glow-orb orb-1"></div>
         <div class="glow-orb orb-2"></div>
     </div>
 
-    @* === 1. PREMIUM SIDEBAR === *@
-    <aside class="sidebar @(IsCollapsed ? "collapsed" : "")">
+    @* === SIDEBAR === *@
+    <aside class="sidebar @(IsCollapsed ? "collapsed" : "") @(IsMobileOpen ? "mobile-visible" : "")">
         <div class="sidebar-header">
             <div class="brand-wrapper">
                 <div class="logo-box">
@@ -30,6 +33,10 @@
                         </div>
                     </div>
                 }
+                @* Mobilda yopish tugmasi *@
+                <button class="mobile-close-btn" @onclick="CloseMobile" aria-label="Yopish">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
         </div>
 
@@ -40,74 +47,62 @@
                     <p class="group-label">Menyu</p>
                 }
 
-                <NavLink href="" class="nav-card" Match="NavLinkMatch.All">
+                <NavLink href="" class="nav-card" Match="NavLinkMatch.All" @onclick="CloseMobile">
                     <div class="nav-card-inner">
                         <div class="nav-icon"><i class="fas fa-home"></i></div>
                         @if (!IsCollapsed)
                         {
-                            <div class="nav-info">
-                                <span class="nav-title">Bosh sahifa</span>
-                            </div>
+                            <div class="nav-info"><span class="nav-title">Bosh sahifa</span></div>
                         }
                     </div>
                 </NavLink>
 
-                <NavLink href="about" class="nav-card">
+                <NavLink href="about" class="nav-card" @onclick="CloseMobile">
                     <div class="nav-card-inner">
                         <div class="nav-icon"><i class="fas fa-user"></i></div>
                         @if (!IsCollapsed)
                         {
-                            <div class="nav-info">
-                                <span class="nav-title">Men haqimda</span>
-                            </div>
+                            <div class="nav-info"><span class="nav-title">Men haqimda</span></div>
                         }
                     </div>
                 </NavLink>
 
-                <NavLink href="projects" class="nav-card">
+                <NavLink href="projects" class="nav-card" @onclick="CloseMobile">
                     <div class="nav-card-inner">
                         <div class="nav-icon"><i class="fas fa-folder-open"></i></div>
                         @if (!IsCollapsed)
                         {
-                            <div class="nav-info">
-                                <span class="nav-title">Loyihalar</span>
-                            </div>
+                            <div class="nav-info"><span class="nav-title">Loyihalar</span></div>
                         }
                     </div>
                 </NavLink>
 
-                <NavLink href="skills" class="nav-card">
+                <NavLink href="skills" class="nav-card" @onclick="CloseMobile">
                     <div class="nav-card-inner">
                         <div class="nav-icon"><i class="fas fa-code"></i></div>
                         @if (!IsCollapsed)
                         {
-                            <div class="nav-info">
-                                <span class="nav-title">Ko'nikmalar</span>
-                            </div>
+                            <div class="nav-info"><span class="nav-title">Ko'nikmalar</span></div>
                         }
                     </div>
                 </NavLink>
 
-                <NavLink href="services" class="nav-card">
+                <NavLink href="services" class="nav-card" @onclick="CloseMobile">
                     <div class="nav-card-inner">
                         <div class="nav-icon"><i class="fas fa-briefcase"></i></div>
                         @if (!IsCollapsed)
                         {
-                            <div class="nav-info">
-                                <span class="nav-title">Xizmatlar</span>
-                            </div>
+                            <div class="nav-info"><span class="nav-title">Xizmatlar</span></div>
                         }
                     </div>
                 </NavLink>
 
-                <NavLink href="contact" class="nav-card">
+                <NavLink href="contact" class="nav-card" @onclick="CloseMobile">
                     <div class="nav-card-inner">
                         <div class="nav-icon"><i class="fas fa-envelope"></i></div>
                         @if (!IsCollapsed)
                         {
-                            <div class="nav-info">
-                                <span class="nav-title">Aloqa</span>
-                            </div>
+                            <div class="nav-info"><span class="nav-title">Aloqa</span></div>
                         }
                     </div>
                 </NavLink>
@@ -131,15 +126,17 @@
         </div>
     </aside>
 
-    @* === 2. ASOSIY KONTENT AREA === *@
+    @* === ASOSIY KONTENT === *@
     <main class="main-content">
-        @* TOP NAVIGATION BAR *@
         <header class="top-bar">
             <div class="breadcrumb">
-                <button class="toggle-btn" @onclick="ToggleSidebar">
+                <button class="toggle-btn desktop-only" @onclick="ToggleSidebar" aria-label="Menu">
                     <i class="fas fa-bars"></i>
                 </button>
-                <span class="page-name">Portfolio</span>
+                <button class="toggle-btn mobile-only" @onclick="OpenMobile" aria-label="Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <span class="page-name">Samandar Mamasoatov</span>
             </div>
             <div class="top-actions">
                 <a href="https://github.com/SamandarHijiakbarovich" target="_blank" rel="noopener" class="action-btn" title="GitHub">
@@ -164,7 +161,8 @@
 
 <style>
     :root {
-        --side-w: 300px;
+        --side-w: 280px;
+        --side-w-collapsed: 80px;
         --c-bg: #030712;
         --c-side: rgba(11, 15, 26, 0.95);
         --c-accent: #6366f1;
@@ -174,9 +172,10 @@
         --glass: rgba(255, 255, 255, 0.03);
         --border: rgba(255, 255, 255, 0.08);
         --grad: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-        --trans: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        --trans: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
+    /* === BACKGROUND === */
     .bg-visuals {
         position: fixed;
         inset: 0;
@@ -213,36 +212,56 @@
         min-height: 100vh;
     }
 
+    /* === MOBILE BACKDROP === */
+    .mobile-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(3px);
+        z-index: 99;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .mobile-backdrop.show {
+        opacity: 1;
+    }
+
+    /* === SIDEBAR === */
     .sidebar {
         width: var(--side-w);
         height: 100vh;
         background: var(--c-side);
         position: fixed;
+        top: 0;
+        left: 0;
         border-right: 1px solid var(--border);
         display: flex;
         flex-direction: column;
         z-index: 100;
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(12px);
         transition: var(--trans);
     }
 
-        .sidebar.collapsed {
-            width: 85px;
-        }
+    .sidebar.collapsed {
+        width: var(--side-w-collapsed);
+    }
 
     .sidebar-header {
-        padding: 2rem 1.5rem;
+        padding: 1.5rem 1rem 1rem;
     }
 
     .brand-wrapper {
         display: flex;
         align-items: center;
         gap: 12px;
-        padding: 12px;
+        padding: 10px 12px;
         background: rgba(255,255,255,0.02);
-        border-radius: 18px;
+        border-radius: 16px;
         border: 1px solid var(--border);
         min-width: 0;
+        position: relative;
     }
 
     .brand-details {
@@ -254,20 +273,19 @@
     .brand-name {
         display: block;
         font-weight: 700;
-        font-size: 0.95rem;
+        font-size: 0.92rem;
         color: var(--c-text);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        letter-spacing: 0.2px;
     }
 
     .status-indicator {
         display: flex;
         align-items: center;
         gap: 6px;
-        margin-top: 3px;
-        font-size: 0.72rem;
+        margin-top: 2px;
+        font-size: 0.7rem;
         color: #10b981;
         font-weight: 500;
     }
@@ -288,9 +306,9 @@
     }
 
     .logo-box {
-        width: 44px;
-        height: 44px;
-        min-width: 44px;
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
         background: var(--grad);
         border-radius: 12px;
         display: flex;
@@ -300,12 +318,6 @@
         flex-shrink: 0;
         overflow: hidden;
         box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
-        transition: var(--trans);
-    }
-
-    .logo-box:hover {
-        transform: scale(1.05);
-        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
     }
 
     .logo-photo {
@@ -322,27 +334,45 @@
         align-items: center;
         justify-content: center;
         font-weight: 900;
-        font-size: 1.05rem;
+        font-size: 1rem;
         color: white;
-        letter-spacing: -0.5px;
     }
 
+    .mobile-close-btn {
+        display: none;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        width: 36px;
+        height: 36px;
+        color: var(--c-text);
+        font-size: 1rem;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
+    }
+
+    /* === NAV === */
     .nav-container {
         flex: 1;
-        padding: 0 1rem;
+        padding: 0 0.75rem;
+        overflow-y: auto;
     }
 
     .group-label {
-        font-size: 0.65rem;
+        font-size: 0.62rem;
         color: var(--c-subtext);
-        letter-spacing: 2px;
-        margin: 1.5rem 0.5rem 0.75rem;
+        letter-spacing: 2.5px;
+        margin: 1.2rem 0.5rem 0.6rem;
+        text-transform: uppercase;
+        font-weight: 700;
     }
 
     .nav-card {
         text-decoration: none;
         display: block;
-        margin-bottom: 8px;
+        margin-bottom: 4px;
         border: none;
         background: none;
         width: 100%;
@@ -353,8 +383,8 @@
     .nav-card-inner {
         display: flex;
         align-items: center;
-        padding: 12px;
-        border-radius: 15px;
+        padding: 11px 12px;
+        border-radius: 12px;
         transition: var(--trans);
         border: 1px solid transparent;
     }
@@ -369,7 +399,7 @@
         align-items: center;
         justify-content: center;
         color: var(--c-subtext);
-        font-size: 1.1rem;
+        font-size: 1rem;
         margin-right: 12px;
         transition: 0.3s;
     }
@@ -386,17 +416,9 @@
         text-align: left;
     }
 
-    .nav-desc {
-        display: block;
-        font-size: 0.7rem;
-        color: var(--c-subtext);
-        opacity: 0.6;
-        text-align: left;
-    }
-
     .nav-card:hover .nav-card-inner {
         background: var(--glass);
-        transform: translateX(5px);
+        transform: translateX(3px);
     }
 
     .nav-card.active .nav-card-inner {
@@ -407,68 +429,12 @@
     .nav-card.active .nav-icon {
         background: var(--grad);
         color: white;
-        box-shadow: 0 0 15px var(--c-accent-glow);
+        box-shadow: 0 0 12px var(--c-accent-glow);
     }
 
-    .top-bar {
-        height: 64px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 2rem;
-        background: rgba(3, 7, 18, 0.6);
-        backdrop-filter: blur(12px);
-        position: sticky;
-        top: 0;
-        z-index: 90;
-        border-bottom: 1px solid var(--border);
-    }
-
-    .breadcrumb {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-    }
-
-    .page-name {
-        font-size: 0.95rem;
-        font-weight: 600;
-        color: var(--c-text);
-        letter-spacing: 0.2px;
-    }
-
-    .top-actions {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .action-btn {
-        width: 38px;
-        height: 38px;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--c-subtext);
-        font-size: 0.95rem;
-        text-decoration: none;
-        transition: var(--trans);
-        cursor: pointer;
-    }
-
-    .action-btn:hover {
-        background: rgba(99, 102, 241, 0.1);
-        border-color: rgba(99, 102, 241, 0.3);
-        color: var(--c-text);
-        transform: translateY(-2px);
-    }
-
-    /* CV Download Button in sidebar-bottom */
+    /* === SIDEBAR BOTTOM === */
     .sidebar-bottom {
-        padding: 1.2rem 1rem 1.4rem;
+        padding: 1rem 0.9rem 1.2rem;
     }
 
     .cv-download-btn {
@@ -476,7 +442,7 @@
         align-items: center;
         justify-content: center;
         gap: 10px;
-        padding: 13px 16px;
+        padding: 12px 14px;
         background: var(--grad);
         color: white;
         border-radius: 12px;
@@ -494,15 +460,87 @@
     }
 
     .cv-download-btn.collapsed-btn {
-        padding: 13px;
+        padding: 12px;
         font-size: 1rem;
+    }
+
+    /* === MAIN CONTENT === */
+    .main-content {
+        flex: 1;
+        margin-left: var(--side-w);
+        transition: var(--trans);
+        min-width: 0;
+    }
+
+    .sidebar.collapsed + .main-content {
+        margin-left: var(--side-w-collapsed);
+    }
+
+    /* === TOP BAR === */
+    .top-bar {
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1.5rem;
+        background: rgba(3, 7, 18, 0.6);
+        backdrop-filter: blur(12px);
+        position: sticky;
+        top: 0;
+        z-index: 90;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+        flex: 1;
+    }
+
+    .page-name {
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: var(--c-text);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .top-actions {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .action-btn {
+        width: 36px;
+        height: 36px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--c-subtext);
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: var(--trans);
+        flex-shrink: 0;
+    }
+
+    .action-btn:hover {
+        background: rgba(99, 102, 241, 0.1);
+        border-color: rgba(99, 102, 241, 0.3);
+        color: var(--c-text);
     }
 
     .toggle-btn {
         width: 38px;
         height: 38px;
-        background: none;
-        border: 1px solid transparent;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
         border-radius: 10px;
         color: var(--c-subtext);
         font-size: 1rem;
@@ -511,76 +549,126 @@
         align-items: center;
         justify-content: center;
         transition: var(--trans);
+        flex-shrink: 0;
     }
 
     .toggle-btn:hover {
-        background: rgba(255, 255, 255, 0.04);
-        border-color: var(--border);
+        background: rgba(255, 255, 255, 0.06);
         color: var(--c-text);
     }
 
-    .main-content {
-        flex: 1;
-        margin-left: var(--side-w);
-        transition: var(--trans);
-    }
+    .mobile-only { display: none; }
+    .desktop-only { display: flex; }
 
-    .sidebar.collapsed + .main-content {
-        margin-left: 85px;
-    }
-
-    .toggle-btn {
-        background: none;
-        border: none;
-        color: white;
-        cursor: pointer;
-        margin-right: 15px;
-        font-size: 1.2rem;
+    /* === CONTENT === */
+    .content-wrapper {
+        padding: 1.5rem;
     }
 
     .glass-container {
         background: rgba(255, 255, 255, 0.02);
         border: 1px solid var(--border);
-        border-radius: 30px;
-        padding: 2.5rem;
-        min-height: 80vh;
+        border-radius: 24px;
+        padding: 1.8rem;
+        min-height: 75vh;
         backdrop-filter: blur(5px);
-        animation: fadeIn 0.8s ease-out;
-    }
-
-    /* Ikkitalik @@ Razor uchun */
-    @@keyframes rotateOrb {
-        from {
-            transform: rotate(0);
-        }
-
-        to {
-            transform: rotate(360deg);
-        }
+        animation: fadeIn 0.6s ease-out;
     }
 
     @@keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(15px); }
+        to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* === TABLET (≤1024px) === */
     @@media (max-width: 1024px) {
+        :root { --side-w: 260px; }
+    }
+
+    /* === MOBILE (≤768px) === */
+    @@media (max-width: 768px) {
+        /* Sidebar mobile drawer */
         .sidebar {
-            width: 85px;
+            width: 280px;
+            transform: translateX(-100%);
+            box-shadow: 4px 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .sidebar.mobile-visible {
+            transform: translateX(0);
         }
 
         .main-content {
-            margin-left: 85px;
+            margin-left: 0 !important;
         }
 
-        .brand-details, .nav-info, .group-label, .v-pill, .breadcrumb span {
+        .mobile-backdrop {
+            display: block;
+        }
+
+        .mobile-close-btn {
+            display: flex;
+        }
+
+        .mobile-only { display: flex; }
+        .desktop-only { display: none; }
+
+        /* Tighter layouts on mobile */
+        .top-bar {
+            padding: 0 1rem;
+            height: 56px;
+        }
+
+        .page-name {
+            font-size: 0.85rem;
+        }
+
+        .top-actions {
+            gap: 4px;
+        }
+
+        .action-btn {
+            width: 34px;
+            height: 34px;
+            font-size: 0.85rem;
+        }
+
+        .content-wrapper {
+            padding: 1rem;
+        }
+
+        .glass-container {
+            padding: 1.2rem;
+            border-radius: 18px;
+            min-height: 70vh;
+        }
+
+        /* Reduce orb sizes on mobile */
+        .orb-1 { width: 300px; height: 300px; }
+        .orb-2 { width: 250px; height: 250px; }
+    }
+
+    /* === SMALL MOBILE (≤480px) === */
+    @@media (max-width: 480px) {
+        .top-bar {
+            padding: 0 0.75rem;
+        }
+
+        .page-name {
+            font-size: 0.8rem;
+        }
+
+        .content-wrapper {
+            padding: 0.75rem;
+        }
+
+        .glass-container {
+            padding: 1rem;
+            border-radius: 16px;
+        }
+
+        /* Hide one action button to save space */
+        .top-actions .action-btn:nth-child(3) {
             display: none;
         }
     }
@@ -588,9 +676,20 @@
 
 @code {
     private bool IsCollapsed = false;
+    private bool IsMobileOpen = false;
 
     private void ToggleSidebar()
     {
         IsCollapsed = !IsCollapsed;
+    }
+
+    private void OpenMobile()
+    {
+        IsMobileOpen = true;
+    }
+
+    private void CloseMobile()
+    {
+        IsMobileOpen = false;
     }
 }

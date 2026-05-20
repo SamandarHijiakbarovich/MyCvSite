@@ -336,12 +336,22 @@
     }
 
     @@media (max-width: 768px) {
-        .gradient-text {
-            font-size: 2.2rem;
-        }
+        .gradient-text { font-size: 1.7rem; line-height: 1.2; }
+        .custom-subtitle { font-size: 0.9rem; padding: 0 1rem; }
+        .service-badge { font-size: 0.68rem; padding: 4px 12px; letter-spacing: 1.5px; }
+        .price-card { padding: 30px 22px; margin-bottom: 0; }
+        .price-card h3 { font-size: 1.15rem; }
+        .card-header-icon { font-size: 2.8rem; }
+        .amount { font-size: 2.4rem; }
+        .feature-list li { font-size: 0.88rem; }
+        .btn-order { padding: 12px; font-size: 0.9rem; }
+        .info-note { font-size: 0.85rem; padding: 0 1rem; }
+    }
 
-        .price-card {
-            margin-bottom: 20px;
-        }
+    @@media (max-width: 480px) {
+        .gradient-text { font-size: 1.4rem; }
+        .price-card { padding: 24px 18px; }
+        .amount { font-size: 2rem; }
+        .card-header-icon { font-size: 2.5rem; }
     }
 </style>
