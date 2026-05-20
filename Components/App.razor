@@ -21,10 +21,30 @@
 </head>
 
 <body>
-    <Routes />
+    <Routes @rendermode="InteractiveServer" />
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="_framework/blazor.web.js"></script>
+
+    <script>
+        // Mobile navigation toggle - pure JS, ishonchli ishlaydi
+        window.openMobileNav = function() {
+            document.querySelector('.sidebar')?.classList.add('mobile-visible');
+            document.querySelector('.mobile-backdrop')?.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        };
+        window.closeMobileNav = function() {
+            document.querySelector('.sidebar')?.classList.remove('mobile-visible');
+            document.querySelector('.mobile-backdrop')?.classList.remove('show');
+            document.body.style.overflow = '';
+        };
+        // Sidebar ichida menyu bosilganda yopish
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.sidebar .nav-card')) {
+                setTimeout(window.closeMobileNav, 100);
+            }
+        });
+    </script>
 </body>
 
 </html>
