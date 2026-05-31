@@ -2,10 +2,10 @@
 @using Microsoft.AspNetCore.Components.Routing
 @inject NavigationManager NavigationManager
 
-<div class="page-container @(IsMobileOpen ? "mobile-open" : "")">
+<div class="page-container">
 
     @* Mobil uchun overlay backdrop *@
-    <div class="mobile-backdrop @(IsMobileOpen ? "show" : "")" @onclick="CloseMobile"></div>
+    <div class="mobile-backdrop" onclick="closeMobileNav()"></div>
 
     @* --- ORQA FON EFFEKTI --- *@
     <div class="bg-visuals">
@@ -14,7 +14,7 @@
     </div>
 
     @* === SIDEBAR === *@
-    <aside class="sidebar @(IsCollapsed ? "collapsed" : "") @(IsMobileOpen ? "mobile-visible" : "")">
+    <aside class="sidebar @(IsCollapsed ? "collapsed" : "")">
         <div class="sidebar-header">
             <div class="brand-wrapper">
                 <div class="logo-box">
@@ -34,7 +34,7 @@
                     </div>
                 }
                 @* Mobilda yopish tugmasi *@
-                <button class="mobile-close-btn" @onclick="CloseMobile" aria-label="Yopish">
+                <button class="mobile-close-btn" onclick="closeMobileNav()" aria-label="Yopish" type="button">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -47,7 +47,7 @@
                     <p class="group-label">Menyu</p>
                 }
 
-                <NavLink href="" class="nav-card" Match="NavLinkMatch.All" @onclick="CloseMobile">
+                <NavLink href="" class="nav-card" Match="NavLinkMatch.All">
                     <div class="nav-card-inner">
                         <div class="nav-icon"><i class="fas fa-home"></i></div>
                         @if (!IsCollapsed)
@@ -57,7 +57,7 @@
                     </div>
                 </NavLink>
 
-                <NavLink href="about" class="nav-card" @onclick="CloseMobile">
+                <NavLink href="about" class="nav-card">
                     <div class="nav-card-inner">
                         <div class="nav-icon"><i class="fas fa-user"></i></div>
                         @if (!IsCollapsed)
@@ -67,7 +67,7 @@
                     </div>
                 </NavLink>
 
-                <NavLink href="projects" class="nav-card" @onclick="CloseMobile">
+                <NavLink href="projects" class="nav-card">
                     <div class="nav-card-inner">
                         <div class="nav-icon"><i class="fas fa-folder-open"></i></div>
                         @if (!IsCollapsed)
@@ -77,7 +77,7 @@
                     </div>
                 </NavLink>
 
-                <NavLink href="skills" class="nav-card" @onclick="CloseMobile">
+                <NavLink href="skills" class="nav-card">
                     <div class="nav-card-inner">
                         <div class="nav-icon"><i class="fas fa-code"></i></div>
                         @if (!IsCollapsed)
@@ -87,7 +87,7 @@
                     </div>
                 </NavLink>
 
-                <NavLink href="services" class="nav-card" @onclick="CloseMobile">
+                <NavLink href="services" class="nav-card">
                     <div class="nav-card-inner">
                         <div class="nav-icon"><i class="fas fa-briefcase"></i></div>
                         @if (!IsCollapsed)
@@ -97,7 +97,7 @@
                     </div>
                 </NavLink>
 
-                <NavLink href="contact" class="nav-card" @onclick="CloseMobile">
+                <NavLink href="contact" class="nav-card">
                     <div class="nav-card-inner">
                         <div class="nav-icon"><i class="fas fa-envelope"></i></div>
                         @if (!IsCollapsed)
@@ -130,10 +130,10 @@
     <main class="main-content">
         <header class="top-bar">
             <div class="breadcrumb">
-                <button class="toggle-btn desktop-only" @onclick="ToggleSidebar" aria-label="Menu">
+                <button class="toggle-btn desktop-only" @onclick="ToggleSidebar" aria-label="Menu" type="button">
                     <i class="fas fa-bars"></i>
                 </button>
-                <button class="toggle-btn mobile-only" @onclick="OpenMobile" aria-label="Menu">
+                <button class="toggle-btn mobile-only" onclick="openMobileNav()" aria-label="Menu" type="button">
                     <i class="fas fa-bars"></i>
                 </button>
                 <span class="page-name">Samandar Mamasoatov</span>
@@ -221,11 +221,13 @@
         backdrop-filter: blur(3px);
         z-index: 99;
         opacity: 0;
+        pointer-events: none;
         transition: opacity 0.3s ease;
     }
 
     .mobile-backdrop.show {
         opacity: 1;
+        pointer-events: auto;
     }
 
     /* === SIDEBAR === */
@@ -676,20 +678,9 @@
 
 @code {
     private bool IsCollapsed = false;
-    private bool IsMobileOpen = false;
 
     private void ToggleSidebar()
     {
         IsCollapsed = !IsCollapsed;
-    }
-
-    private void OpenMobile()
-    {
-        IsMobileOpen = true;
-    }
-
-    private void CloseMobile()
-    {
-        IsMobileOpen = false;
     }
 }

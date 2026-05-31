@@ -1,0 +1,12 @@
+bin/
+obj/
+publish/
+.vs/
+.vscode/
+.idea/
+.git/
+.github/
+.claude/
+*.zip
+*.user
+**/node_modules/
