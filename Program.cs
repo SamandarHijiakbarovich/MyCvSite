@@ -26,7 +26,11 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+// HTTPS redirect faqat lokalda. Render/MonsterASP avtomatik HTTPS qiladi.
+if (app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
 // 5. STATIK FAYLLAR (CSS, JS, Rasmlar)
 app.UseStaticFiles();
