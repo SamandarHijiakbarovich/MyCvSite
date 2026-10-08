@@ -1,0 +1,895 @@
+@page "/cyberlab"
+
+<SeoHead Title="CyberLab — IT kompaniyamiz rasmiy Telegram kanali"
+         Description="Hacking sirlari va dasturlash asoslari. Cybersecurity, programming va ethical hacking bo'yicha amaliy qo'llanmalar hamda kodlar. Bepul kanal."
+         Path="cyberlab"
+         Image="images/og-cyberlab.jpg" />
+
+<div class="cyberlab-page">
+
+    @* ==================== HERO ==================== *@
+    <section class="cl-hero">
+        <div class="cl-dots"></div>
+        <div class="cl-glow cl-glow-1"></div>
+        <div class="cl-glow cl-glow-2"></div>
+
+        <div class="container position-relative">
+            <div class="row align-items-center g-5">
+
+                <div class="col-lg-7">
+                    <div class="cl-badge mb-3">
+                        <i class="fas fa-briefcase me-2"></i> IT KOMPANIYAMIZ
+                    </div>
+
+                    <h1 class="cl-title mb-3">
+                        <span class="cl-title-gradient">CyberLab</span>
+                    </h1>
+
+                    <p class="cl-lead mb-4">
+                        Hacking sirlari va dasturlash asoslari. Cybersecurity, programming va
+                        ethical hacking bo'yicha <strong>amaliy qo'llanmalar</strong> hamda
+                        <strong>tayyor kodlar</strong> — barchasi o'zbek tilida va bepul.
+                    </p>
+
+                    <div class="cl-chips mb-4">
+                        <span><i class="fas fa-shield-halved"></i> Cybersecurity</span>
+                        <span><i class="fas fa-code"></i> Programming</span>
+                        <span><i class="fas fa-user-secret"></i> Ethical Hacking</span>
+                    </div>
+
+                    <div class="cl-actions">
+                        <a href="https://t.me/CyberLabCode" target="_blank" rel="noopener" class="cl-btn-primary">
+                            <i class="fab fa-telegram-plane"></i>
+                            <span>Kanalga qo'shilish</span>
+                        </a>
+                        <a href="https://t.me/share/url?url=https%3A%2F%2Ft.me%2FCyberLabCode&amp;text=CyberLab%20%E2%80%94%20cybersecurity%2C%20dasturlash%20va%20ethical%20hacking%20bo%27yicha%20amaliy%20qo%27llanmalar"
+                           target="_blank" rel="noopener" class="cl-btn-ghost">
+                            <i class="fas fa-share-nodes"></i>
+                            <span>Do'stga ulashish</span>
+                        </a>
+                        <a href="https://instagram.com/HackTechAndBackend" target="_blank" rel="noopener"
+                           class="cl-btn-icon" title="Instagram — HackTechAndBackend">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+
+                @* --- Telegram kanal kartasi --- *@
+                <div class="col-lg-5">
+                    <div class="cl-channel-card">
+                        <div class="cl-channel-top">
+                            <div class="cl-avatar">
+                                <i class="fab fa-telegram"></i>
+                            </div>
+                            <div>
+                                <h3 class="cl-channel-name">CyberLab</h3>
+                                <a href="https://t.me/CyberLabCode" target="_blank" rel="noopener"
+                                   class="cl-channel-link">@@CyberLabCode</a>
+                            </div>
+                        </div>
+
+                        <p class="cl-channel-desc">
+                            👾 Hacking sirlari, dasturlash asoslari.<br />
+                            🔍 Cybersecurity | Programming | Ethical Hacking<br />
+                            💻 Amaliy qo'llanmalar, kodlar<br />
+                            📚 Birgalikda o'rganamiz, birgalikda rivojlanamiz.
+                        </p>
+
+                        <div class="cl-channel-meta">
+                            <span><i class="fas fa-circle-check"></i> Rasmiy kanal</span>
+                            <span><i class="fas fa-lock-open"></i> Ochiq va bepul</span>
+                        </div>
+
+                        <a href="https://t.me/CyberLabCode" target="_blank" rel="noopener" class="cl-channel-join">
+                            <i class="fab fa-telegram-plane"></i> Qo'shilish
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    @* ==================== MAVZULAR ==================== *@
+    <section class="cl-section">
+        <div class="container">
+            <div class="cl-section-head">
+                <h2>Kanaldan nimalar topasiz</h2>
+                <p>Har bir post amaliyotga yo'naltirilgan — o'qibgina qolmay, qo'llab ko'rasiz.</p>
+                <div class="cl-line"></div>
+            </div>
+
+            <div class="row g-4">
+                @foreach (var topic in Topics)
+                {
+                    <div class="col-lg-4 col-md-6">
+                        <div class="cl-topic-card">
+                            <div class="cl-topic-icon" style="--tc: @topic.Color;">
+                                <i class="@topic.Icon"></i>
+                            </div>
+                            <h3>@topic.Title</h3>
+                            <p>@topic.Description</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+
+    @* ==================== POST FORMATLARI ==================== *@
+    <section class="cl-section cl-section-alt">
+        <div class="container">
+            <div class="cl-section-head">
+                <h2>Postlar qanday ko'rinishda</h2>
+                <p>Quruq nazariya emas — ishlaydigan kod, tayyor buyruq va aniq qadamlar.</p>
+                <div class="cl-line"></div>
+            </div>
+
+            <div class="cl-formats">
+                @foreach (var f in Formats)
+                {
+                    <div class="cl-format">
+                        <i class="@f.Icon"></i>
+                        <div>
+                            <strong>@f.Title</strong>
+                            <span>@f.Description</span>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+
+    @* ==================== NEGA OBUNA ==================== *@
+    <section class="cl-section">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-5">
+                    <div class="cl-badge mb-3"><i class="fas fa-star me-2"></i> NEGA CYBERLAB</div>
+                    <h2 class="cl-h2 mb-3">Nega obuna bo'lishga arziydi</h2>
+                    <p class="cl-muted mb-4">
+                        Kanaldagi har bir material amaliy tajribadan olingan. Maqsad — o'zbek
+                        yoshlari uchun IT va xavfsizlik bilimlarini ochiq qilish.
+                    </p>
+                    <a href="https://t.me/CyberLabCode" target="_blank" rel="noopener" class="cl-btn-primary">
+                        <i class="fab fa-telegram-plane"></i>
+                        <span>Bepul obuna bo'lish</span>
+                    </a>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="cl-benefits">
+                        @foreach (var b in Benefits)
+                        {
+                            <div class="cl-benefit">
+                                <div class="cl-benefit-icon"><i class="@b.Icon"></i></div>
+                                <div>
+                                    <h4>@b.Title</h4>
+                                    <p>@b.Description</p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @* ==================== FAQ ==================== *@
+    <section class="cl-section cl-section-alt">
+        <div class="container">
+            <div class="cl-section-head">
+                <h2>Ko'p beriladigan savollar</h2>
+                <div class="cl-line"></div>
+            </div>
+
+            <div class="cl-faq">
+                @foreach (var q in Faq)
+                {
+                    <details class="cl-faq-item">
+                        <summary>
+                            <span>@q.Question</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </summary>
+                        <p>@q.Answer</p>
+                    </details>
+                }
+            </div>
+        </div>
+    </section>
+
+    @* ==================== YAKUNIY CTA ==================== *@
+    <section class="cl-section">
+        <div class="container">
+            <div class="cl-final">
+                <div class="cl-final-glow"></div>
+                <i class="fab fa-telegram cl-final-icon"></i>
+                <h2>Birgalikda o'rganamiz, birgalikda rivojlanamiz</h2>
+                <p>CyberLab kanalida sizni amaliy bilim va yangi imkoniyatlar kutmoqda.</p>
+                <div class="cl-final-actions">
+                    <a href="https://t.me/CyberLabCode" target="_blank" rel="noopener" class="cl-btn-primary">
+                        <i class="fab fa-telegram-plane"></i>
+                        <span>Kanalga qo'shilish</span>
+                    </a>
+                    <a href="https://instagram.com/HackTechAndBackend" target="_blank" rel="noopener"
+                       class="cl-btn-ghost">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram</span>
+                    </a>
+                </div>
+                <p class="cl-final-note">
+                    Xizmatlarimiz: <a href="https://mamasoatovsamandar.uz">mamasoatovsamandar.uz</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<style>
+    .cyberlab-page {
+        background: #0f172a;
+        color: #e2e8f0;
+    }
+
+    /* ---------- Umumiy ---------- */
+    .cl-badge {
+        display: inline-flex;
+        align-items: center;
+        background: rgba(139, 92, 246, 0.12);
+        border: 1px solid rgba(139, 92, 246, 0.32);
+        color: #c4b5fd;
+        padding: 6px 16px;
+        border-radius: 50px;
+        font-size: 0.74rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+    }
+
+    .cl-h2 {
+        color: #fff;
+        font-size: 1.85rem;
+        font-weight: 800;
+    }
+
+    .cl-muted { color: #94a3b8; font-size: 0.95rem; line-height: 1.7; }
+
+    .cl-section { padding: 80px 0; }
+    .cl-section-alt { background: rgba(30, 41, 59, 0.35); }
+
+    .cl-section-head {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+        .cl-section-head h2 {
+            color: #fff;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .cl-section-head p {
+            color: #94a3b8;
+            max-width: 620px;
+            margin: 0 auto;
+            font-size: 0.95rem;
+        }
+
+    .cl-line {
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #3b82f6, #a855f7);
+        margin: 20px auto 0;
+        border-radius: 2px;
+        box-shadow: 0 0 12px rgba(139, 92, 246, 0.5);
+    }
+
+    /* ---------- Hero ---------- */
+    .cl-hero {
+        position: relative;
+        padding: 90px 0 80px;
+        overflow: hidden;
+        background: #0f172a;
+    }
+
+    .cl-dots {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(99, 130, 200, 0.14) 1px, transparent 1px);
+        background-size: 34px 34px;
+        pointer-events: none;
+    }
+
+    .cl-glow {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(130px);
+        pointer-events: none;
+    }
+
+    .cl-glow-1 {
+        width: 420px; height: 420px;
+        background: #3b82f6;
+        opacity: 0.22;
+        top: -140px; left: -80px;
+    }
+
+    .cl-glow-2 {
+        width: 460px; height: 460px;
+        background: #a855f7;
+        opacity: 0.2;
+        bottom: -180px; right: -100px;
+    }
+
+    .cl-title {
+        font-size: 3.6rem;
+        font-weight: 900;
+        line-height: 1.05;
+        letter-spacing: -1px;
+    }
+
+    .cl-title-gradient {
+        background: linear-gradient(90deg, #60a5fa, #a78bfa, #e879f9);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .cl-lead {
+        color: #cbd5e1;
+        font-size: 1.05rem;
+        line-height: 1.75;
+        max-width: 560px;
+    }
+
+        .cl-lead strong { color: #e9d5ff; }
+
+    .cl-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+        .cl-chips span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #c4b5fd;
+            background: rgba(139, 92, 246, 0.12);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 7px 14px;
+            border-radius: 50px;
+        }
+
+    .cl-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .cl-btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 28px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: #fff;
+        text-decoration: none;
+        background: linear-gradient(135deg, #3b82f6, #a855f7);
+        box-shadow: 0 12px 30px rgba(99, 102, 241, 0.35);
+        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+        .cl-btn-primary:hover {
+            color: #fff;
+            transform: translateY(-4px);
+            box-shadow: 0 18px 40px rgba(139, 92, 246, 0.5);
+        }
+
+    .cl-btn-ghost {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 26px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: #cbd5e1;
+        text-decoration: none;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        transition: 0.3s;
+    }
+
+        .cl-btn-ghost:hover {
+            color: #fff;
+            border-color: rgba(139, 92, 246, 0.6);
+            background: rgba(139, 92, 246, 0.12);
+            transform: translateY(-4px);
+        }
+
+    .cl-btn-icon {
+        width: 52px;
+        height: 52px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 1.3rem;
+        color: #f0abfc;
+        text-decoration: none;
+        background: rgba(236, 72, 153, 0.12);
+        border: 1px solid rgba(236, 72, 153, 0.4);
+        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+        .cl-btn-icon:hover {
+            color: #fff;
+            background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af);
+            border-color: transparent;
+            transform: translateY(-4px);
+            box-shadow: 0 14px 32px rgba(221, 42, 123, 0.45);
+        }
+
+    /* ---------- Telegram kanal kartasi ---------- */
+    .cl-channel-card {
+        background: linear-gradient(160deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+        border: 1px solid rgba(139, 92, 246, 0.35);
+        border-radius: 24px;
+        padding: 26px;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .cl-channel-card::before {
+            content: "";
+            position: absolute;
+            top: -90px;
+            right: -90px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: #8b5cf6;
+            filter: blur(80px);
+            opacity: 0.35;
+        }
+
+    .cl-channel-top {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 18px;
+    }
+
+    .cl-avatar {
+        width: 62px;
+        height: 62px;
+        min-width: 62px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.7rem;
+        color: #fff;
+        background: linear-gradient(135deg, #3b82f6, #a855f7);
+        box-shadow: 0 10px 26px rgba(139, 92, 246, 0.45);
+    }
+
+    .cl-channel-name {
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: 800;
+        margin: 0;
+    }
+
+    .cl-channel-link {
+        color: #7dd3fc;
+        font-size: 0.85rem;
+        text-decoration: none;
+        font-family: Consolas, monospace;
+    }
+
+        .cl-channel-link:hover { color: #bae6fd; }
+
+    .cl-channel-desc {
+        position: relative;
+        color: #cbd5e1;
+        font-size: 0.88rem;
+        line-height: 1.85;
+        margin-bottom: 18px;
+    }
+
+    .cl-channel-meta {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: 18px;
+    }
+
+        .cl-channel-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 0.78rem;
+            color: #93c5fd;
+        }
+
+    .cl-channel-join {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        padding: 13px;
+        border-radius: 14px;
+        font-weight: 700;
+        font-size: 0.92rem;
+        color: #fff;
+        text-decoration: none;
+        background: linear-gradient(135deg, #3b82f6, #a855f7);
+        transition: 0.3s;
+    }
+
+        .cl-channel-join:hover {
+            color: #fff;
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+        }
+
+    /* ---------- Mavzu kartalari ---------- */
+    .cl-topic-card {
+        background: rgba(30, 41, 59, 0.72);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 26px 22px;
+        height: 100%;
+        transition: 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+        .cl-topic-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 18px 40px rgba(59, 130, 246, 0.18);
+        }
+
+    .cl-topic-icon {
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.35rem;
+        color: var(--tc, #60a5fa);
+        background: color-mix(in srgb, var(--tc, #60a5fa) 14%, transparent);
+        border: 1px solid color-mix(in srgb, var(--tc, #60a5fa) 38%, transparent);
+        margin-bottom: 16px;
+    }
+
+    .cl-topic-card h3 {
+        color: #fff;
+        font-size: 1.08rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .cl-topic-card p {
+        color: #94a3b8;
+        font-size: 0.88rem;
+        line-height: 1.65;
+        margin: 0;
+    }
+
+    /* ---------- Post formatlari ---------- */
+    .cl-formats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+
+    .cl-format {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        background: rgba(30, 41, 59, 0.72);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 20px;
+        transition: 0.3s;
+    }
+
+        .cl-format:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateY(-4px);
+        }
+
+        .cl-format > i {
+            font-size: 1.2rem;
+            color: #818cf8;
+            margin-top: 3px;
+        }
+
+        .cl-format strong {
+            display: block;
+            color: #e2e8f0;
+            font-size: 0.92rem;
+            margin-bottom: 3px;
+        }
+
+        .cl-format span {
+            color: #94a3b8;
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+
+    /* ---------- Afzalliklar ---------- */
+    .cl-benefits {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .cl-benefit {
+        display: flex;
+        gap: 14px;
+        background: rgba(30, 41, 59, 0.72);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 18px;
+        padding: 20px;
+    }
+
+    .cl-benefit-icon {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.05rem;
+        color: #fff;
+        background: linear-gradient(135deg, #3b82f6, #a855f7);
+    }
+
+    .cl-benefit h4 {
+        color: #fff;
+        font-size: 0.96rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .cl-benefit p {
+        color: #94a3b8;
+        font-size: 0.84rem;
+        line-height: 1.55;
+        margin: 0;
+    }
+
+    /* ---------- FAQ ---------- */
+    .cl-faq {
+        max-width: 820px;
+        margin: 0 auto;
+    }
+
+    .cl-faq-item {
+        background: rgba(30, 41, 59, 0.72);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        margin-bottom: 12px;
+        overflow: hidden;
+        transition: 0.3s;
+    }
+
+        .cl-faq-item[open] {
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        .cl-faq-item summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 18px 22px;
+            cursor: pointer;
+            color: #e2e8f0;
+            font-weight: 600;
+            font-size: 0.96rem;
+            list-style: none;
+        }
+
+            .cl-faq-item summary::-webkit-details-marker { display: none; }
+
+            .cl-faq-item summary i {
+                color: #818cf8;
+                font-size: 0.8rem;
+                transition: transform 0.3s;
+            }
+
+        .cl-faq-item[open] summary i { transform: rotate(180deg); }
+
+        .cl-faq-item p {
+            color: #94a3b8;
+            font-size: 0.88rem;
+            line-height: 1.7;
+            padding: 0 22px 20px;
+            margin: 0;
+        }
+
+    /* ---------- Yakuniy CTA ---------- */
+    .cl-final {
+        position: relative;
+        text-align: center;
+        padding: 60px 30px;
+        border-radius: 28px;
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.14), rgba(168, 85, 247, 0.14));
+        border: 1px solid rgba(139, 92, 246, 0.35);
+        overflow: hidden;
+    }
+
+    .cl-final-glow {
+        position: absolute;
+        width: 380px;
+        height: 380px;
+        border-radius: 50%;
+        background: #8b5cf6;
+        filter: blur(140px);
+        opacity: 0.28;
+        top: -160px;
+        left: 50%;
+        transform: translateX(-50%);
+        pointer-events: none;
+    }
+
+    .cl-final-icon {
+        position: relative;
+        font-size: 3rem;
+        color: #a5b4fc;
+        margin-bottom: 18px;
+        display: block;
+    }
+
+    .cl-final h2 {
+        position: relative;
+        color: #fff;
+        font-size: 1.8rem;
+        font-weight: 800;
+        margin-bottom: 12px;
+    }
+
+    .cl-final > p {
+        position: relative;
+        color: #cbd5e1;
+        font-size: 0.98rem;
+        margin-bottom: 26px;
+    }
+
+    .cl-final-actions {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+    }
+
+    .cl-final-note {
+        position: relative;
+        margin-top: 24px !important;
+        font-size: 0.85rem !important;
+        color: #94a3b8 !important;
+    }
+
+        .cl-final-note a {
+            color: #7dd3fc;
+            text-decoration: none;
+            border-bottom: 1px dashed rgba(125, 211, 252, 0.45);
+        }
+
+    /* ---------- Moslashuvchanlik ---------- */
+    @@media (max-width: 992px) {
+        .cl-title { font-size: 2.8rem; }
+        .cl-formats { grid-template-columns: repeat(2, 1fr); }
+        .cl-benefits { grid-template-columns: 1fr; }
+        .cl-section { padding: 60px 0; }
+    }
+
+    @@media (max-width: 768px) {
+        .cl-hero { padding: 60px 0 55px; }
+        .cl-title { font-size: 2.3rem; }
+        .cl-lead { font-size: 0.96rem; }
+        .cl-section-head h2 { font-size: 1.55rem; }
+        .cl-h2 { font-size: 1.5rem; }
+        .cl-formats { grid-template-columns: 1fr; }
+        .cl-section { padding: 50px 0; }
+        .cl-final { padding: 44px 20px; }
+        .cl-final h2 { font-size: 1.35rem; }
+        .cl-final-icon { font-size: 2.3rem; }
+    }
+
+    @@media (max-width: 480px) {
+        .cl-title { font-size: 1.95rem; }
+        .cl-actions .cl-btn-primary,
+        .cl-actions .cl-btn-ghost { flex: 1 1 100%; justify-content: center; }
+        .cl-btn-primary, .cl-btn-ghost { padding: 14px 20px; font-size: 0.88rem; }
+        .cl-topic-card { padding: 22px 18px; }
+        .cl-channel-card { padding: 20px; }
+    }
+</style>
+
+@code {
+    private record Topic(string Title, string Description, string Icon, string Color);
+    private record Format(string Title, string Description, string Icon);
+    private record Benefit(string Title, string Description, string Icon);
+    private record FaqItem(string Question, string Answer);
+
+    private static readonly List<Topic> Topics = new()
+    {
+        new Topic("Kiberxavfsizlik asoslari",
+            "OWASP Top 10, keng tarqalgan zaifliklar (SQL Injection, XSS) va ulardan himoyalanish usullari.",
+            "fas fa-shield-halved", "#60a5fa"),
+        new Topic("Ethical Hacking",
+            "Qonuniy penetratsion test metodologiyasi, recon bosqichi va xavfsizlik auditini o'tkazish tartibi.",
+            "fas fa-user-secret", "#a855f7"),
+        new Topic("Dasturlash amaliyoti",
+            "C#, Python va JavaScript bo'yicha ishlaydigan kod namunalari va real loyihalardan olingan tajriba.",
+            "fas fa-code", "#22d3ee"),
+        new Topic("Backend arxitektura",
+            "Clean Architecture, REST API loyihalash, ma'lumotlar bazasi bilan ishlash va Docker.",
+            "fas fa-server", "#34d399"),
+        new Topic("Linux va tarmoqlar",
+            "Terminal buyruqlari, tarmoq asoslari, monitoring va tizim xavfsizligi sozlamalari.",
+            "fas fa-terminal", "#fbbf24"),
+        new Topic("Karyera va o'sish",
+            "Junior dasturchi bo'lib ishga kirish, portfolio yig'ish va texnik suhbatga tayyorgarlik.",
+            "fas fa-briefcase", "#f472b6")
+    };
+
+    private static readonly List<Format> Formats = new()
+    {
+        new Format("Amaliy qo'llanmalar", "Qadam-baqadam ko'rsatmalar, skrinshotlar bilan", "fas fa-list-check"),
+        new Format("Tayyor kodlar", "Ko'chirib ishlatish mumkin bo'lgan namunalar", "fas fa-file-code"),
+        new Format("Viktorina va testlar", "Bilimni mustahkamlash uchun savol-javoblar", "fas fa-circle-question"),
+        new Format("Vositalar sharhi", "Foydali dasturlar va servislar tahlili", "fas fa-toolbox"),
+        new Format("Yangiliklar tahlili", "Xavfsizlik va IT olamidagi muhim voqealar", "fas fa-newspaper"),
+        new Format("Bepul resurslar", "Kitoblar, kurslar va o'quv materiallari", "fas fa-gift")
+    };
+
+    private static readonly List<Benefit> Benefits = new()
+    {
+        new Benefit("Amaliyotga yo'naltirilgan",
+            "Quruq nazariya emas — ishlaydigan kod, tayyor buyruq va aniq qadamlar.",
+            "fas fa-screwdriver-wrench"),
+        new Benefit("O'zbek tilida",
+            "Murakkab mavzular sodda va tushunarli tilda tushuntiriladi.",
+            "fas fa-language"),
+        new Benefit("To'liq bepul",
+            "Barcha materiallar ochiq. Hech qanday to'lov yoki majburiyat yo'q.",
+            "fas fa-unlock"),
+        new Benefit("Savol-javob",
+            "Savollaringizga javob olasiz — birgalikda o'rganamiz va rivojlanamiz.",
+            "fas fa-comments")
+    };
+
+    private static readonly List<FaqItem> Faq = new()
+    {
+        new FaqItem("Kanal bepulmi?",
+            "Ha, to'liq bepul. Barcha qo'llanmalar, kodlar va resurslar ochiq — hech qanday to'lov talab qilinmaydi."),
+        new FaqItem("Qanday darajadagi o'quvchilar uchun?",
+            "Asosan boshlovchi va o'rta daraja uchun. Tajribali dasturchilar ham amaliy maslahatlar va xavfsizlik bo'yicha foydali material topadi."),
+        new FaqItem("Qanchalik tez-tez post chiqadi?",
+            "Haftada 3-5 marta. Har bir post amaliy foyda berishga qaratilgan."),
+        new FaqItem("Qanday mavzular asosiy?",
+            "Cybersecurity va ethical hacking — asosiy yo'nalish. Bunga qo'shimcha dasturlash, backend arxitektura va karyera bo'yicha materiallar."),
+        new FaqItem("Savol bersam bo'ladimi?",
+            "Albatta. Kanal izohlarida yoki shaxsiy Telegram orqali savol berishingiz mumkin — imkon qadar javob beraman.")
+    };
+}

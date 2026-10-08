@@ -12,6 +12,7 @@ Render.com'da joylashtirilgan va **mamasoatovsamandar.uz** domenida ishlaydi.
 | `/projects` | Loyihalar — qidiruv va yo'nalish bo'yicha filtr bilan 17 ta loyiha |
 | `/skills` | Ko'nikmalar — backend, ma'lumotlar bazasi va kiberxavfsizlik |
 | `/services` | Xizmatlar |
+| `/cyberlab` | CyberLab kanali — mavzular, post formatlari, FAQ va obuna |
 | `/contact` | Aloqa formasi |
 
 ## Arxitektura
@@ -19,16 +20,32 @@ Render.com'da joylashtirilgan va **mamasoatovsamandar.uz** domenida ishlaydi.
 ```
 Components/
   Layout/      MainLayout (sidebar + topbar), NavMenu
-  Pages/       Home, About, Projects, Skills, Services, Contact, Error
-  UI/          ProjectCard, SocialIcon
+  Pages/       Home, About, Projects, Skills, Services, CyberLab, Contact, Error
+  UI/          ProjectCard, SocialIcon, SeoHead
 Data/          ProjectModel, SkillModel, ContactModel
 Services/      ProjectService  ← barcha loyiha ma'lumotlari uchun yagona manba
 wwwroot/
   css/         app.css, portfolio.css
-  images/      my-photo.*, projects/*.webp (loyiha muqovalari)
+  images/      my-photo.*, projects/*.webp (loyiha muqovalari), og-*.jpg
   js/          app.js, aboutPage.js, skillbar.js
   Files/       SamandarResume.pdf
 ```
+
+### SEO va ijtimoiy tarmoq teglari
+
+Har bir sahifada `<SeoHead>` komponenti ishlatiladi — u `<title>`, `description`,
+canonical havola va Open Graph / Twitter meta teglarini chiqaradi:
+
+```razor
+<SeoHead Title="Sahifa nomi"
+         Description="Qidiruv va ijtimoiy tarmoqlar uchun tavsif."
+         Path="sahifa-yoli"
+         Image="images/og-default.jpg" />
+```
+
+Rasm ko'rsatilmasa `images/og-default.jpg` ishlatiladi. Ulashishda alohida karta
+kerak bo'lsa (masalan `/cyberlab`), shu sahifada boshqa rasm ko'rsatiladi.
+Umumiy teglar (`og:site_name`, `og:type`, `twitter:card`) `App.razor` da turadi.
 
 ### Loyihalarni qanday qo'shish
 

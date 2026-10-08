@@ -1,0 +1,49 @@
+@* Sahifa sarlavhasi, tavsifi va ijtimoiy tarmoq (Open Graph / Twitter) meta teglari. *@
+<PageTitle>@Title</PageTitle>
+
+<HeadContent>
+    <meta name="description" content="@Description" />
+    <link rel="canonical" href="@AbsoluteUrl" />
+
+    @* --- Open Graph: Telegram, Facebook, LinkedIn --- *@
+    <meta property="og:title" content="@Title" />
+    <meta property="og:description" content="@Description" />
+    <meta property="og:url" content="@AbsoluteUrl" />
+    <meta property="og:image" content="@ImageUrl" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="@Title" />
+
+    @* --- Twitter / X --- *@
+    <meta name="twitter:title" content="@Title" />
+    <meta name="twitter:description" content="@Description" />
+    <meta name="twitter:image" content="@ImageUrl" />
+</HeadContent>
+
+@code {
+    /// <summary>Saytning rasmiy manzili — havolalar shu domen asosida quriladi.</summary>
+    public const string SiteUrl = "https://mamasoatovsamandar.uz";
+
+    public const string DefaultDescription =
+        "Samandar Mamasoatov — .NET Backend dasturchi. ASP.NET Core, Blazor, PostgreSQL va kiberxavfsizlik bo'yicha real loyihalar.";
+
+    /// <summary>Brauzer sarlavhasi va og:title.</summary>
+    [Parameter, EditorRequired] public string Title { get; set; } = string.Empty;
+
+    /// <summary>Qidiruv tizimlari va ijtimoiy tarmoqlar uchun tavsif.</summary>
+    [Parameter] public string Description { get; set; } = DefaultDescription;
+
+    /// <summary>Sahifa yo'li, masalan "projects" yoki "cyberlab". Bo'sh bo'lsa bosh sahifa.</summary>
+    [Parameter] public string Path { get; set; } = string.Empty;
+
+    /// <summary>Ulashishda ko'rsatiladigan rasm (saytga nisbatan yoki to'liq manzil).</summary>
+    [Parameter] public string Image { get; set; } = "images/og-default.jpg";
+
+    private string AbsoluteUrl =>
+        string.IsNullOrWhiteSpace(Path) ? SiteUrl + "/" : $"{SiteUrl}/{Path.TrimStart('/')}";
+
+    private string ImageUrl =>
+        Image.StartsWith("http", StringComparison.OrdinalIgnoreCase)
+            ? Image
+            : $"{SiteUrl}/{Image.TrimStart('/')}";
+}

@@ -97,6 +97,18 @@
                     </div>
                 </NavLink>
 
+                <NavLink href="cyberlab" class="nav-card nav-card-cyberlab">
+                    <div class="nav-card-inner">
+                        <div class="nav-icon"><i class="fab fa-telegram"></i></div>
+                        @if (!IsCollapsed)
+                        {
+                            <div class="nav-info">
+                                <span class="nav-title">CyberLab</span>
+                            </div>
+                        }
+                    </div>
+                </NavLink>
+
                 <NavLink href="contact" class="nav-card">
                     <div class="nav-card-inner">
                         <div class="nav-icon"><i class="fas fa-envelope"></i></div>
@@ -437,6 +449,24 @@
         background: var(--grad);
         color: white;
         box-shadow: 0 0 12px var(--c-accent-glow);
+    }
+
+    /* === CYBERLAB NAV KARTASI === */
+    .nav-card-cyberlab .nav-icon {
+        color: #c4b5fd;
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(168, 85, 247, 0.18));
+        border: 1px solid rgba(139, 92, 246, 0.35);
+    }
+
+    .nav-card-cyberlab:hover .nav-icon {
+        color: #fff;
+        background: linear-gradient(135deg, #3b82f6, #a855f7);
+    }
+
+    .nav-card-cyberlab.active .nav-icon {
+        background: linear-gradient(135deg, #3b82f6, #a855f7);
+        color: #fff;
+        box-shadow: 0 0 12px rgba(139, 92, 246, 0.55);
     }
 
     /* === SIDEBAR BOTTOM === */
