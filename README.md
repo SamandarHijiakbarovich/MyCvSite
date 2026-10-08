@@ -7,7 +7,7 @@ Render.com'da joylashtirilgan va **mamasoatovsamandar.uz** domenida ishlaydi.
 
 | Yo'l | Tavsif |
 | --- | --- |
-| `/` | Bosh sahifa — tanishtiruv, statistika, ijtimoiy tarmoqlar |
+| `/` | Bosh sahifa — tanishtiruv, statistika, ijtimoiy tarmoqlar, CyberLab kanali bloki |
 | `/about` | Men haqimda — tajriba, ta'lim, yutuqlar |
 | `/projects` | Loyihalar — qidiruv va yo'nalish bo'yicha filtr bilan 17 ta loyiha |
 | `/skills` | Ko'nikmalar — backend, ma'lumotlar bazasi va kiberxavfsizlik |
@@ -84,3 +84,10 @@ qayta quradi. Sayt Cloudflare orqali **mamasoatovsamandar.uz** domenida xizmat q
 
 **Samandar Mamasoatov** — .NET Backend dasturchi
 [GitHub](https://github.com/SamandarHijiakbarovich) · [Telegram](https://t.me/LinuxInstructor)
+
+## CyberLab
+
+**CyberLab** — IT kompaniyamizning rasmiy Telegram kanali: cybersecurity,
+dasturlash va ethical hacking bo'yicha amaliy qo'llanmalar va kodlar.
+
+👉 [t.me/CyberLabCode](https://t.me/CyberLabCode)

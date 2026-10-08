@@ -1,17 +1,43 @@
-<div class="social-links-container d-flex gap-3">
-    <SocialLink Icon="fas fa-envelope" Url="mailto:mamasoatovsamandar5@gmail.com" Title="Email" Color="#ea4335" />
-    <SocialLink Icon="fab fa-github" Url="https://github.com/SamandarHijiakbarovich" Title="GitHub" Color="#333" />
-    <SocialLink Icon="fab fa-linkedin" Url="https://linkedin.com/in/SamandarMamasoatovCyberLab" Title="LinkedIn" Color="#0077b5" />
-    <SocialLink Icon="fab fa-telegram" Url="https://t.me/samandar_dev" Title="Telegram" Color="#0088cc" />
-    <SocialLink Icon="fab fa-instagram" Url="https://instagram.com/samandar.dev" Title="Instagram" Color="#e1306c" />
+@* Ijtimoiy tarmoq havolalari bloki — istalgan sahifada ishlatish mumkin. *@
+<div class="social-links-container d-flex flex-wrap gap-3">
+    <a href="mailto:mamasoatovsamandar@gmail.com" class="social-icon-btn" title="Email" style="--si-color:#ea4335;">
+        <i class="fas fa-envelope"></i>
+    </a>
+    <a href="https://github.com/SamandarHijiakbarovich" target="_blank" rel="noopener"
+       class="social-icon-btn" title="GitHub" style="--si-color:#6e7681;">
+        <i class="fab fa-github"></i>
+    </a>
+    <a href="https://t.me/CyberLabCode" target="_blank" rel="noopener"
+       class="social-icon-btn" title="CyberLab — IT kompaniyamiz rasmiy kanali" style="--si-color:#a855f7;">
+        <i class="fab fa-telegram"></i>
+    </a>
+    <a href="https://t.me/LinuxInstructor" target="_blank" rel="noopener"
+       class="social-icon-btn" title="Telegram (shaxsiy)" style="--si-color:#0088cc;">
+        <i class="fab fa-telegram-plane"></i>
+    </a>
 </div>
 
-@* Ichki kichik komponent yoki alohida fayl *@
-@code {
-    public class SocialLinkProps {
-        public string Icon { get; set; }
-        public string Url { get; set; }
-        public string Title { get; set; }
-        public string Color { get; set; }
+<style>
+    .social-icon-btn {
+        width: 46px;
+        height: 46px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 14px;
+        font-size: 1.15rem;
+        color: #cbd5e1;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        text-decoration: none;
+        transition: 0.25s;
     }
-}
+
+    .social-icon-btn:hover {
+        color: #fff;
+        background: var(--si-color, #3b82f6);
+        border-color: transparent;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+    }
+</style>
