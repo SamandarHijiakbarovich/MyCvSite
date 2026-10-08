@@ -115,12 +115,23 @@
                     <span><i class="fas fa-code"></i> Programming</span>
                     <span><i class="fas fa-user-secret"></i> Ethical Hacking</span>
                 </div>
+                <p class="cyberlab-services">
+                    <i class="fas fa-briefcase"></i>
+                    Xizmatlarimiz:
+                    <a href="https://mamasoatovsamandar.uz" target="_blank" rel="noopener">mamasoatovsamandar.uz</a>
+                </p>
             </div>
 
-            <a href="https://t.me/CyberLabCode" target="_blank" rel="noopener" class="cyberlab-join">
-                <i class="fab fa-telegram-plane"></i>
-                <span>Kanalga qo'shilish</span>
-            </a>
+            <div class="cyberlab-actions">
+                <a href="https://t.me/CyberLabCode" target="_blank" rel="noopener" class="cyberlab-join">
+                    <i class="fab fa-telegram-plane"></i>
+                    <span>Kanalga qo'shilish</span>
+                </a>
+                <a href="https://instagram.com/HackTechAndBackend" target="_blank" rel="noopener"
+                   class="cyberlab-insta" title="Instagram — HackTechAndBackend">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
         </div>
     </div>
 </section>
@@ -575,6 +586,66 @@
             box-shadow: 0 18px 40px rgba(139, 92, 246, 0.5);
         }
 
+    /* "Xizmatlarimiz" qatori */
+    .cyberlab-services {
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 7px;
+        font-size: 0.82rem;
+        color: #94a3b8;
+        margin: 14px 0 0;
+    }
+
+        .cyberlab-services i {
+            color: #a5b4fc;
+        }
+
+        .cyberlab-services a {
+            color: #7dd3fc;
+            text-decoration: none;
+            border-bottom: 1px dashed rgba(125, 211, 252, 0.45);
+            transition: 0.2s;
+        }
+
+            .cyberlab-services a:hover {
+                color: #bae6fd;
+                border-bottom-color: #bae6fd;
+            }
+
+    /* Kanal + Instagram tugmalari */
+    .cyberlab-actions {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+    }
+
+    .cyberlab-insta {
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 1.35rem;
+        color: #f0abfc;
+        text-decoration: none;
+        background: rgba(236, 72, 153, 0.12);
+        border: 1px solid rgba(236, 72, 153, 0.4);
+        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+        .cyberlab-insta:hover {
+            color: #fff;
+            background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af);
+            border-color: transparent;
+            transform: translateY(-4px);
+            box-shadow: 0 14px 32px rgba(221, 42, 123, 0.45);
+        }
+
     /* Keyframes */
     @@keyframes morph {
         0%, 100% {
@@ -752,6 +823,16 @@
 
         .cyberlab-topics {
             justify-content: center;
+        }
+
+        .cyberlab-services {
+            justify-content: center;
+        }
+
+        .cyberlab-actions {
+            width: 100%;
+            flex-direction: column;
+            gap: 14px;
         }
 
         .cyberlab-join {

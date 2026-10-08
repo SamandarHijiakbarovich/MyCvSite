@@ -87,7 +87,10 @@ qayta quradi. Sayt Cloudflare orqali **mamasoatovsamandar.uz** domenida xizmat q
 
 ## CyberLab
 
-**CyberLab** — IT kompaniyamizning rasmiy Telegram kanali: cybersecurity,
-dasturlash va ethical hacking bo'yicha amaliy qo'llanmalar va kodlar.
+**CyberLab** — IT kompaniyamizning rasmiy Telegram kanali: hacking sirlari,
+dasturlash asoslari, cybersecurity va ethical hacking bo'yicha amaliy
+qo'llanmalar hamda kodlar. Kanal tavsifida ko'rsatilgan xizmat manzili ham
+shu sayt — [mamasoatovsamandar.uz](https://mamasoatovsamandar.uz).
 
-👉 [t.me/CyberLabCode](https://t.me/CyberLabCode)
+- Telegram: [t.me/CyberLabCode](https://t.me/CyberLabCode)
+- Instagram: [instagram.com/HackTechAndBackend](https://instagram.com/HackTechAndBackend)
