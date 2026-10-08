@@ -1,64 +1,188 @@
 @page "/projects"
 @using MyCvSite.Data
+@using MyCvSite.Services
+@inject ProjectService ProjectService
 
 <PageTitle>Loyihalarim | Samandar Mamasoatov</PageTitle>
 
 <div class="projects-page">
     <div class="container py-5">
+
+        @* ==================== HEADER ==================== *@
         <div class="section-header text-center mb-5">
             <div class="page-badge mb-3">
                 <i class="fas fa-code-branch me-2"></i> PORTFOLIO
             </div>
             <h1 class="display-4 fw-bold mb-3 highlight-text">Mening Loyihalarim</h1>
             <p class="lead custom-subtitle">
-                .NET ekotizimida yaratilgan real va ishlab turgan loyihalar
+                .NET, AI va mobil yo'nalishlarida yaratilgan real va ishlab turgan loyihalar
             </p>
             <div class="header-line"></div>
         </div>
 
-        <div class="row g-4">
-            @foreach (var project in projects)
+        @* ==================== STATISTIKA ==================== *@
+        <div class="stats-strip mb-5">
+            <div class="stat-pill">
+                <span class="stat-value">@projects.Count</span>
+                <span class="stat-label">Loyiha</span>
+            </div>
+            <div class="stat-pill">
+                <span class="stat-value">@TotalTechnologies</span>
+                <span class="stat-label">Texnologiya</span>
+            </div>
+            <div class="stat-pill">
+                <span class="stat-value">@CategoryCount</span>
+                <span class="stat-label">Yo'nalish</span>
+            </div>
+            <div class="stat-pill">
+                <span class="stat-value">@FeaturedCount</span>
+                <span class="stat-label">Asosiy</span>
+            </div>
+        </div>
+
+        @* ==================== QIDIRUV VA FILTR ==================== *@
+        <div class="filter-panel mb-5">
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text"
+                       class="search-input"
+                       placeholder="Loyiha yoki texnologiya bo'yicha qidirish..."
+                       @bind="searchTerm"
+                       @bind:event="oninput" />
+                @if (!string.IsNullOrWhiteSpace(searchTerm))
+                {
+                    <button class="search-clear" @onclick="ClearSearch" title="Tozalash" aria-label="Qidiruvni tozalash">
+                        <i class="fas fa-times"></i>
+                    </button>
+                }
+            </div>
+
+            <div class="filter-chips">
+                @foreach (var category in Categories)
+                {
+                    <button class="filter-chip @(selectedCategory == category ? "active" : "")"
+                            @onclick="() => SelectCategory(category)">
+                        <i class="@CategoryIcons.GetValueOrDefault(category, "fas fa-folder") me-2"></i>@category
+                    </button>
+                }
+            </div>
+        </div>
+
+        <div class="result-info mb-4">
+            <span>
+                <strong>@FilteredProjects.Count()</strong> ta loyiha topildi
+                @if (selectedCategory != AllCategory)
+                {
+                    <span class="text-muted"> &middot; @selectedCategory yo'nalishi bo'yicha</span>
+                }
+                @if (!string.IsNullOrWhiteSpace(searchTerm))
+                {
+                    <span class="text-muted"> &middot; "@searchTerm" so'rovi bo'yicha</span>
+                }
+            </span>
+            @if (selectedCategory != AllCategory || !string.IsNullOrWhiteSpace(searchTerm))
             {
-                <div class="col-lg-4 col-md-6 animate__animated animate__fadeInUp">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="@project.ImageUrl" alt="@project.Title"
-                                 onerror="this.src='https://placehold.co/400x250/1e293b/6366f1?text=@Uri.EscapeDataString(project.Title)'" />
-                            <div class="project-overlay">
-                                <div class="project-links">
-                                    @if (!string.IsNullOrEmpty(project.GithubUrl))
-                                    {
-                                        <a href="@project.GithubUrl" target="_blank" rel="noopener"
-                                           class="project-link" title="GitHub">
-                                            <i class="fab fa-github"></i>
-                                        </a>
-                                    }
-                                    @if (!string.IsNullOrEmpty(project.LiveDemoUrl))
-                                    {
-                                        <a href="@project.LiveDemoUrl" target="_blank" rel="noopener"
-                                           class="project-link" title="Live Demo">
-                                            <i class="fas fa-external-link-alt"></i>
-                                        </a>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="project-content">
-                            <h4 class="project-title">@project.Title</h4>
-                            <p class="project-description">@project.Description</p>
-
-                            <div class="tech-tags">
-                                @foreach (var tech in project.Technologies)
-                                {
-                                    <span class="tech-tag">@tech</span>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <button class="btn-reset" @onclick="ResetFilters">
+                    <i class="fas fa-rotate-left me-1"></i> Filtrni tozalash
+                </button>
             }
         </div>
+
+        @* ==================== LOYIHALAR RO'YXATI ==================== *@
+        @if (FilteredProjects.Any())
+        {
+            <div class="row g-4">
+                @foreach (var project in FilteredProjects)
+                {
+                    <div class="col-xl-4 col-lg-6 col-md-6">
+                        <article class="project-card @(project.IsFeatured ? "is-featured" : "")">
+                            <div class="project-image">
+                                <img src="@project.ImageUrl" alt="@project.Title — @project.Tagline" loading="lazy" />
+                                <span class="status-badge status-@StatusSlug(project.Status)">@project.Status</span>
+                                @if (project.IsFeatured)
+                                {
+                                    <span class="featured-badge" title="Asosiy loyiha">
+                                        <i class="fas fa-star"></i>
+                                    </span>
+                                }
+                                <div class="project-overlay">
+                                    <div class="project-links">
+                                        @if (!string.IsNullOrEmpty(project.GithubUrl))
+                                        {
+                                            <a href="@project.GithubUrl" target="_blank" rel="noopener"
+                                               class="project-link" title="GitHub manba kodi">
+                                                <i class="fab fa-github"></i>
+                                            </a>
+                                        }
+                                        @if (!string.IsNullOrEmpty(project.LiveDemoUrl))
+                                        {
+                                            <a href="@project.LiveDemoUrl" target="_blank" rel="noopener"
+                                               class="project-link" title="Jonli demo">
+                                                <i class="fas fa-external-link-alt"></i>
+                                            </a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="project-content">
+                                <div class="project-meta">
+                                    <span class="category-chip">
+                                        <i class="@CategoryIcons.GetValueOrDefault(project.Category, "fas fa-folder") me-1"></i>@project.Category
+                                    </span>
+                                    <span class="tagline">@project.Tagline</span>
+                                </div>
+
+                                <h3 class="project-title">@project.Title</h3>
+                                <p class="project-description">@project.Description</p>
+
+                                <div class="tech-tags">
+                                    @foreach (var tech in project.Technologies)
+                                    {
+                                        <span class="tech-tag">@tech</span>
+                                    }
+                                </div>
+
+                                @if (!string.IsNullOrEmpty(project.GithubUrl))
+                                {
+                                    <a href="@project.GithubUrl" target="_blank" rel="noopener" class="project-cta">
+                                        <i class="fab fa-github"></i>
+                                        <span>Manba kodini ko'rish</span>
+                                        <i class="fas fa-arrow-right arrow"></i>
+                                    </a>
+                                }
+                            </div>
+                        </article>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <i class="fas fa-magnifying-glass"></i>
+                <h3>Hech narsa topilmadi</h3>
+                <p>Qidiruv so'zini yoki yo'nalish filtrini o'zgartirib ko'ring.</p>
+                <button class="btn-cyber-primary-sm" @onclick="ResetFilters">
+                    <i class="fas fa-rotate-left me-2"></i>Filtrlarni tozalash
+                </button>
+            </div>
+        }
+
+        @* ==================== GITHUB CTA ==================== *@
+        <div class="github-cta mt-5">
+            <div class="github-cta-inner">
+                <i class="fab fa-github github-cta-icon"></i>
+                <div class="github-cta-text">
+                    <h4>Yana ko'proq loyihalar GitHub'da</h4>
+                    <p>Ochiq kodli omborlar, tajribalar va o'quv mashqlari</p>
+                </div>
+                <a href="@ProjectService.GithubProfile" target="_blank" rel="noopener" class="github-cta-btn">
+                    <i class="fab fa-github me-2"></i>Profilni ko'rish
+                </a>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -102,7 +226,7 @@
     .custom-subtitle {
         color: #cbd5e1;
         font-weight: 400;
-        max-width: 600px;
+        max-width: 620px;
         margin: 0 auto;
     }
 
@@ -115,15 +239,182 @@
         box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
     }
 
-    /* Card Design */
+    /* ---------- Statistika ---------- */
+    .stats-strip {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        max-width: 720px;
+        margin: 0 auto;
+    }
+
+    .stat-pill {
+        background: rgba(30, 41, 59, 0.72);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 16px 10px;
+        text-align: center;
+        transition: 0.3s;
+    }
+
+    .stat-pill:hover {
+        border-color: rgba(59, 130, 246, 0.5);
+        transform: translateY(-3px);
+    }
+
+    .stat-value {
+        display: block;
+        font-size: 1.6rem;
+        font-weight: 800;
+        line-height: 1.1;
+        background: linear-gradient(90deg, #60a5fa, #a78bfa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .stat-label {
+        display: block;
+        font-size: 0.72rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-top: 4px;
+    }
+
+    /* ---------- Filtr paneli ---------- */
+    .filter-panel {
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        padding: 20px;
+        backdrop-filter: blur(6px);
+    }
+
+    .search-wrapper {
+        position: relative;
+        margin-bottom: 18px;
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #64748b;
+        pointer-events: none;
+    }
+
+    .search-input {
+        width: 100%;
+        background: rgba(15, 23, 42, 0.85);
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+        padding: 14px 46px 14px 46px;
+        color: var(--text-main);
+        font-size: 0.95rem;
+        outline: none;
+        transition: 0.25s;
+    }
+
+    .search-input::placeholder { color: #64748b; }
+
+    .search-input:focus {
+        border-color: var(--accent-blue);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    .search-clear {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(100, 116, 139, 0.2);
+        border: none;
+        color: #cbd5e1;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .search-clear:hover { background: rgba(239, 68, 68, 0.25); color: #fca5a5; }
+
+    .filter-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+        justify-content: center;
+    }
+
+    .filter-chip {
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid var(--border-color);
+        color: #cbd5e1;
+        padding: 8px 16px;
+        border-radius: 50px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.25s;
+        white-space: nowrap;
+    }
+
+    .filter-chip:hover {
+        border-color: rgba(59, 130, 246, 0.6);
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+    .filter-chip.active {
+        background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+        border-color: transparent;
+        color: #fff;
+        box-shadow: 0 6px 18px rgba(59, 130, 246, 0.35);
+    }
+
+    /* ---------- Natija satri ---------- */
+    .result-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        color: #cbd5e1;
+        font-size: 0.9rem;
+        padding: 0 4px;
+    }
+
+    .result-info strong { color: #60a5fa; }
+
+    .btn-reset {
+        background: transparent;
+        border: 1px solid var(--border-color);
+        color: #cbd5e1;
+        padding: 6px 14px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: 0.25s;
+    }
+
+    .btn-reset:hover { border-color: #f87171; color: #fca5a5; }
+
+    /* ---------- Loyiha kartasi ---------- */
     .project-card {
         background: var(--card-bg);
         border-radius: 20px;
         overflow: hidden;
         border: 1px solid var(--border-color);
         height: 100%;
+        display: flex;
+        flex-direction: column;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .project-card.is-featured {
+        border-color: rgba(139, 92, 246, 0.35);
     }
 
     .project-card:hover {
@@ -132,27 +423,75 @@
         box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
     }
 
-    /* Image section */
     .project-image {
         position: relative;
-        height: 220px;
-        background: #0b1120;
+        aspect-ratio: 900 / 520;
+        background: linear-gradient(135deg, #101a2e, #1b2740);
+        overflow: hidden;
     }
 
     .project-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        opacity: 0.85;
+        display: block;
+        opacity: 0.94;
         transition: 0.5s;
     }
 
     .project-card:hover .project-image img {
-        opacity: 0.35;
-        transform: scale(1.05);
+        opacity: 0.4;
+        transform: scale(1.06);
     }
 
-    /* Overlay */
+    .status-badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        text-transform: uppercase;
+        backdrop-filter: blur(6px);
+        border: 1px solid transparent;
+    }
+
+    .status-tayyor {
+        background: rgba(16, 185, 129, 0.18);
+        border-color: rgba(16, 185, 129, 0.45);
+        color: #6ee7b7;
+    }
+
+    .status-mvp {
+        background: rgba(59, 130, 246, 0.18);
+        border-color: rgba(59, 130, 246, 0.45);
+        color: #93c5fd;
+    }
+
+    .status-ishlab {
+        background: rgba(245, 158, 11, 0.18);
+        border-color: rgba(245, 158, 11, 0.45);
+        color: #fcd34d;
+    }
+
+    .featured-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #f59e0b, #ef4444);
+        color: #fff;
+        font-size: 0.75rem;
+        box-shadow: 0 4px 14px rgba(245, 158, 11, 0.45);
+    }
+
     .project-overlay {
         position: absolute;
         inset: 0;
@@ -160,14 +499,12 @@
         align-items: center;
         justify-content: center;
         gap: 12px;
-        background: rgba(15, 23, 42, 0.5);
+        background: rgba(15, 23, 42, 0.45);
         opacity: 0;
         transition: 0.3s;
     }
 
-    .project-card:hover .project-overlay {
-        opacity: 1;
-    }
+    .project-card:hover .project-overlay { opacity: 1; }
 
     .project-link {
         width: 50px;
@@ -189,31 +526,58 @@
         transform: scale(1.2);
     }
 
-    /* Card Content */
     .project-content {
-        padding: 1.5rem;
+        padding: 1.4rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .project-meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+    }
+
+    .category-chip {
+        background: rgba(139, 92, 246, 0.12);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        color: #c4b5fd;
+        padding: 3px 10px;
+        border-radius: 50px;
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+    }
+
+    .tagline {
+        font-size: 0.75rem;
+        color: #64748b;
+        font-style: italic;
     }
 
     .project-title {
         color: #fff;
-        font-size: 1.3rem;
+        font-size: 1.25rem;
         font-weight: 700;
-        margin-bottom: 0.7rem;
+        margin-bottom: 0.6rem;
     }
 
     .project-description {
         color: #94a3b8;
-        font-size: 0.92rem;
+        font-size: 0.9rem;
         line-height: 1.65;
-        margin-bottom: 1.2rem;
-        min-height: 4.8rem;
+        margin-bottom: 1.1rem;
     }
 
-    /* Tech tags */
     .tech-tags {
         display: flex;
         flex-wrap: wrap;
         gap: 7px;
+        margin-bottom: 1.2rem;
     }
 
     .tech-tag {
@@ -221,77 +585,218 @@
         color: #60a5fa;
         padding: 4px 11px;
         border-radius: 7px;
-        font-size: 0.72rem;
+        font-size: 0.7rem;
         font-weight: 600;
         border: 1px solid rgba(59, 130, 246, 0.2);
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
 
+    .project-cta {
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 16px;
+        border-radius: 12px;
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid var(--border-color);
+        color: #cbd5e1;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: 0.25s;
+    }
+
+    .project-cta .arrow {
+        margin-left: auto;
+        font-size: 0.75rem;
+        transition: 0.25s;
+    }
+
+    .project-cta:hover {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(139, 92, 246, 0.18));
+        border-color: rgba(59, 130, 246, 0.55);
+        color: #fff;
+    }
+
+    .project-cta:hover .arrow { transform: translateX(4px); }
+
+    /* ---------- Bo'sh holat ---------- */
+    .empty-state {
+        text-align: center;
+        padding: 70px 20px;
+        background: rgba(30, 41, 59, 0.45);
+        border: 1px dashed var(--border-color);
+        border-radius: 20px;
+    }
+
+    .empty-state > i {
+        font-size: 2.6rem;
+        color: #475569;
+        margin-bottom: 18px;
+        display: block;
+    }
+
+    .empty-state h3 { color: #e2e8f0; font-size: 1.2rem; }
+    .empty-state p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; }
+
+    .btn-cyber-primary-sm {
+        background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+        border: none;
+        color: #fff;
+        padding: 10px 22px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.25s;
+    }
+
+    .btn-cyber-primary-sm:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(59, 130, 246, 0.35); }
+
+    /* ---------- GitHub CTA ---------- */
+    .github-cta {
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        border-radius: 20px;
+        padding: 26px 28px;
+    }
+
+    .github-cta-inner {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .github-cta-icon { font-size: 2.4rem; color: #a5b4fc; }
+
+    .github-cta-text { flex-grow: 1; min-width: 220px; }
+    .github-cta-text h4 { color: #fff; font-size: 1.05rem; margin-bottom: 4px; }
+    .github-cta-text p { color: var(--text-muted); font-size: 0.85rem; margin: 0; }
+
+    .github-cta-btn {
+        background: #f8fafc;
+        color: #0f172a;
+        padding: 11px 22px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.88rem;
+        text-decoration: none;
+        transition: 0.25s;
+        white-space: nowrap;
+    }
+
+    .github-cta-btn:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 10px 24px rgba(255, 255, 255, 0.12); }
+
+    /* ---------- Moslashuvchanlik ---------- */
+    @@media (max-width: 992px) {
+        .highlight-text { font-size: 2.3rem; }
+    }
+
     @@media (max-width: 768px) {
         .highlight-text { font-size: 1.8rem; }
         .custom-subtitle { font-size: 0.92rem; padding: 0 1rem; }
-        .project-image { height: 180px; }
         .project-title { font-size: 1.15rem; }
-        .project-description { font-size: 0.88rem; min-height: auto; }
-        .project-content { padding: 1.2rem; }
+        .project-description { font-size: 0.88rem; }
+        .project-content { padding: 1.15rem; }
         .tech-tag { font-size: 0.65rem; padding: 3px 9px; }
         .page-badge { font-size: 0.7rem; padding: 4px 13px; }
+        .stats-strip { grid-template-columns: repeat(2, 1fr); }
+        .filter-panel { padding: 15px; }
+        .filter-chips { justify-content: flex-start; }
+        .filter-chip { font-size: 0.76rem; padding: 7px 13px; }
+        .result-info { font-size: 0.84rem; }
+        .github-cta-inner { gap: 14px; }
     }
 
     @@media (max-width: 480px) {
         .highlight-text { font-size: 1.5rem; }
-        .project-image { height: 160px; }
+        .stat-value { font-size: 1.35rem; }
+        .search-input { font-size: 0.88rem; padding: 12px 42px; }
     }
 </style>
 
 @code {
+    private const string AllCategory = "Barchasi";
+
     private List<ProjectModel> projects = new();
+    private string selectedCategory = AllCategory;
+    private string searchTerm = string.Empty;
+
+    private static readonly Dictionary<string, string> CategoryIcons = new()
+    {
+        [AllCategory] = "fas fa-layer-group",
+        ["Web"] = "fas fa-globe",
+        ["Backend"] = "fas fa-server",
+        ["AI"] = "fas fa-brain",
+        ["Mobil"] = "fas fa-mobile-screen-button",
+        ["Bot"] = "fab fa-telegram",
+        ["Xavfsizlik"] = "fas fa-shield-halved",
+        ["Frontend"] = "fas fa-code",
+        ["Konsol"] = "fas fa-terminal"
+    };
+
+    private List<string> Categories => new[] { AllCategory }
+        .Concat(projects.Select(p => p.Category).Distinct().OrderBy(c => c))
+        .ToList();
+
+    private int FeaturedCount => projects.Count(p => p.IsFeatured);
+
+    private int CategoryCount => projects.Select(p => p.Category).Distinct().Count();
+
+    private int TotalTechnologies => projects
+        .SelectMany(p => p.Technologies)
+        .Distinct(StringComparer.OrdinalIgnoreCase)
+        .Count();
+
+    private IEnumerable<ProjectModel> FilteredProjects => projects
+        .Where(p => selectedCategory == AllCategory || p.Category == selectedCategory)
+        .Where(MatchesSearch)
+        .OrderByDescending(p => p.IsFeatured)
+        .ThenBy(p => p.Id);
 
     protected override void OnInitialized()
     {
-        projects = new List<ProjectModel>
-        {
-            new ProjectModel
-            {
-                Id = 1,
-                Title = "EduKitob",
-                Description = "O'zbekistondagi yetakchi ilmiy nashriyotlarni (SmartBooks, Qoya, IDC, LiderBook va boshqalar) bitta platformaga jamlovchi yagona kitob marketplace. Full-stack: backend ham, UI/UX dizayn ham men tomonimdan ishlangan.",
-                ImageUrl = "images/edukitob.jpg",
-                Technologies = new[] { "ASP.NET Core", "EF Core", "PostgreSQL", "Blazor", "UI/UX Design", "Full-Stack" },
-                GithubUrl = "https://github.com/SamandarHijiakbarovich",
-                LiveDemoUrl = ""
-            },
-            new ProjectModel
-            {
-                Id = 2,
-                Title = "EduProctor",
-                Description = "AI asosida ishlovchi onlayn imtihon nazorat tizimi. Real vaqtda yuz tanish, xatti-harakat tahlili va SignalR orqali monitoring.",
-                ImageUrl = "images/OIP.webp",
-                Technologies = new[] { "ASP.NET Core", "SignalR", "EF Core", "PostgreSQL", "JWT", "AI/ML" },
-                GithubUrl = "https://github.com/SamandarHijiakbarovich",
-                LiveDemoUrl = ""
-            },
-            new ProjectModel
-            {
-                Id = 3,
-                Title = "LiderBooks",
-                Description = "Kitob savdosi uchun to'liq funksional e-commerce platformasi. Mahsulot katalogi, savat tizimi va to'lov integratsiyasi.",
-                ImageUrl = "images/API.webp",
-                Technologies = new[] { "ASP.NET Core", "EF Core", "SQL Server", "Redis", "Clean Architecture", "LINQ" },
-                GithubUrl = "https://github.com/SamandarHijiakbarovich",
-                LiveDemoUrl = ""
-            },
-            new ProjectModel
-            {
-                Id = 4,
-                Title = "Darmon Dorixona",
-                Description = "Dorixona uchun raqamli to'lov va buyurtma tizimi. Click/Payme integratsiyasi, rol asosidagi kirish boshqaruvi.",
-                ImageUrl = "images/Darmon.jpg",
-                Technologies = new[] { "ASP.NET Core", "EF Core", "PostgreSQL", "Click API", "JWT", "xUnit" },
-                GithubUrl = "https://github.com/SamandarHijiakbarovich/Darmon",
-                LiveDemoUrl = ""
-            }
-        };
+        projects = ProjectService.GetProjects();
     }
+
+    private bool MatchesSearch(ProjectModel project)
+    {
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            return true;
+        }
+
+        var term = searchTerm.Trim();
+        return project.Title.Contains(term, StringComparison.OrdinalIgnoreCase)
+            || project.Description.Contains(term, StringComparison.OrdinalIgnoreCase)
+            || project.Tagline.Contains(term, StringComparison.OrdinalIgnoreCase)
+            || project.Category.Contains(term, StringComparison.OrdinalIgnoreCase)
+            || project.Technologies.Any(t => t.Contains(term, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private void SelectCategory(string category)
+    {
+        selectedCategory = category;
+    }
+
+    private void ClearSearch()
+    {
+        searchTerm = string.Empty;
+    }
+
+    private void ResetFilters()
+    {
+        selectedCategory = AllCategory;
+        searchTerm = string.Empty;
+    }
+
+    private static string StatusSlug(string status) => status switch
+    {
+        "Tayyor" => "tayyor",
+        "MVP" => "mvp",
+        _ => "ishlab"
+    };
 }

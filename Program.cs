@@ -15,6 +15,9 @@ builder.Services.AddLocalization(options => options.ResourcesPath = "Resources")
 // 3. HTTP CLIENT (Ma'lumotlar olish uchun)
 builder.Services.AddHttpClient();
 
+// 3.1. LOYIHA MA'LUMOTLARI XIZMATI (Projects sahifasi uchun)
+builder.Services.AddSingleton<MyCvSite.Services.ProjectService>();
+
 var app = builder.Build();
 
 // ==================== MIDDLEWARE PIPELINE ====================
